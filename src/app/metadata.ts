@@ -1,8 +1,8 @@
 import type { Metadata } from 'next';
 
 export const siteConfig = {
-  name: 'Boilerpad-NextJs',
-  description: 'Boilerpad-NextJs .inc',
+  name: 'Next.js Shadcn Base',
+  description: 'Aplikasi berbasis Next.js dengan UI yang modern',
   url: 'https://your-domain.com',
   locale: 'id-ID',
   keywords: ['next.js', 'react', 'aplikasi web', 'indonesia', 'modern ui', 'shadcn'],
@@ -16,8 +16,11 @@ export const metadata: Metadata = {
   description: siteConfig.description,
   keywords: siteConfig.keywords,
   icons: {
-    icon: [{ url: '/images/logo.png', type: 'image/png' }, { url: '/favicon/favicon.ico' }],
-    shortcut: '/images/logo.png',
+    icon: [
+      { url: '/favicon/favicon.ico', type: 'image/x-icon' },
+      { url: '/images/logo.png', type: 'image/png' },
+    ],
+    shortcut: '/favicon/favicon.ico',
     apple: [
       { url: '/images/logo.png', type: 'image/png' },
       { url: '/images/logo.png', sizes: '180x180', type: 'image/png' },

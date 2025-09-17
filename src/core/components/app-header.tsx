@@ -12,10 +12,12 @@ import { cn } from '@/utils/classname';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
-// import UserDropdown from './user.dropdown';
+
 import LanguageDropdown from './language.dropdown';
 import NotificationDropdown from './notification.dropdown';
 import ThemeToggle from './theme-toggle';
+import View from '@/components/ui/view';
+import Box from '@/components/ui/box';
 
 export default function AppHeader() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -40,33 +42,31 @@ export default function AppHeader() {
         isScrolled ? 'border-b-border shadow-md' : 'border-b-transparent'
       )}
     >
-      <div className="flex items-center justify-between max-w-7xl mx-auto">
-        <div className="flex items-center gap-4">
-          {/* Company Logo */}
+      <View className="flex items-center justify-between max-w-7xl mx-auto">
+        <Box className="flex items-center gap-4">
           <Link href="/">
-            <Image src="/images/logo.png" alt="Logo" width={40} height={40} />
+            <Image src="/images/logo.svg" alt="Logo" width={100} height={100} />
           </Link>
+        </Box>
 
-          <NavigationMenu>
-            <NavigationMenuList>
-              {navigationMenuConfig?.items?.map((item) => (
-                <NavigationMenuItem key={item.title}>
-                  <NavigationMenuLink href={item.href} className={navigationMenuTriggerStyle()}>
-                    {item.title}
-                  </NavigationMenuLink>
-                </NavigationMenuItem>
-              ))}
-            </NavigationMenuList>
-          </NavigationMenu>
-        </div>
+        <NavigationMenu>
+          <NavigationMenuList>
+            {navigationMenuConfig?.items?.map((item) => (
+              <NavigationMenuItem key={item.title}>
+                <NavigationMenuLink href={item.href} className={navigationMenuTriggerStyle()}>
+                  {item.title}
+                </NavigationMenuLink>
+              </NavigationMenuItem>
+            ))}
+          </NavigationMenuList>
+        </NavigationMenu>
 
-        <div className="flex items-center gap-4">
+        <Box className="flex items-center gap-4">
           <ThemeToggle />
           <LanguageDropdown />
           <NotificationDropdown />
-          {/* <UserDropdown /> */}
-        </div>
-      </div>
+        </Box>
+      </View>
     </nav>
   );
 }

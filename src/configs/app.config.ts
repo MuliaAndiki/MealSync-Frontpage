@@ -38,7 +38,7 @@ interface AppConfig {
 export const appConfig: AppConfig = {
   name: 'App',
   description: 'App',
-  logo: '/images/logo.png',
+  logo: '/images/logo.svg',
   metadata: {
     title: 'App',
     description: 'App',
@@ -88,9 +88,9 @@ export const navigationMenuConfig: NavigationMenuConfig = {
       description: 'Home',
     },
     {
-      title: 'Kelas',
+      title: 'Restaurant Menu',
       href: '/kelas',
-      description: 'Kelas',
+      description: 'Restaurant',
     },
   ],
 };

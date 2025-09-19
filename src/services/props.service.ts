@@ -1,6 +1,6 @@
 import AuhtApi from '@/services/auth/auth.service';
 class Api {
-  static Auht = AuhtApi;
+  static Auth = AuhtApi;
 }
 
 export default Api;

@@ -18,6 +18,9 @@ import NotificationDropdown from './notification.dropdown';
 import ThemeToggle from './theme-toggle';
 import View from '@/components/ui/view';
 import Box from '@/components/ui/box';
+import Shape from '@/components/ui/shape';
+import Slider from '@/components/svg/home/slider';
+import Container from '@/components/ui/container';
 
 export default function AppHeader() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -36,37 +39,42 @@ export default function AppHeader() {
   }, []);
 
   return (
-    <nav
-      className={cn(
-        'fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-sm p-6 border-b transition-all duration-200',
-        isScrolled ? 'border-b-border shadow-md' : 'border-b-transparent'
-      )}
-    >
-      <View className="flex items-center justify-between max-w-7xl mx-auto">
-        <Box className="flex items-center gap-4">
-          <Link href="/">
-            <Image src="/images/logo.svg" alt="Logo" width={100} height={100} />
-          </Link>
-        </Box>
+    <Container className="w-full relative">
+      <Shape className="rounded-full right-0 top-0 z-[-5]">
+        <Slider />
+      </Shape>
+      <nav
+        className={cn(
+          'fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-sm p-6 border-b transition-all duration-200',
+          isScrolled ? 'border-b-border shadow-md' : 'border-b-transparent'
+        )}
+      >
+        <View className="flex items-center justify-between max-w-7xl mx-auto relative">
+          <Box className="flex items-center gap-4">
+            <Link href="/">
+              <Image src="/images/logo.svg" alt="Logo" width={100} height={100} />
+            </Link>
+          </Box>
 
-        <NavigationMenu>
-          <NavigationMenuList>
-            {navigationMenuConfig?.items?.map((item) => (
-              <NavigationMenuItem key={item.title}>
-                <NavigationMenuLink href={item.href} className={navigationMenuTriggerStyle()}>
-                  {item.title}
-                </NavigationMenuLink>
-              </NavigationMenuItem>
-            ))}
-          </NavigationMenuList>
-        </NavigationMenu>
+          <NavigationMenu>
+            <NavigationMenuList>
+              {navigationMenuConfig?.items?.map((item) => (
+                <NavigationMenuItem key={item.title}>
+                  <NavigationMenuLink href={item.href} className={navigationMenuTriggerStyle()}>
+                    {item.title}
+                  </NavigationMenuLink>
+                </NavigationMenuItem>
+              ))}
+            </NavigationMenuList>
+          </NavigationMenu>
 
-        <Box className="flex items-center gap-4">
-          <ThemeToggle />
-          <LanguageDropdown />
-          <NotificationDropdown />
-        </Box>
-      </View>
-    </nav>
+          <Box className="flex items-center gap-4">
+            <ThemeToggle />
+            <LanguageDropdown />
+            <NotificationDropdown />
+          </Box>
+        </View>
+      </nav>
+    </Container>
   );
 }

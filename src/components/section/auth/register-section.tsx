@@ -7,10 +7,25 @@ import Link from 'next/link';
 import View from '@/components/ui/view';
 import Box from '@/components/ui/box';
 import Image from 'next/image';
+import { FormRegisterType } from '@/types/form';
+import React from 'react';
 
-export function RegisterSection({ className, ...props }: React.ComponentProps<'div'>) {
+interface RegisterProps {
+  formRegister: FormRegisterType;
+  setFormRegister: React.Dispatch<React.SetStateAction<FormRegisterType>>;
+  onRegister: () => void;
+  isPending: boolean;
+}
+
+const RegisterSection: React.FC<RegisterProps> = ({
+  // @ts-nocheck
+  formRegister,
+  onRegister,
+  isPending,
+  setFormRegister,
+}) => {
   return (
-    <View className={cn('flex flex-col gap-6', className)} {...props}>
+    <View className={cn('flex flex-col gap-6')}>
       <Card className="overflow-hidden p-0">
         <CardContent className="grid p-0 md:grid-cols-2">
           <Box className="bg-muted relative hidden md:block">
@@ -23,7 +38,7 @@ export function RegisterSection({ className, ...props }: React.ComponentProps<'d
             />
           </Box>
 
-          <form className="p-6 md:p-8">
+          <Box className="p-6 md:p-8">
             <Box className="flex flex-col gap-6">
               <Box className="flex flex-col items-center text-center">
                 <h1 className="text-2xl font-bold">Welcome back</h1>
@@ -32,8 +47,34 @@ export function RegisterSection({ className, ...props }: React.ComponentProps<'d
                 </p>
               </Box>
               <Box className="grid gap-3">
+                <Label>Name</Label>
+                <Input
+                  id="name"
+                  type="text"
+                  placeholder="m@example.com"
+                  required
+                  onChange={(e) =>
+                    setFormRegister((prev) => {
+                      const newObj = { ...prev, fullName: e.target.value };
+                      return newObj;
+                    })
+                  }
+                />
+              </Box>
+              <Box className="grid gap-3">
                 <Label>Email</Label>
-                <Input id="email" type="email" placeholder="m@example.com" required />
+                <Input
+                  id="email"
+                  type="email"
+                  placeholder="m@example.com"
+                  required
+                  onChange={(e) =>
+                    setFormRegister((prev) => {
+                      const newObj = { ...prev, email: e.target.value };
+                      return newObj;
+                    })
+                  }
+                />
               </Box>
               <Box className="grid gap-3">
                 <Box className="flex items-center">
@@ -42,10 +83,20 @@ export function RegisterSection({ className, ...props }: React.ComponentProps<'d
                     Forgot your password?
                   </a>
                 </Box>
-                <Input id="password" type="password" required />
+                <Input
+                  id="password"
+                  type="password"
+                  required
+                  onChange={(e) =>
+                    setFormRegister((prev) => {
+                      const newObj = { ...prev, password: e.target.value };
+                      return newObj;
+                    })
+                  }
+                />
               </Box>
-              <Button type="submit" className="w-full">
-                Login
+              <Button className="w-full" onClick={() => onRegister()} disabled={isPending}>
+                {isPending ? 'Loading' : 'Register'}
               </Button>
               <Box className="after:border-border relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t">
                 <span className="bg-card text-muted-foreground relative z-10 px-2">
@@ -82,13 +133,13 @@ export function RegisterSection({ className, ...props }: React.ComponentProps<'d
                 </Button>
               </Box>
               <Box className="text-center text-sm">
-                Don&apos;t have an account?{' '}
+                Don&apos;t have an account?
                 <Link href="/login" className="underline underline-offset-4">
                   Sign In
                 </Link>
               </Box>
             </Box>
-          </form>
+          </Box>
         </CardContent>
       </Card>
       <Box className="text-muted-foreground *:[a]:hover:text-primary text-center text-xs text-balance *:[a]:underline *:[a]:underline-offset-4">
@@ -97,4 +148,6 @@ export function RegisterSection({ className, ...props }: React.ComponentProps<'d
       </Box>
     </View>
   );
-}
+};
+
+export default RegisterSection;

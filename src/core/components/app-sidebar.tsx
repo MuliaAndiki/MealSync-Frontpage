@@ -1,7 +1,8 @@
 'use client';
 
-import { Calendar, Home, Inbox, Search, Settings } from 'lucide-react';
+import { Home, Settings } from 'lucide-react';
 import Link from 'next/link';
+import { IconCircleCheck, IconClipboardText, IconToolsKitchen2 } from '@tabler/icons-react';
 import { usePathname } from 'next/navigation';
 import { cn } from '@/utils/classname';
 
@@ -10,7 +11,6 @@ import {
   SidebarContent,
   SidebarGroup,
   SidebarGroupContent,
-  SidebarGroupLabel,
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
@@ -24,28 +24,28 @@ import { kebabCaseToWords } from '@/utils/string.format';
 const items = [
   {
     title: 'Home',
-    url: '/',
+    url: '/restaurant/dashboard',
     icon: Home,
   },
   {
-    title: 'Inbox',
-    url: '/inbox',
-    icon: Inbox,
-  },
-  {
-    title: 'Calendar',
-    url: '/calendar',
-    icon: Calendar,
-  },
-  {
-    title: 'Search',
-    url: '/search',
-    icon: Search,
+    title: 'Menu',
+    url: '/restaurant/dashboard/menu',
+    icon: IconToolsKitchen2,
   },
   {
     title: 'Settings',
-    url: '/settings',
+    url: '#',
     icon: Settings,
+  },
+  {
+    title: 'Purchase History',
+    url: '#',
+    icon: IconClipboardText,
+  },
+  {
+    title: 'Order Status',
+    url: '#',
+    icon: IconCircleCheck,
   },
 ];
 
@@ -59,17 +59,16 @@ export function AppSidebar() {
       <SidebarHeader className="border-b p-4 h-20 flex justify-center">
         {isCollapsed ? (
           // <LayoutDashboard className="size-4" />
-          <Image src="/images/logo.png" alt="Logo" width={40} height={40} />
+          <Image src="/images/logo.svg" alt="Logo" width={200} height={200} />
         ) : (
           <div className="flex gap-2 items-center">
-            <Image src="/images/logo.png" alt="Logo" width={40} height={40} />
+            <Image src="/images/logo.svg" alt="Logo" width={70} height={70} />
             <span className="text-xl font-semibold">{kebabCaseToWords(pathname)}</span>
           </div>
         )}
       </SidebarHeader>
       <SidebarContent>
         <SidebarGroup>
-          <SidebarGroupLabel>My Classes</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
               {items.map((item) => {

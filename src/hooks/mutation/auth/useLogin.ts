@@ -11,7 +11,7 @@ import {
   APP_REFRESH_TOKEN_COOKIE_EXPIRES_IN,
 } from '@/configs/cookies.config';
 import { setCookie } from 'cookies-next';
-import { useEffect } from 'react';
+
 export default function useLogin(options?: { onAfterSucces?: () => void }) {
   const alert = useAlert();
   const router = useRouter();

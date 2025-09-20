@@ -2,6 +2,8 @@
 
 import { AppSidebar } from '@/core/components/app-sidebar';
 import { SidebarProvider, SidebarTrigger, SidebarInset } from '@/components/ui/sidebar';
+import View from '@/components/ui/view';
+import Box from '@/components/ui/box';
 
 import ThemeToggle from '../components/theme-toggle';
 import LanguageDropdown from '../components/language.dropdown';
@@ -32,29 +34,29 @@ export function SidebarLayout({ children }: AppLayoutProps) {
 
   return (
     <SidebarProvider defaultOpen>
-      <div className="flex min-h-screen w-full">
+      <View className="flex min-h-screen w-full">
         <AppSidebar />
         <SidebarInset>
-          <div className="flex h-full flex-col w-full">
-            <div className="flex p-4 items-center gap-2 border-b w-full h-20">
-              <div className="flex items-center justify-between max-w-7xl mx-auto w-full">
+          <Box className="flex h-full flex-col w-full">
+            <Box className="flex p-4 items-center gap-2 border-b w-full h-20">
+              <Box className="flex items-center justify-between max-w-7xl mx-auto w-full">
                 <SidebarTrigger />
-                <div className="flex items-center gap-4">
+                <Box className="flex items-center gap-4">
                   <ThemeToggle />
                   <LanguageDropdown />
                   <NotificationDropdown />
                   {/* <UserDropdown /> */}
-                </div>
-              </div>
-            </div>
+                </Box>
+              </Box>
+            </Box>
 
             {/* Content */}
-            <div className="flex-1 overflow-auto w-full">
-              <div className="container h-full max-w-7xl w-full mx-auto p-[1rem]">{children}</div>
-            </div>
-          </div>
+            <Box className="flex-1 overflow-auto w-full">
+              <Box className="container h-full max-w-7xl w-full mx-auto p-[1rem]">{children}</Box>
+            </Box>
+          </Box>
         </SidebarInset>
-      </div>
+      </View>
     </SidebarProvider>
   );
 }

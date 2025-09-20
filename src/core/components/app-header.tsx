@@ -14,6 +14,7 @@ import Link from 'next/link';
 import { useEffect, useState } from 'react';
 
 import LanguageDropdown from './language.dropdown';
+// @ts-nocheck
 import NotificationDropdown from './notification.dropdown';
 import ThemeToggle from './theme-toggle';
 import View from '@/components/ui/view';
@@ -21,9 +22,14 @@ import Box from '@/components/ui/box';
 import Shape from '@/components/ui/shape';
 import Slider from '@/components/svg/home/slider';
 import Container from '@/components/ui/container';
+import { Button } from '@/components/ui/button';
+import { useDispatch } from 'react-redux';
+// @ts-nocheck
+import { logout } from '@/stores/authSlice/authSlice';
 
 export default function AppHeader() {
   const [isScrolled, setIsScrolled] = useState(false);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -71,7 +77,11 @@ export default function AppHeader() {
           <Box className="flex items-center gap-4">
             <ThemeToggle />
             <LanguageDropdown />
-            <NotificationDropdown />
+            <Link href="/login">
+              <Button variant="glass">Login</Button>
+            </Link>
+
+            {/* <NotificationDropdown /> */}
           </Box>
         </View>
       </nav>

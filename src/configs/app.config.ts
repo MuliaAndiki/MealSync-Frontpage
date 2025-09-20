@@ -89,7 +89,7 @@ export const navigationMenuConfig: NavigationMenuConfig = {
     },
     {
       title: 'Restaurant Menu',
-      href: '/kelas',
+      href: '/login',
       description: 'Restaurant',
     },
   ],

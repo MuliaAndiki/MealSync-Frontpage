@@ -5,14 +5,14 @@ export const userType = z.object({
     _id: z.string(),
     role: z.string(),
     token: z.string(),
-    methotPayment: z.string(),
-    provinsi: z.string(),
+    // methotPayment: z.string(),
+    // provinsi: z.string(),
     fullName: z.string(),
     email: z.string(),
-    phoneNumber: z.string().regex(/^(\+62|0)8[1-9][0-9]{6,9}$/, 'Nomor HP tidak valid'),
+    // phoneNumber: z.string().regex(/^(\+62|0)8[1-9][0-9]{6,9}$/, 'Nomor HP tidak valid'),
     password: z.string(),
     fotoProfile: z.string().nullable().optional(),
-    isVerified: z.boolean(),
+    // isVerified: z.boolean(),
   }),
 });
 

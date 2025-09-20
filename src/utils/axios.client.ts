@@ -28,15 +28,12 @@ AxiosClient.interceptors.response.use(
     const status = (error.response as any)?.status;
     if (status === 401 || status === 403) {
       try {
-        // Clear redux auth state
         store.dispatch(logout());
 
-        // Attempt to delete session cookie via Next.js route (best-effort)
         if (typeof window !== 'undefined') {
           await fetch('/api/session/delete', { method: 'POST' }).catch(() => {});
         }
       } finally {
-        // Redirect to login page on client
         if (typeof window !== 'undefined') {
           const current = window.location.pathname;
           if (current !== '/login') {

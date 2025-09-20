@@ -1,5 +1,11 @@
-import { RestaurantCardType, SosmedType, SponsorType } from '@/types/components';
-import { IconHome, IconMail, IconPhoneCall } from '@tabler/icons-react';
+import {
+  CategoryType,
+  ProductsType,
+  RestaurantCardType,
+  SosmedType,
+  SponsorType,
+} from '@/types/components';
+import { IconHome, IconMail, IconPhoneCall, IconBurger, IconStar } from '@tabler/icons-react';
 
 export const SosmedData: SosmedType[] = [
   {
@@ -54,5 +60,45 @@ export const SponsorData: SponsorType[] = [
     image: '/images/logo 3.svg',
     title: 'Unique Recipes',
     desc: 'Having an extra visual element around these items on your menu will help attract your guest',
+  },
+];
+
+export const CategoryData: CategoryType[] = [
+  {
+    image: IconBurger,
+    params: '#',
+  },
+  {
+    image: IconBurger,
+    params: '#',
+  },
+  {
+    image: IconBurger,
+    params: '#',
+  },
+  {
+    image: IconBurger,
+    params: '#',
+  },
+  {
+    image: IconBurger,
+    params: '#',
+  },
+  {
+    image: IconBurger,
+    params: '#',
+  },
+];
+
+export const ProductsData: ProductsType[] = [
+  {
+    image: '/images/burger.svg',
+    max: '+',
+    min: '-',
+    price: 30000,
+    star: IconStar,
+    title: 'Burger',
+    count: 0,
+    rating: 4,
   },
 ];

@@ -14,3 +14,19 @@ export interface SponsorType {
   title: string;
   desc: string;
 }
+
+export interface CategoryType {
+  image: any;
+  params?: string;
+}
+
+export interface ProductsType {
+  image: string;
+  title: string;
+  price: number;
+  min: any;
+  max: any;
+  star: any;
+  rating: number;
+  count: number;
+}

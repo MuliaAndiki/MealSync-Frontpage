@@ -1,11 +1,14 @@
 import DashboardRestaurantSection from '@/components/section/private/restaurant/dashboard/hero-section';
 import Container from '@/components/ui/container';
+import { SidebarLayout } from '@/core/layouts/sidebar.layout';
 
 const DashboardRestaurantContainer = () => {
   return (
-    <Container className="w-full min-h-screen flex flex-col">
-      <DashboardRestaurantSection />
-    </Container>
+    <SidebarLayout>
+      <Container className="w-full min-h-screen flex flex-col">
+        <DashboardRestaurantSection />
+      </Container>
+    </SidebarLayout>
   );
 };
 

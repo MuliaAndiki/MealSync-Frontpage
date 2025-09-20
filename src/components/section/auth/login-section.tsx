@@ -7,7 +7,6 @@ import Link from 'next/link';
 import View from '@/components/ui/view';
 import Box from '@/components/ui/box';
 import { FormLoginType } from '@/types/form';
-import useLogout from '@/hooks/mutation/auth/useLogout';
 
 interface LoginProps {
   formLogin: FormLoginType;
@@ -17,7 +16,6 @@ interface LoginProps {
 }
 
 const LoginSection: React.FC<LoginProps> = ({ formLogin, onLogin, setFormLogin, isPending }) => {
-  const logout = useLogout();
   return (
     <View className={cn('flex flex-col gap-6')}>
       <Card className="overflow-hidden p-0">
@@ -66,7 +64,6 @@ const LoginSection: React.FC<LoginProps> = ({ formLogin, onLogin, setFormLogin, 
                 {isPending ? 'Loading' : 'Login'}
               </Button>
 
-              <Button onClick={() => logout.mutate({})}>Reset</Button>
               <Box className="after:border-border relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t">
                 <span className="bg-card text-muted-foreground relative z-10 px-2">
                   Or continue with

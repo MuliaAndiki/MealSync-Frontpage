@@ -9,6 +9,7 @@ import Box from '@/components/ui/box';
 import Image from 'next/image';
 import { FormRegisterType } from '@/types/form';
 import React from 'react';
+import Form from '@/components/ui/form';
 
 interface RegisterProps {
   formRegister: FormRegisterType;
@@ -40,64 +41,69 @@ const RegisterSection: React.FC<RegisterProps> = ({
 
           <Box className="p-6 md:p-8">
             <Box className="flex flex-col gap-6">
-              <Box className="flex flex-col items-center text-center">
-                <h1 className="text-2xl font-bold">Welcome back</h1>
-                <p className="text-muted-foreground text-balance">
-                  Register to your Acme Inc account
-                </p>
-              </Box>
-              <Box className="grid gap-3">
-                <Label>Name</Label>
-                <Input
-                  id="name"
-                  type="text"
-                  placeholder="m@example.com"
-                  required
-                  onChange={(e) =>
-                    setFormRegister((prev) => {
-                      const newObj = { ...prev, fullName: e.target.value };
-                      return newObj;
-                    })
-                  }
-                />
-              </Box>
-              <Box className="grid gap-3">
-                <Label>Email</Label>
-                <Input
-                  id="email"
-                  type="email"
-                  placeholder="m@example.com"
-                  required
-                  onChange={(e) =>
-                    setFormRegister((prev) => {
-                      const newObj = { ...prev, email: e.target.value };
-                      return newObj;
-                    })
-                  }
-                />
-              </Box>
-              <Box className="grid gap-3">
-                <Box className="flex items-center">
-                  <Label>Password</Label>
-                  <a href="#" className="ml-auto text-sm underline-offset-2 hover:underline">
-                    Forgot your password?
-                  </a>
+              <Form
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  onRegister();
+                }}
+                className="flex flex-col gap-6"
+              >
+                <Box className="flex flex-col items-center text-center">
+                  <h1 className="text-2xl font-bold">Welcome back</h1>
+                  <p className="text-muted-foreground text-balance">
+                    Register to your Acme Inc account
+                  </p>
                 </Box>
-                <Input
-                  id="password"
-                  type="password"
-                  required
-                  onChange={(e) =>
-                    setFormRegister((prev) => {
-                      const newObj = { ...prev, password: e.target.value };
-                      return newObj;
-                    })
-                  }
-                />
-              </Box>
-              <Button className="w-full" onClick={() => onRegister()} disabled={isPending}>
-                {isPending ? 'Loading' : 'Register'}
-              </Button>
+                <Box className="grid gap-3">
+                  <Label>Name</Label>
+                  <Input
+                    id="name"
+                    type="text"
+                    placeholder="m@example.com"
+                    required
+                    onChange={(e) =>
+                      setFormRegister((prev) => {
+                        const newObj = { ...prev, fullName: e.target.value };
+                        return newObj;
+                      })
+                    }
+                  />
+                </Box>
+                <Box className="grid gap-3">
+                  <Label>Email</Label>
+                  <Input
+                    id="email"
+                    type="email"
+                    placeholder="m@example.com"
+                    required
+                    onChange={(e) =>
+                      setFormRegister((prev) => {
+                        const newObj = { ...prev, email: e.target.value };
+                        return newObj;
+                      })
+                    }
+                  />
+                </Box>
+                <Box className="grid gap-3">
+                  <Box className="flex items-center">
+                    <Label>Password</Label>
+                  </Box>
+                  <Input
+                    id="password"
+                    type="password"
+                    required
+                    onChange={(e) =>
+                      setFormRegister((prev) => {
+                        const newObj = { ...prev, password: e.target.value };
+                        return newObj;
+                      })
+                    }
+                  />
+                </Box>
+                <Button className="w-full" disabled={isPending}>
+                  {isPending ? 'Loading' : 'Register'}
+                </Button>
+              </Form>
               <Box className="after:border-border relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t">
                 <span className="bg-card text-muted-foreground relative z-10 px-2">
                   Or continue with

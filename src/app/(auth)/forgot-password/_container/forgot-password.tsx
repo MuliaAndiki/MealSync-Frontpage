@@ -1,11 +1,18 @@
 'use client';
-import ForgotPasswordHeroSection from '@/components/section/auth/forgotPassword-section';
+import { ForgotPasswordHeroSection } from '@/components/section/auth/forgotPassword-section';
 import Container from '@/components/ui/container';
+import Image from 'next/image';
 
 const ForgotPasswordContainer = () => {
   return (
     <Container className="w-full min-h-screen flex flex-col">
-      <ForgotPasswordHeroSection />
+      <div className=" flex min-h-svh flex-col items-center justify-center gap-6 p-6 md:p-10">
+        <Image alt="icon" src="/images/logo.svg" width={250} height={250} />
+        <Image alt="bg" src="/images/about.svg" fill className="object-cover z-[-1]" />
+        <div className="w-full max-w-sm z-0">
+          <ForgotPasswordHeroSection />
+        </div>
+      </div>
     </Container>
   );
 };

@@ -27,5 +27,5 @@ export interface DivProps {
   children?: React.ReactNode;
   className?: string;
   as?: keyof JSX.IntrinsicElements;
-  onSubmit?: () => void;
+  onSubmit?: (e: any) => void;
 }

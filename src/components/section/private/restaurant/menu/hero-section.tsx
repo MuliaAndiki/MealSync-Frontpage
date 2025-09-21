@@ -30,7 +30,7 @@ const MenuHeroSection = () => {
             {CategoryData.map((items, key) => (
               <Box
                 key={key}
-                className="w-[50px] h-[50px]  p-2 bg-amber-800 rounded-lg flex justify-center items-center"
+                className="  p-2 bg-amber-800 rounded-lg flex justify-center items-center"
               >
                 <items.image />
               </Box>

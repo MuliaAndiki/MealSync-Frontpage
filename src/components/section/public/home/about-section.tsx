@@ -3,20 +3,20 @@ import Box from '@/components/ui/box';
 import { SosmedData } from '@/configs/components.config';
 import { Label } from '@radix-ui/react-label';
 import View from '@/components/ui/view';
-
 import Image from 'next/image';
+import { MobileProps } from '@/types/hooks';
 
 const AboutSection = () => {
   return (
-    <View className="relative min-h-screen flex flex-col">
+    <View className="relative min-h-screen flex flex-col overflow-hidden">
       <Box className="absolute inset-0 -z-10 overflow-hidden">
         <Image alt="bg-about" src="/images/about.svg" fill className="object-cover" priority />
       </Box>
-      <Box className="absolute z-[-5] bottom-0 overflow-hidden ">
+      <Box className="absolute z-[-5] inset-x-0 size-130 bottom-0 left-20 ">
         <Nasgor />
       </Box>
 
-      <Box className="grid grid-cols-2 gap-4 h-screen">
+      <Box className="grid lg:grid-cols-2 gap-4 h-screen">
         <Box className="flex justify-center  items-center " />
         <Box className="flex justify-center items-center bg-background/85 flex-col p-4">
           <Image alt="icon" src="/favicon/logo.svg" width={350} height={350} />

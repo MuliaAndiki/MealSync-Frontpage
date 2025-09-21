@@ -16,7 +16,7 @@ const Product: React.FC<ProductsProps> = ({ data }) => {
           />
         ))}
       </Box>
-      <Box className="flex justify-between items-center w-full  p-2 gap-4">
+      <Box className="flex justify-center items-center w-full  p-2 gap-4 flex-wrap">
         <Box className="flex justify-center items-start flex-col">
           <Label className="text-lg font-extrabold">{data.title}</Label>
           <Label className="font-light text-xs ">IDR {data.price}</Label>

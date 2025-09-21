@@ -7,6 +7,7 @@ import Link from 'next/link';
 import View from '@/components/ui/view';
 import Box from '@/components/ui/box';
 import { FormLoginType } from '@/types/form';
+import Form from '@/components/ui/form';
 
 interface LoginProps {
   formLogin: FormLoginType;
@@ -22,47 +23,60 @@ const LoginSection: React.FC<LoginProps> = ({ formLogin, onLogin, setFormLogin, 
         <CardContent className="grid p-0 md:grid-cols-2">
           <Box className="p-6 md:p-8">
             <Box className="flex flex-col gap-6">
-              <Box className="flex flex-col items-center text-center">
-                <h1 className="text-2xl font-bold">Welcome back</h1>
-                <p className="text-muted-foreground text-balance">Login to your Acme Inc account</p>
-              </Box>
-              <Box className="grid gap-3">
-                <Label>Email</Label>
-                <Input
-                  id="email"
-                  type="email"
-                  placeholder="m@example.com"
-                  required
-                  onChange={(e) =>
-                    setFormLogin((prev) => {
-                      const newObj = { ...prev, email: e.target.value };
-                      return newObj;
-                    })
-                  }
-                />
-              </Box>
-              <Box className="grid gap-3">
-                <Box className="flex items-center">
-                  <Label>Password</Label>
-                  <a href="#" className="ml-auto text-sm underline-offset-2 hover:underline">
-                    Forgot your password?
-                  </a>
+              <Form
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  onLogin();
+                }}
+                className="flex flex-col gap-6"
+              >
+                <Box className="flex flex-col items-center text-center">
+                  <h1 className="text-2xl font-bold">Welcome back</h1>
+                  <p className="text-muted-foreground text-balance">
+                    Login to your Acme Inc account
+                  </p>
                 </Box>
-                <Input
-                  id="password"
-                  type="password"
-                  required
-                  onChange={(e) =>
-                    setFormLogin((prev) => {
-                      const newObj = { ...prev, password: e.target.value };
-                      return newObj;
-                    })
-                  }
-                />
-              </Box>
-              <Button className="w-full" onClick={() => onLogin()} disabled={isPending}>
-                {isPending ? 'Loading' : 'Login'}
-              </Button>
+                <Box className="grid gap-3">
+                  <Label>Email</Label>
+                  <Input
+                    id="email"
+                    type="email"
+                    placeholder="m@example.com"
+                    required
+                    onChange={(e) =>
+                      setFormLogin((prev) => {
+                        const newObj = { ...prev, email: e.target.value };
+                        return newObj;
+                      })
+                    }
+                  />
+                </Box>
+                <Box className="grid gap-3">
+                  <Box className="flex items-center">
+                    <Label>Password</Label>
+                    <Link
+                      href="/forgot-password"
+                      className="ml-auto text-sm underline-offset-2 hover:underline"
+                    >
+                      Forgot your password?
+                    </Link>
+                  </Box>
+                  <Input
+                    id="password"
+                    type="password"
+                    required
+                    onChange={(e) =>
+                      setFormLogin((prev) => {
+                        const newObj = { ...prev, password: e.target.value };
+                        return newObj;
+                      })
+                    }
+                  />
+                </Box>
+                <Button className="w-full" disabled={isPending}>
+                  {isPending ? 'Loading' : 'Login'}
+                </Button>
+              </Form>
 
               <Box className="after:border-border relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t">
                 <span className="bg-card text-muted-foreground relative z-10 px-2">

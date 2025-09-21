@@ -19,6 +19,10 @@ import {
 } from '@/components/ui/sidebar';
 import Image from 'next/image';
 import { kebabCaseToWords } from '@/utils/string.format';
+import Box from '@/components/ui/box';
+import { Label } from '@radix-ui/react-label';
+import useLogout from '@/hooks/mutation/auth/useLogout';
+import { Button } from '@/components/ui/button';
 
 // Menu items with proper routes
 const items = [
@@ -53,6 +57,7 @@ export function AppSidebar() {
   const pathname = usePathname();
   const { state } = useSidebar();
   const isCollapsed = state === 'collapsed';
+  const logout = useLogout();
 
   return (
     <Sidebar collapsible="icon" className="border-r">
@@ -68,9 +73,9 @@ export function AppSidebar() {
         )}
       </SidebarHeader>
       <SidebarContent>
-        <SidebarGroup>
-          <SidebarGroupContent>
-            <SidebarMenu>
+        <SidebarGroup className="h-screen">
+          <SidebarGroupContent className="flex h-full flex-col justify-between">
+            <SidebarMenu className="w-full ">
               {items.map((item) => {
                 const isActive = pathname === item.url;
                 return (
@@ -90,6 +95,16 @@ export function AppSidebar() {
                   </SidebarMenuItem>
                 );
               })}
+            </SidebarMenu>
+            <SidebarMenu className="w-full">
+              <Button
+                variant={'destructive'}
+                className="font-semibold"
+                onClick={() => logout.mutate({})}
+                disabled={logout.isPending}
+              >
+                {logout.isPending ? 'Wait' : 'Logout'}
+              </Button>
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>

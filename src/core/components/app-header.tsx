@@ -24,10 +24,10 @@ import Slider from '@/components/svg/home/slider';
 import Container from '@/components/ui/container';
 import { Button } from '@/components/ui/button';
 import { useDispatch } from 'react-redux';
-// @ts-nocheck
-import { logout } from '@/stores/authSlice/authSlice';
+import { useIsMobile } from '@/hooks/use-mobile';
 
 export default function AppHeader() {
+  const mobile = useIsMobile();
   const [isScrolled, setIsScrolled] = useState(false);
   const dispatch = useDispatch();
 
@@ -61,18 +61,19 @@ export default function AppHeader() {
               <Image src="/images/logo.svg" alt="Logo" width={100} height={100} />
             </Link>
           </Box>
-
-          <NavigationMenu>
-            <NavigationMenuList>
-              {navigationMenuConfig?.items?.map((item) => (
-                <NavigationMenuItem key={item.title}>
-                  <NavigationMenuLink href={item.href} className={navigationMenuTriggerStyle()}>
-                    {item.title}
-                  </NavigationMenuLink>
-                </NavigationMenuItem>
-              ))}
-            </NavigationMenuList>
-          </NavigationMenu>
+          {!mobile && (
+            <NavigationMenu>
+              <NavigationMenuList>
+                {navigationMenuConfig?.items?.map((item) => (
+                  <NavigationMenuItem key={item.title}>
+                    <NavigationMenuLink href={item.href} className={navigationMenuTriggerStyle()}>
+                      {item.title}
+                    </NavigationMenuLink>
+                  </NavigationMenuItem>
+                ))}
+              </NavigationMenuList>
+            </NavigationMenu>
+          )}
 
           <Box className="flex items-center gap-4">
             <ThemeToggle />

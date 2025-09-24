@@ -1,16 +1,18 @@
 'use client';
-import DashboardSuperAdminSection from '@/components/section/private/superAdmin/dashboard/hero-section';
+
+import HistoryHeroSection from '@/components/section/private/restaurant/history/hero-section';
 import Container from '@/components/ui/container';
+import { SidebarProvider } from '@/components/ui/sidebar';
 import { SidebarLayout } from '@/core/layouts/sidebar.layout';
 
-const DashboardSuperAdminContainer = () => {
+const HistoryContainer = () => {
   return (
     <SidebarLayout>
       <Container className="w-full min-h-screen flex flex-col">
-        <DashboardSuperAdminSection />
+        <HistoryHeroSection />
       </Container>
     </SidebarLayout>
   );
 };
 
-export default DashboardSuperAdminContainer;
+export default HistoryContainer;

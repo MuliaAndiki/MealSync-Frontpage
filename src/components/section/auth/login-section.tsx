@@ -73,7 +73,7 @@ const LoginSection: React.FC<LoginProps> = ({ formLogin, onLogin, setFormLogin, 
                     }
                   />
                 </Box>
-                <Button className="w-full" disabled={isPending}>
+                <Button className="w-full" disabled={isPending} variant={'native'}>
                   {isPending ? 'Loading' : 'Login'}
                 </Button>
               </Form>

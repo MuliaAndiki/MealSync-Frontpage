@@ -1,8 +1,7 @@
 'use client';
 
-import { Home, Settings } from 'lucide-react';
 import Link from 'next/link';
-import { IconCircleCheck, IconClipboardText, IconToolsKitchen2 } from '@tabler/icons-react';
+import { MenuData } from '@/configs/components.config';
 import { usePathname } from 'next/navigation';
 import { cn } from '@/utils/classname';
 
@@ -19,39 +18,10 @@ import {
 } from '@/components/ui/sidebar';
 import Image from 'next/image';
 import { kebabCaseToWords } from '@/utils/string.format';
-import Box from '@/components/ui/box';
-import { Label } from '@radix-ui/react-label';
 import useLogout from '@/hooks/mutation/auth/useLogout';
 import { Button } from '@/components/ui/button';
 
 // Menu items with proper routes
-const items = [
-  {
-    title: 'Home',
-    url: '/restaurant/dashboard',
-    icon: Home,
-  },
-  {
-    title: 'Menu',
-    url: '/restaurant/dashboard/menu',
-    icon: IconToolsKitchen2,
-  },
-  {
-    title: 'Settings',
-    url: '#',
-    icon: Settings,
-  },
-  {
-    title: 'Purchase History',
-    url: '#',
-    icon: IconClipboardText,
-  },
-  {
-    title: 'Order Status',
-    url: '#',
-    icon: IconCircleCheck,
-  },
-];
 
 export function AppSidebar() {
   const pathname = usePathname();
@@ -76,7 +46,7 @@ export function AppSidebar() {
         <SidebarGroup className="h-screen">
           <SidebarGroupContent className="flex h-full flex-col justify-between">
             <SidebarMenu className="w-full ">
-              {items.map((item) => {
+              {MenuData.map((item) => {
                 const isActive = pathname === item.url;
                 return (
                   <SidebarMenuItem key={item.title}>
@@ -103,7 +73,7 @@ export function AppSidebar() {
                 onClick={() => logout.mutate({})}
                 disabled={logout.isPending}
               >
-                {logout.isPending ? 'Wait' : 'Logout'}
+                {!isCollapsed && 'Logout'}
               </Button>
             </SidebarMenu>
           </SidebarGroupContent>

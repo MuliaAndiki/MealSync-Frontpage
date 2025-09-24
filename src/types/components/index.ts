@@ -15,18 +15,30 @@ export interface SponsorType {
   desc: string;
 }
 
-export interface CategoryType {
-  image: any;
-  params?: string;
-}
-
 export interface ProductsType {
   image: string;
   title: string;
   price: number;
-  min: any;
-  max: any;
-  star: any;
   rating: number;
   count: number;
+  category: string;
+}
+
+export interface CardProfileType {
+  banner: string;
+  logo: string;
+  desc: string;
+  lokasi: string;
+  phone: string;
+  image: {
+    label1: string;
+    label2: string;
+    label3: string;
+  };
+}
+
+export interface MenusType {
+  title: string;
+  url: string;
+  icon: any;
 }

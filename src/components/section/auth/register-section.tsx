@@ -100,7 +100,7 @@ const RegisterSection: React.FC<RegisterProps> = ({
                     }
                   />
                 </Box>
-                <Button className="w-full" disabled={isPending}>
+                <Button className="w-full" disabled={isPending} variant={'native'}>
                   {isPending ? 'Loading' : 'Register'}
                 </Button>
               </Form>

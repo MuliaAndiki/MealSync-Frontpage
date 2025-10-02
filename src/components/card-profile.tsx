@@ -24,14 +24,14 @@ const CardProfile: React.FC<CardProfileProps> = ({ data }) => {
         <Label className="font-light  text-center">{data.desc}</Label>
         <Box className="w-full bg-foreground rounded-lg p-1">
           <Box className="flex justify-center text-background items-center gap-4">
-            <IconMapPin stroke={2} size={40} />
-            <Label className="">{data.lokasi}</Label>
+            <IconMapPin className="text-[var(--label)]" stroke={2} size={40} />
+            <Label className="text-[var(--label)]">{data.lokasi}</Label>
           </Box>
         </Box>
         <Box className="w-full bg-foreground rounded-lg p-1">
           <Box className="flex justify-start text-background items-center gap-4">
-            <IconPhone stroke={2} size={30} />
-            <Label className="">{data.phone}</Label>
+            <IconPhone stroke={2} size={30} className="text-[var(--label)]" />
+            <Label className="text-[var(--label)]">{data.phone}</Label>
           </Box>
         </Box>
         <Box className="flex justify-between items-center gap-4">

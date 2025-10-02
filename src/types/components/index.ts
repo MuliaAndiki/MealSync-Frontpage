@@ -42,3 +42,14 @@ export interface MenusType {
   url: string;
   icon: any;
 }
+
+export interface HistoryType {
+  image: string;
+  title: string;
+  price: number;
+  rating: number;
+  date: string;
+  time: string;
+  totalprice: number;
+  status: string;
+}

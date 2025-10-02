@@ -15,11 +15,14 @@ import {
   SidebarMenuItem,
   SidebarHeader,
   useSidebar,
+  SidebarTrigger,
 } from '@/components/ui/sidebar';
 import Image from 'next/image';
 import { kebabCaseToWords } from '@/utils/string.format';
 import useLogout from '@/hooks/mutation/auth/useLogout';
 import { Button } from '@/components/ui/button';
+import { Label } from '@radix-ui/react-label';
+import { IconDoorExit } from '@tabler/icons-react';
 
 // Menu items with proper routes
 
@@ -34,11 +37,17 @@ export function AppSidebar() {
       <SidebarHeader className="border-b p-4 h-20 flex justify-center">
         {isCollapsed ? (
           // <LayoutDashboard className="size-4" />
-          <Image src="/images/logo.svg" alt="Logo" width={200} height={200} />
+          <SidebarTrigger className="flex justify-center items-center">
+            <Image src="/images/logo.svg" alt="Logo" width={200} height={200} />
+          </SidebarTrigger>
         ) : (
           <div className="flex gap-2 items-center">
-            <Image src="/images/logo.svg" alt="Logo" width={70} height={70} />
-            <span className="text-xl font-semibold">{kebabCaseToWords(pathname)}</span>
+            <SidebarTrigger>
+              <Image src="/images/logo.svg" alt="Logo" width={70} height={70} />
+            </SidebarTrigger>
+            <Label className="text-xl text-[var(--label)] font-semibold">
+              {kebabCaseToWords(pathname)}
+            </Label>
           </div>
         )}
       </SidebarHeader>
@@ -73,7 +82,7 @@ export function AppSidebar() {
                 onClick={() => logout.mutate({})}
                 disabled={logout.isPending}
               >
-                {!isCollapsed && 'Logout'}
+                {!isCollapsed ? 'Keluar' : <IconDoorExit />}
               </Button>
             </SidebarMenu>
           </SidebarGroupContent>

@@ -19,6 +19,7 @@ const buttonVariants = cva(
         link: 'text-primary underline-offset-4 hover:underline',
         glass: 'p-4 rounded-lg border border-foreground',
         native: 'bg-[#5B9844] text-bold p-4 rounded-lg',
+        carosel: 'bg-[#4D4440] text-semibold p-2 rounded-full',
       },
       size: {
         default: 'h-9 px-4 py-2 has-[>svg]:px-3',

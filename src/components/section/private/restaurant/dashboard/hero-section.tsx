@@ -28,8 +28,8 @@ const DashboardRestaurantSection: React.FC<DashboardRestaurantProps> = ({
   const data = Array.from({ length: 20 });
   return (
     <View>
-      <Box className="flex min-h-screen w-full justify-center items-center relative z-0 overflow-x-hidden">
-        <Box className="grid grid-cols-[2fr_0.7fr] grid-rows-1 gap-2 w-full  ">
+      <Box className="flex min-h-screen w-full justify-center items-center relative z-0">
+        <Box className="grid grid-cols-[2fr_0.7fr] grid-rows-1 gap-2 w-full min-h-screen ">
           <Box className="flex justify-center items-center flex-col ">
             <Image
               alt="sss"
@@ -65,7 +65,7 @@ const DashboardRestaurantSection: React.FC<DashboardRestaurantProps> = ({
               ))}
             </Box>
           </Box>
-          <Box className="flex justify-center items-center   h-screen max-h-lg ">
+          <Box className="flex justify-center items-start sticky  h-fit max-h-screen">
             <Box className="flex flex-col w-full gap-4">
               {CardProfileData.map((items, key) => (
                 <CardProfile key={key} data={items} />

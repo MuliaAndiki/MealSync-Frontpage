@@ -1,5 +1,6 @@
 import {
   CardProfileType,
+  HistoryType,
   MenusType,
   ProductsType,
   RestaurantCardType,
@@ -8,7 +9,7 @@ import {
 } from '@/types/components';
 import { IconHome, IconMail, IconPhoneCall, IconBurger, IconStar } from '@tabler/icons-react';
 import { IconCircleCheck, IconClipboardText, IconToolsKitchen2 } from '@tabler/icons-react';
-import { Home, Settings } from 'lucide-react';
+import { Home, Pencil, Settings } from 'lucide-react';
 
 export const SosmedData: SosmedType[] = [
   {
@@ -78,7 +79,7 @@ export const ProductsData: ProductsType[] = [
   {
     image: '/images/burger.svg',
     price: 30000,
-    title: 'Minum',
+    title: 'Ikan Goreng Bangladesh',
     count: 0,
     rating: 4,
     category: 'minuman',
@@ -125,5 +126,23 @@ export const MenuData: MenusType[] = [
     title: 'Order Status',
     url: '#',
     icon: IconCircleCheck,
+  },
+  {
+    title: 'Edit Menu Makanan',
+    icon: Pencil,
+    url: '/restaurant/dashboard/edit-menu',
+  },
+];
+
+export const HistoryData: HistoryType[] = [
+  {
+    title: 'Burger',
+    price: 10000,
+    date: '15-Agustus-2025',
+    image: '/images/burger.svg',
+    rating: 5,
+    status: 'selesai',
+    time: '14.30',
+    totalprice: 20000,
   },
 ];

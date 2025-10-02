@@ -1,7 +1,7 @@
 'use client';
 
 import { AppSidebar } from '@/core/components/app-sidebar';
-import { SidebarProvider, SidebarTrigger, SidebarInset } from '@/components/ui/sidebar';
+import { SidebarProvider, SidebarInset } from '@/components/ui/sidebar';
 import View from '@/components/ui/view';
 import Box from '@/components/ui/box';
 
@@ -39,8 +39,7 @@ export function SidebarLayout({ children }: AppLayoutProps) {
         <SidebarInset>
           <Box className="flex h-full flex-col w-full">
             <Box className="flex p-4 items-center gap-2 border-b w-full h-20">
-              <Box className="flex items-center justify-between max-w-7xl mx-auto w-full">
-                <SidebarTrigger />
+              <Box className="flex items-center justify-end  mx-auto w-full">
                 <Box className="flex items-center gap-4">
                   <ThemeToggle />
                   <LanguageDropdown />
@@ -52,7 +51,7 @@ export function SidebarLayout({ children }: AppLayoutProps) {
 
             {/* Content */}
             <Box className="flex-1 overflow-auto w-full">
-              <Box className="container h-full max-w-7xl w-full mx-auto p-[1rem]">{children}</Box>
+              <Box className=" h-full  w-full mx-auto max-w-none p-[1rem]">{children}</Box>
             </Box>
           </Box>
         </SidebarInset>

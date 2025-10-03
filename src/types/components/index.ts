@@ -16,9 +16,11 @@ export interface SponsorType {
 }
 
 export interface ProductsType {
-  image: string;
-  title: string;
+  _id: string;
+  pictProduct: string;
+  name: string;
   price: number;
+  // description:string
   rating: number;
   count: number;
   category: string;
@@ -53,3 +55,7 @@ export interface HistoryType {
   totalprice: number;
   status: string;
 }
+
+type ModalType = 'Form';
+
+export type ParentModalType = ModalType | 'Add' | null;

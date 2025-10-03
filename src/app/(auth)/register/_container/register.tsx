@@ -6,7 +6,7 @@ import Box from '@/components/ui/box';
 import { useState } from 'react';
 import { FormRegisterType } from '@/types/form';
 import { useAlert } from '@/hooks/useAlert/costum-alert';
-import useRegister from '@/hooks/mutation/auth/useRegister';
+import { useRegister } from '@/hooks/mutation/auth/mutation';
 
 const RegisterContainer = () => {
   const alert = useAlert();

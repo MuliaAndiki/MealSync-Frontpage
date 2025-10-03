@@ -7,9 +7,9 @@ import {
   SosmedType,
   SponsorType,
 } from '@/types/components';
-import { IconHome, IconMail, IconPhoneCall, IconBurger, IconStar } from '@tabler/icons-react';
+import { IconHome, IconMail, IconPhoneCall, IconMenu2 } from '@tabler/icons-react';
 import { IconCircleCheck, IconClipboardText, IconToolsKitchen2 } from '@tabler/icons-react';
-import { Home, Pencil, Settings } from 'lucide-react';
+import { Home, Settings } from 'lucide-react';
 
 export const SosmedData: SosmedType[] = [
   {
@@ -67,25 +67,6 @@ export const SponsorData: SponsorType[] = [
   },
 ];
 
-export const ProductsData: ProductsType[] = [
-  {
-    image: '/images/burger.svg',
-    price: 30000,
-    title: 'Makan',
-    count: 0,
-    rating: 4,
-    category: 'makanan',
-  },
-  {
-    image: '/images/burger.svg',
-    price: 30000,
-    title: 'Ikan Goreng Bangladesh',
-    count: 0,
-    rating: 4,
-    category: 'minuman',
-  },
-];
-
 export const CardProfileData: CardProfileType[] = [
   {
     banner: '/images/restaurant.svg',
@@ -128,9 +109,9 @@ export const MenuData: MenusType[] = [
     icon: IconCircleCheck,
   },
   {
-    title: 'Edit Menu Makanan',
-    icon: Pencil,
-    url: '/restaurant/dashboard/edit-menu',
+    title: 'Manajement',
+    icon: IconMenu2,
+    url: '/restaurant/dashboard/manage',
   },
 ];
 

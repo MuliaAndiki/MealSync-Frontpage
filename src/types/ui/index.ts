@@ -1,5 +1,6 @@
 import { JSX } from 'react';
 type ToastType = 'success' | 'error' | 'warning' | 'info' | 'question';
+import z from 'zod';
 export interface ModalProps {
   title: string;
   icon: ToastType;
@@ -28,4 +29,11 @@ export interface DivProps {
   className?: string;
   as?: keyof JSX.IntrinsicElements;
   onSubmit?: (e: any) => void;
+}
+
+export interface PopUpProps {
+  isOpen: boolean;
+  children: React.ReactNode;
+  onClose: () => void;
+  className?: string;
 }

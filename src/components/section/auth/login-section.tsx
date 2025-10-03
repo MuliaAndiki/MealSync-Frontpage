@@ -16,7 +16,7 @@ interface LoginProps {
   isPending: boolean;
 }
 
-const LoginSection: React.FC<LoginProps> = ({ formLogin, onLogin, setFormLogin, isPending }) => {
+const LoginSection: React.FC<LoginProps> = ({ onLogin, setFormLogin, isPending }) => {
   return (
     <View className={cn('flex flex-col gap-6')}>
       <Card className="overflow-hidden p-0">

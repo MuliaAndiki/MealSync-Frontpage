@@ -12,27 +12,24 @@ import {
 } from '@/components/ui/carousel';
 import { Label } from '@radix-ui/react-label';
 import CardProfile from '@/components/card-profile';
-import { ProductsType } from '@/types/components';
+import { ParentModalType, ProductsType } from '@/types/components';
+import PopUp from '@/core/components/pop-up';
+import { useState } from 'react';
 
 interface DashboardRestaurantProps {
-  onDeccrement: (key: number) => void;
-  onIncrement: (key: number) => void;
   produtc: ProductsType[];
 }
 
-const DashboardRestaurantSection: React.FC<DashboardRestaurantProps> = ({
-  onDeccrement,
-  onIncrement,
-  produtc,
-}) => {
+const DashboardRestaurantSection: React.FC<DashboardRestaurantProps> = ({ produtc }) => {
   const data = Array.from({ length: 20 });
+  const [isOpenModal, setIsOpenModal] = useState<ParentModalType>(null);
   return (
     <View>
-      <Box className="flex min-h-screen w-full justify-center items-center relative z-0">
+      <Box className="flex min-h-screen w-full justify-center items-center relative z-0 overflow-hidden">
         <Box className="grid grid-cols-[2fr_0.7fr] grid-rows-1 gap-2 w-full min-h-screen ">
           <Box className="flex justify-center items-center flex-col ">
             <Image
-              alt="sss"
+              alt="banners"
               src="/images/banner.svg"
               width={1200}
               height={1200}
@@ -59,8 +56,8 @@ const DashboardRestaurantSection: React.FC<DashboardRestaurantProps> = ({
                 <Product
                   data={items}
                   key={key}
-                  onDeccrement={() => onDeccrement(key)}
-                  onIncrement={() => onIncrement(key)}
+                  isOpenModal={isOpenModal}
+                  setIsOpenModal={setIsOpenModal}
                 />
               ))}
             </Box>
@@ -88,6 +85,13 @@ const DashboardRestaurantSection: React.FC<DashboardRestaurantProps> = ({
           </Box>
         </Box>
       </Box>
+      <PopUp isOpen={isOpenModal === 'Form'} onClose={() => setIsOpenModal(null)}>
+        <View className="w-f h-full">
+          <Box className="flex justify-center items-center">
+            <Label>Setup Dashboard</Label>
+          </Box>
+        </View>
+      </PopUp>
     </View>
   );
 };

@@ -11,6 +11,14 @@ class RestaurantApi {
     const res = await AxiosClient.get('/api/restaurant/products');
     return res.data;
   }
+  async DeleteProduct(_id: string): Promise<TResponse<any>> {
+    const res = await AxiosClient.delete(`/api/restaurant/products/${_id}`);
+    return res.data;
+  }
+  async GetProductId(_id: string): Promise<TResponse<any>> {
+    const res = await AxiosClient.get(`/api/restaurant/products/${_id}`);
+    return res.data;
+  }
 }
 
 export default new RestaurantApi();

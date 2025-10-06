@@ -8,3 +8,11 @@ export function useGetProducts() {
     staleTime: 1000 * 60 * 5,
   });
 }
+
+export function useGetProductsId(_id: string) {
+  return useQuery({
+    queryKey: ['product, "id', _id],
+    queryFn: () => Api.Restaurant.GetProductId(_id),
+    staleTime: 1000 * 60 * 5,
+  });
+}

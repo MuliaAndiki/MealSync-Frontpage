@@ -20,6 +20,7 @@ import {
 import { CategortProduct } from '@/core/enum';
 import { Textarea } from '@/components/ui/textarea';
 import UploadsTrigger from '@/utils/uploadsTriger';
+import { AlertContexType } from '@/types/ui';
 
 interface ManageProps {
   isHiden?: any;
@@ -32,6 +33,11 @@ interface ManageProps {
   onCategory?: (e: string) => void;
   preview?: string | null;
   setPreview?: React.Dispatch<React.SetStateAction<string | null>>;
+  isOpenModal: ParentModalType;
+  setIsOpenModal: React.Dispatch<React.SetStateAction<ParentModalType>>;
+  setSeletId?: React.Dispatch<React.SetStateAction<string>>;
+  onDelete?: (_id: string) => void;
+  alert?: AlertContexType;
 }
 
 const ManageHeroSection: React.FC<ManageProps> = ({
@@ -44,9 +50,12 @@ const ManageHeroSection: React.FC<ManageProps> = ({
   isPending,
   onCategory,
   preview,
+  isOpenModal,
+  setIsOpenModal,
+  setSeletId,
+  onDelete,
+  alert,
 }) => {
-  const [isOpenModal, setIsOpenModal] = useState<ParentModalType>(null);
-
   return (
     <View>
       <Box className="flex justify-center items-center min-h-screen flex-col relative ">
@@ -80,6 +89,9 @@ const ManageHeroSection: React.FC<ManageProps> = ({
                 isHiden={isHiden}
                 isOpenModal={isOpenModal}
                 setIsOpenModal={setIsOpenModal}
+                setSelectId={setSeletId}
+                onDelete={onDelete}
+                alert={alert}
               />
             ))}
           </Box>
@@ -185,17 +197,6 @@ const ManageHeroSection: React.FC<ManageProps> = ({
             </Box>
           </View>
         </PopUp>
-
-        {/* <PopUp isOpen={isOpenModal === 'Edit'} onClose={() => setIsOpenModal(null)}>
-          <View className="w-full h-full">
-            <Box className="flex justify-center items-center flex-col">
-              <Box className="flex justify-between items-center w-full">
-                <Label className="text-lg font-bold">Edit Menu :</Label>
-                <IconX onClick={() => setIsOpenModal(null)} className="cursor-pointer" />
-              </Box>
-            </Box>
-          </View>
-        </PopUp> */}
       </Box>
     </View>
   );

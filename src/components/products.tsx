@@ -7,11 +7,15 @@ import { Star } from 'lucide-react';
 import { formatCurrency } from '@/utils/format';
 import { ParentModalType } from '@/types/components';
 import Link from 'next/link';
+import { AlertContexType } from '@/types/ui';
 interface ProductsPropsV1 {
   hidenRoutes?: string[];
   isHiden?: any;
   isOpenModal?: ParentModalType;
   setIsOpenModal?: React.Dispatch<React.SetStateAction<ParentModalType>>;
+  onDelete?: (_id: string) => void;
+  setSelectId?: React.Dispatch<React.SetStateAction<string>>;
+  alert?: AlertContexType;
 }
 
 const Product: React.FC<ProductsProps & ProductsPropsV1> = ({
@@ -19,6 +23,9 @@ const Product: React.FC<ProductsProps & ProductsPropsV1> = ({
   hidenRoutes,
   isHiden,
   setIsOpenModal,
+  onDelete,
+  setSelectId,
+  alert,
 }) => {
   const path = hidenRoutes?.includes(isHiden);
   return (
@@ -56,12 +63,31 @@ const Product: React.FC<ProductsProps & ProductsPropsV1> = ({
             </Button> */}
           </Box>
         ) : (
-          // Setup Dynamic
-          <Link href={`/restaurant/dashboard/manage/edit-menu/${data._id}`} className="w-full">
-            <Button className="w-full" variant={'native'}>
-              Edit
+          <Box className="flex flex-col justify-center w-full gap-2 ">
+            <Link href={`/restaurant/dashboard/manage/edit-menus/${data._id}`} className="w-full">
+              <Button className="w-full font-bold " variant={'native'}>
+                Edit
+              </Button>
+            </Link>
+            <Button
+              className=" font-bold"
+              variant={'destructive'}
+              onClick={() => {
+                setSelectId!(data._id);
+                alert?.confirm({
+                  title: 'Yakin?!',
+                  deskripsi: 'Apakah Kamu Yakin Menhapus Product Ini?',
+                  icon: 'warning',
+                  onConfirm: () => {
+                    onDelete!(data._id);
+                  },
+                  onClose: () => {},
+                });
+              }}
+            >
+              Hapus
             </Button>
-          </Link>
+          </Box>
         )}
       </Box>
     </Box>

@@ -6,7 +6,7 @@ import {
   DialogDescription,
   DialogHeader,
   DialogTitle,
-} from '@//components/ui/dialog';
+} from '@/components/ui/dialog';
 import { ModalProps } from '@/types/ui';
 
 const iconMap = {
@@ -39,7 +39,7 @@ export function AlertModal({
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogContent className="sm:max-w-sm text-center [&>button]:hidden">
-        <DialogHeader>
+        <DialogHeader className="w-full items-center justify-center">
           <div className="text-4xl mb-2">{iconMap[icon]}</div>
           <DialogTitle>{title}</DialogTitle>
           <DialogDescription className="text-gray-600 dark:text-gray-300">

@@ -58,4 +58,4 @@ export interface HistoryType {
 
 type ModalType = 'Form';
 
-export type ParentModalType = ModalType | 'Add' | null;
+export type ParentModalType = ModalType | 'Add' | 'Delete' | null;

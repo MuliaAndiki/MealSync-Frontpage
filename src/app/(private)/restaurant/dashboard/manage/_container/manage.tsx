@@ -2,21 +2,31 @@
 import ManageHeroSection from '@/components/section/private/restaurant/manege/hero-section';
 import Container from '@/components/ui/container';
 import { SidebarLayout } from '@/core/layouts/sidebar.layout';
-import { useCreateProduct } from '@/hooks/mutation/restaurant/mutation';
+import { useCreateProduct, useDeleteProduct } from '@/hooks/mutation/restaurant/mutation';
 import { useGetProducts } from '@/hooks/mutation/restaurant/query';
 import { useAlert } from '@/hooks/useAlert/costum-alert';
 import { FormCreateProducts } from '@/types/form';
 import { usePathname } from 'next/navigation';
 import { useState } from 'react';
 import { fileToBase64 } from '@/utils/base64';
+import { ParentModalType } from '@/types/components';
+import { useEffect } from 'react';
 
 const ManageContainer = () => {
   const data = useGetProducts();
   const productData = data.data?.data;
   const pathname = usePathname();
-  const create = useCreateProduct();
+  const deletet = useDeleteProduct();
+  const create = useCreateProduct({
+    onAfterSucces: () => {
+      setIsOpenModal(null);
+    },
+  });
   const alert = useAlert();
   const [preview, setPreview] = useState<string | null>(null);
+  const [isOpenModal, setIsOpenModal] = useState<ParentModalType>(null);
+  // Ada Id
+  const [selectId, setSelectId] = useState<string>('');
   const [formAddProduct, setFormAddProduct] = useState<FormCreateProducts>({
     category: '',
     pictProduct: null,
@@ -24,6 +34,7 @@ const ManageContainer = () => {
     price: 0,
     description: '',
   });
+
   const handleChangeCategory = (e: string) => {
     setFormAddProduct((prev) => ({
       ...prev,
@@ -63,6 +74,18 @@ const ManageContainer = () => {
 
     create.mutate(formAddProduct);
   };
+
+  const handleDeleteProduct = (id: string) => {
+    if (!id) {
+      alert.toast({
+        title: 'Warning',
+        message: 'Mohon Cek Kembali ',
+        icon: 'warning',
+      });
+      return;
+    }
+    deletet.mutate(id);
+  };
   return (
     <SidebarLayout>
       <Container className="w-full min-h-screen flex flex-col ">
@@ -76,6 +99,11 @@ const ManageContainer = () => {
           onAdd={() => handleCreateProducts()}
           onPictChange={handleChangePict}
           preview={preview}
+          isOpenModal={isOpenModal}
+          setIsOpenModal={setIsOpenModal}
+          setSeletId={setSelectId}
+          onDelete={handleDeleteProduct}
+          alert={alert}
         />
       </Container>
     </SidebarLayout>

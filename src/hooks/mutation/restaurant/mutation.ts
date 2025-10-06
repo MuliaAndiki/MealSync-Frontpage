@@ -29,3 +29,30 @@ export function useCreateProduct(options?: { onAfterSucces?: () => void }) {
     },
   });
 }
+
+export function useDeleteProduct(options?: { onAfterSucces?: () => void }) {
+  const { alert, queryClient } = useAppNameSpase();
+  return useMutation<TResponse<any>, Error, string>({
+    mutationFn: (id) => Api.Restaurant.DeleteProduct(id),
+    onSuccess: () => {
+      alert.toast({
+        title: 'Success',
+        message: 'Berhasil Delete Product',
+        icon: 'success',
+        onVoid: () => {
+          queryClient.invalidateQueries({ queryKey: ['products'], exact: false });
+          options?.onAfterSucces?.();
+        },
+      });
+    },
+
+    onError: (err) => {
+      console.error(err);
+      alert.toast({
+        title: 'Error',
+        message: 'Failed Delete Product',
+        icon: 'error',
+      });
+    },
+  });
+}

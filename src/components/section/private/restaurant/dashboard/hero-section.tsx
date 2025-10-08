@@ -1,7 +1,7 @@
 import Box from '@/components/ui/box';
 import View from '@/components/ui/view';
 import Image from 'next/image';
-import { CardProfileData } from '@/configs/components.config';
+import { CardProfileData, ChairData } from '@/configs/components.config';
 import Product from '@/components/products';
 import {
   Carousel,
@@ -15,13 +15,13 @@ import CardProfile from '@/components/card-profile';
 import { ParentModalType, ProductsType } from '@/types/components';
 import PopUp from '@/core/components/pop-up';
 import { useState } from 'react';
+import Chair from '@/components/chair';
 
 interface DashboardRestaurantProps {
   produtc: ProductsType[];
 }
 
 const DashboardRestaurantSection: React.FC<DashboardRestaurantProps> = ({ produtc }) => {
-  const data = Array.from({ length: 20 });
   const [isOpenModal, setIsOpenModal] = useState<ParentModalType>(null);
   return (
     <View>
@@ -62,25 +62,14 @@ const DashboardRestaurantSection: React.FC<DashboardRestaurantProps> = ({ produt
               ))}
             </Box>
           </Box>
-          <Box className="flex justify-center items-start sticky  h-fit max-h-screen">
-            <Box className="flex flex-col w-full gap-4">
+          <Box className="flex justify-center items-start sticky  h-fit max-h-screen flex-col">
+            <Box className="flex flex-col w-full gap-2">
               {CardProfileData.map((items, key) => (
                 <CardProfile key={key} data={items} />
               ))}
-              <Box className="bg-[#2D1912] flex justify-center items-center flex-col rounded-lg p-4 ">
-                <Label className="text-lg font-bold">Tempat Duduk</Label>
-                <Box className="flex justify-evenly items-center w-full text-center flex-col gap-4 ">
-                  {Array.from({ length: Math.ceil(data.length / 5) }).map((_, i) => (
-                    <Box key={i} className="flex justify-evenly items-center w-full text-center">
-                      {data.slice(i * 5, i * 5 + 5).map((_, key) => (
-                        <Box key={key} className="flex justify-center items-center w-full">
-                          <Box className="w-5 h-5 bg-foreground rounded-xs"></Box>
-                        </Box>
-                      ))}
-                    </Box>
-                  ))}
-                </Box>
-              </Box>
+              {ChairData.map((items, key) => (
+                <Chair key={key} chair={items.chair} />
+              ))}
             </Box>
           </Box>
         </Box>

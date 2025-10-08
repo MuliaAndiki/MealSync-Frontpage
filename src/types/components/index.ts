@@ -56,6 +56,10 @@ export interface HistoryType {
   status: string;
 }
 
+export interface ChairType {
+  chair: number;
+}
+
 type ModalType = 'Form';
 
 export type ParentModalType = ModalType | 'Add' | 'Edit' | null;

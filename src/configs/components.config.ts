@@ -1,5 +1,6 @@
 import {
   CardProfileType,
+  ChairType,
   HistoryType,
   MenusType,
   ProductsType,
@@ -125,5 +126,11 @@ export const HistoryData: HistoryType[] = [
     status: 'selesai',
     time: '14.30',
     totalprice: 20000,
+  },
+];
+
+export const ChairData: ChairType[] = [
+  {
+    chair: 20,
   },
 ];

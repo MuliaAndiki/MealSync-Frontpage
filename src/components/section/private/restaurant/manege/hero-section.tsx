@@ -21,6 +21,9 @@ import { CategortProduct } from '@/core/enum';
 import { Textarea } from '@/components/ui/textarea';
 import UploadsTrigger from '@/utils/uploadsTriger';
 import { AlertContexType } from '@/types/ui';
+import CardProfile from '@/components/card-profile';
+import { CardProfileData, ChairData } from '@/configs/components.config';
+import Chair from '@/components/chair';
 
 interface ManageProps {
   isHiden?: any;
@@ -58,42 +61,54 @@ const ManageHeroSection: React.FC<ManageProps> = ({
 }) => {
   return (
     <View>
-      <Box className="flex justify-center items-center min-h-screen flex-col relative ">
-        <Image
-          alt="bg"
-          src="/images/banner.svg"
-          width={1800}
-          height={1800}
-          className="rounded-lg "
-        />
-        <Box className="absolute w-full max-w-200 top-40  bg-foreground/90 rounded-lg ">
-          <Input className="" />
-        </Box>
-        <Box className="bg-[#2D1912] w-full rounded-t-2xl flex justify-center items-center p-4 flex-col">
-          <Box className="flex justify-end items-center gap-2 w-full">
-            <Button
-              variant={'destructive'}
-              className="flex items-center justify-center"
-              onClick={() => setIsOpenModal('Add')}
-            >
-              Add Menu
-              <IconMenu2 />
-            </Button>
+      <Box className="flex min-h-screen w-full justify-center items-center relative z-0 overflow-hidden">
+        <Box className="grid grid-cols-[2fr_0.7fr] grid-rows-1 w-full min-h-screen">
+          <Box className="flex justify-start items-start flex-col ">
+            <Image
+              alt="bg"
+              src="/images/banner.svg"
+              width={1800}
+              height={1800}
+              className="rounded-lg "
+            />
+
+            <Box className="bg-[#2D1912] w-full rounded-t-2xl flex justify-center items-center p-4 flex-col">
+              <Box className="flex justify-end items-center gap-4 w-full ">
+                <Button
+                  variant={'destructive'}
+                  className="flex items-center justify-center"
+                  onClick={() => setIsOpenModal('Add')}
+                >
+                  Add Menu
+                  <IconMenu2 />
+                </Button>
+              </Box>
+              <Box className="grid grid-cols-5 grid-rows-1 gap-4 items-center w-full ">
+                {data.map((items, key) => (
+                  <Product
+                    key={key}
+                    data={items}
+                    hidenRoutes={['/restaurant/dashboard/manage']}
+                    isHiden={isHiden}
+                    isOpenModal={isOpenModal}
+                    setIsOpenModal={setIsOpenModal}
+                    setSelectId={setSeletId}
+                    onDelete={onDelete}
+                    alert={alert}
+                  />
+                ))}
+              </Box>
+            </Box>
           </Box>
-          <Box className="grid grid-cols-5 grid-rows-1 gap-4 items-center w-full ">
-            {data.map((items, key) => (
-              <Product
-                key={key}
-                data={items}
-                hidenRoutes={['/restaurant/dashboard/manage']}
-                isHiden={isHiden}
-                isOpenModal={isOpenModal}
-                setIsOpenModal={setIsOpenModal}
-                setSelectId={setSeletId}
-                onDelete={onDelete}
-                alert={alert}
-              />
-            ))}
+          <Box className="flex justify-center items-start sticky  h-full max-h-screen px-3">
+            <Box className="flex flex-col w-full gap-2">
+              {CardProfileData.map((items, key) => (
+                <CardProfile key={key} data={items} />
+              ))}
+              {ChairData.map((items, key) => (
+                <Chair key={key} chair={items.chair} />
+              ))}
+            </Box>
           </Box>
         </Box>
 

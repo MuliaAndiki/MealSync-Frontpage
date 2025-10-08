@@ -1,29 +1,25 @@
 export function flattenToFormData(obj: Record<string, any>, form?: FormData): FormData {
   const formData = form || new FormData();
 
-  const fileFields = ['ktp', 'izinUsaha', 'logo', 'proposalBrand', 'fotoProfile'];
+  const fileFields = ['pictProduct', 'fotoProfile'];
 
-  function flatten(current: any, parentKey?: string) {
+  function flatten(current: any) {
     for (const key in current) {
-      if (!current.hasOwnProperty(key)) continue;
+      if (!Object.prototype.hasOwnProperty.call(current, key)) continue;
 
       const value = current[key];
-      const flatKey = parentKey ? `${parentKey}.${key}` : key;
-
       if (value === undefined || value === null) continue;
 
       const isFile = value instanceof File || value instanceof Blob;
 
-      const finalKey = isFile && fileFields.includes(key) ? key : flatKey;
-
-      if (isFile) {
-        formData.append(finalKey, value);
+      if (isFile && fileFields.includes(key)) {
+        formData.append(key, value);
       } else if (typeof value === 'object' && !(value instanceof Date)) {
-        flatten(value, flatKey);
+        flatten(value);
       } else if (value instanceof Date) {
-        formData.append(finalKey, value.toISOString());
+        formData.append(key, value.toISOString());
       } else {
-        formData.append(finalKey, value);
+        formData.append(key, value);
       }
     }
   }

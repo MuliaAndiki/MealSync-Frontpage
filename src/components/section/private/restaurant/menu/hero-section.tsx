@@ -5,21 +5,16 @@ import { Label } from '@radix-ui/react-label';
 import { Button } from '@/components/ui/button';
 import Product from '@/components/products';
 import { Input } from '@/components/ui/input';
-import { ProductsType } from '@/types/components';
+import { ParentModalType, ProductsType } from '@/types/components';
+import { useState } from 'react';
+import PopUp from '@/core/components/pop-up';
 interface MenuProps {
   category: 'Makanan' | 'Minuman';
   setCategory: React.Dispatch<React.SetStateAction<'Makanan' | 'Minuman'>>;
   products: ProductsType[];
-  onIncrement: (key: number) => void;
-  onDeccrement: (key: number) => void;
 }
-const MenuHeroSection: React.FC<MenuProps> = ({
-  category,
-  setCategory,
-  onDeccrement,
-  onIncrement,
-  products,
-}) => {
+const MenuHeroSection: React.FC<MenuProps> = ({ category, setCategory, products }) => {
+  const [isOpenModal, setIsOpenModal] = useState<ParentModalType>(null);
   return (
     <View>
       <Box className="flex min-h-screen w-full justify-center items-center relative z-0 overflow-x-hidden flex-col">
@@ -53,12 +48,19 @@ const MenuHeroSection: React.FC<MenuProps> = ({
                 <Product
                   data={items}
                   key={key}
-                  onDeccrement={() => onDeccrement(key)}
-                  onIncrement={() => onIncrement(key)}
+                  isOpenModal={isOpenModal}
+                  setIsOpenModal={setIsOpenModal}
                 />
               ))}
           </Box>
         </Box>
+        <PopUp isOpen={isOpenModal === 'Form'} onClose={() => setIsOpenModal(null)}>
+          <View className="w-full h-full">
+            <Box className="flex justify-center items-center">
+              <Label>Setup Adds</Label>
+            </Box>
+          </View>
+        </PopUp>
       </Box>
     </View>
   );

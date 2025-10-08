@@ -5,9 +5,8 @@ import View from '@/components/ui/view';
 import Box from '@/components/ui/box';
 import { useState } from 'react';
 import { FormLoginType } from '@/types/form';
-import useLogin from '@/hooks/mutation/auth/useLogin';
+import { useLogin } from '@/hooks/mutation/auth/mutation';
 import { useAlert } from '@/hooks/useAlert/costum-alert';
-import { useEffect } from 'react';
 import { useAppSelector } from '@/hooks/dispatch/dispatch';
 
 const LoginContainer = () => {

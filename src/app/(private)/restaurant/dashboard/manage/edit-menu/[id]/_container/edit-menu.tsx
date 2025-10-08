@@ -8,10 +8,13 @@ import { SidebarLayout } from '@/core/layouts/sidebar.layout';
 import { useGetProductsId } from '@/hooks/mutation/restaurant/query';
 import { FormCreateProducts } from '@/types/form';
 import { fileToBase64 } from '@/utils/base64';
+import { useUpdateProducts } from '@/hooks/mutation/restaurant/mutation';
+import { flattenToFormData } from '@/utils/form-data.util';
 
 const EditMenuContainer = () => {
   const params = useParams();
   const id = params?.id as string;
+  const update = useUpdateProducts();
   const data = useGetProductsId(id);
   const datas = data.data?.data || [];
   const [preview, setPreview] = useState<string | null>(null);
@@ -39,6 +42,14 @@ const EditMenuContainer = () => {
     }
   };
 
+  const handleUpdateProduct = () => {
+    const payload = Object.fromEntries(
+      Object.entries(formEditProduct).filter(([_, v]) => v !== '' && v !== null)
+    );
+
+    return update.mutate(payload as any);
+  };
+
   return (
     <SidebarLayout>
       <Container className="w-full min-h-screen flex flex-col">
@@ -49,6 +60,7 @@ const EditMenuContainer = () => {
           onPictChange={handleChangePict}
           preview={preview}
           router={router}
+          onSave={() => handleUpdateProduct()}
         />
       </Container>
     </SidebarLayout>

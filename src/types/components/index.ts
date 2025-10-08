@@ -20,7 +20,7 @@ export interface ProductsType {
   pictProduct: string;
   name: string;
   price: number;
-  // description:string
+  description: string;
   rating: number;
   count: number;
   category: string;
@@ -58,4 +58,4 @@ export interface HistoryType {
 
 type ModalType = 'Form';
 
-export type ParentModalType = ModalType | 'Add' | 'Delete' | null;
+export type ParentModalType = ModalType | 'Add' | 'Edit' | null;

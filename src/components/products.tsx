@@ -30,7 +30,13 @@ const Product: React.FC<ProductsProps & ProductsPropsV1> = ({
   const path = hidenRoutes?.includes(isHiden);
   return (
     <Box className="w-auto h-auto bg-foreground/10 p-4 rounded-lg flex justify-center flex-col items-center border border-foreground/50">
-      <Image alt="product" src={data.pictProduct} height={200} width={200} className="rounded-lg" />
+      <Image
+        alt="product"
+        src={data.pictProduct}
+        width={200}
+        height={200}
+        className="object-cover aspect-square"
+      />
       <Box className="flex mt-2 gap-1">
         {Array.from({ length: 5 }).map((_, key) => (
           <Star
@@ -64,7 +70,7 @@ const Product: React.FC<ProductsProps & ProductsPropsV1> = ({
           </Box>
         ) : (
           <Box className="flex flex-col justify-center w-full gap-2 ">
-            <Link href={`/restaurant/dashboard/manage/edit-menus/${data._id}`} className="w-full">
+            <Link href={`/restaurant/dashboard/manage/edit-menu/${data._id}`} className="w-full">
               <Button className="w-full font-bold " variant={'native'}>
                 Edit
               </Button>
@@ -73,7 +79,6 @@ const Product: React.FC<ProductsProps & ProductsPropsV1> = ({
               className=" font-bold"
               variant={'destructive'}
               onClick={() => {
-                setSelectId!(data._id);
                 alert?.confirm({
                   title: 'Yakin?!',
                   deskripsi: 'Apakah Kamu Yakin Menhapus Product Ini?',

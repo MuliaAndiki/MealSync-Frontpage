@@ -19,16 +19,6 @@ export function useLogin(options?: { onAfterSucces?: () => void }) {
     onSuccess: (res) => {
       const role = res.data.role;
       const token = res.data.token;
-      if (role === 'user') {
-        router.push('/user/dashboard');
-      } else if (role === 'restaurant') {
-        router.push('/restaurant/dashboard');
-      } else if (role === 'superadmin') {
-        router.push('/super-admin/dashboard');
-      } else {
-        router.push('/home');
-      }
-
       setCookie(APP_SESSION_COOKIE_KEY, token, {
         maxAge: APP_REFRESH_TOKEN_COOKIE_EXPIRES_IN / 1000,
         path: '/',
@@ -44,6 +34,15 @@ export function useLogin(options?: { onAfterSucces?: () => void }) {
         message: 'Login Succesfully',
         icon: 'success',
         onVoid: () => {
+          if (role === 'user') {
+            router.push('/user/dashboard');
+          } else if (role === 'restaurant') {
+            router.push('/restaurant/dashboard');
+          } else if (role === 'superadmin') {
+            router.push('/super-admin/dashboard');
+          } else {
+            router.push('/home');
+          }
           options?.onAfterSucces?.();
         },
       });

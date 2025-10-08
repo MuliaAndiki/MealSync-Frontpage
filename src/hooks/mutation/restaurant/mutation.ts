@@ -56,3 +56,29 @@ export function useDeleteProduct(options?: { onAfterSucces?: () => void }) {
     },
   });
 }
+
+export function useUpdateProducts(options?: { onAfterSucces?: () => void }) {
+  const { alert, queryClient } = useAppNameSpase();
+  return useMutation<TResponse<any>, Error, string>({
+    mutationFn: (_id) => Api.Restaurant.UpdateProducts(_id),
+    onSuccess: () => {
+      alert.toast({
+        title: 'Success',
+        message: 'Product Berhasil DiUpdate',
+        icon: 'success',
+        onVoid: () => {
+          options?.onAfterSucces?.();
+          queryClient.invalidateQueries({ queryKey: ['products'], exact: false });
+        },
+      });
+    },
+    onError: (err) => {
+      console.error(err);
+      alert.toast({
+        title: 'Error',
+        message: 'Failed Update Product',
+        icon: 'error',
+      });
+    },
+  });
+}

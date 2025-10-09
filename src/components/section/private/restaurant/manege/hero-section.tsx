@@ -3,7 +3,7 @@ import View from '@/components/ui/view';
 import Image from 'next/image';
 import { Input } from '@/components/ui/input';
 import Product from '@/components/products';
-import { ParentModalType, ProductsType } from '@/types/components';
+import { ChairType, ParentModalType, ProductsType } from '@/types/components';
 import React, { useState } from 'react';
 import PopUp from '@/core/components/pop-up';
 import { Label } from '@radix-ui/react-label';
@@ -22,12 +22,13 @@ import { Textarea } from '@/components/ui/textarea';
 import UploadsTrigger from '@/utils/uploadsTriger';
 import { AlertContexType } from '@/types/ui';
 import CardProfile from '@/components/card-profile';
-import { CardProfileData, ChairData } from '@/configs/components.config';
+import { CardProfileData } from '@/configs/components.config';
 import Chair from '@/components/chair';
 
 interface ManageProps {
   isHiden?: any;
   data: ProductsType[];
+  chair: ChairType[];
   formAddProduct: FormCreateProducts;
   setFormAddProduct: React.Dispatch<React.SetStateAction<FormCreateProducts>>;
   onAdd?: () => void;
@@ -58,6 +59,7 @@ const ManageHeroSection: React.FC<ManageProps> = ({
   setSeletId,
   onDelete,
   alert,
+  chair,
 }) => {
   return (
     <View>
@@ -103,10 +105,15 @@ const ManageHeroSection: React.FC<ManageProps> = ({
           <Box className="flex justify-center items-start sticky  h-full max-h-screen px-3">
             <Box className="flex flex-col w-full gap-2">
               {CardProfileData.map((items, key) => (
-                <CardProfile key={key} data={items} />
+                <CardProfile
+                  key={key}
+                  data={items}
+                  isHiden={isHiden}
+                  hidenRoutes={['/restaurant/dashboard/manage']}
+                />
               ))}
-              {ChairData.map((items, key) => (
-                <Chair key={key} chair={items.chair} />
+              {chair.map((items, key) => (
+                <Chair key={key} noChair={items.noChair} />
               ))}
             </Box>
           </Box>

@@ -1,5 +1,5 @@
 import { TResponse } from '@/pkg/react-query/mutation-wrapper.type';
-import { FormCreateProducts } from '@/types/form';
+import { FormCreateChair, FormCreateProducts } from '@/types/form';
 import AxiosClient from '@/utils/axios.client';
 
 class RestaurantApi {
@@ -21,6 +21,28 @@ class RestaurantApi {
   }
   async UpdateProducts(_id: string): Promise<TResponse<any>> {
     const res = await AxiosClient.put(`/api/restaurant/products/${_id}`);
+    return res.data;
+  }
+  async GeChair(): Promise<TResponse<any>> {
+    const res = await AxiosClient.get('/api/restaurant/chair');
+    return res.data;
+  }
+  async CreateChair(payload: FormCreateChair): Promise<TResponse<any>> {
+    const res = await AxiosClient.post(`/api/restaurant/chair`, payload);
+    return res.data;
+  }
+  // Min Intergrate
+  async EditProfile(): Promise<TResponse<any>> {
+    const res = await AxiosClient.put('/api/restaurant/products/profile');
+    return res.data;
+  }
+
+  async GetOrder(): Promise<TResponse<any>> {
+    const res = await AxiosClient.get('/api/restaurant/products/orders');
+    return res.data;
+  }
+  async GetOrderHistory(): Promise<TResponse<any>> {
+    const res = await AxiosClient.get('/api/restaurant/products/orders/history');
     return res.data;
   }
 }

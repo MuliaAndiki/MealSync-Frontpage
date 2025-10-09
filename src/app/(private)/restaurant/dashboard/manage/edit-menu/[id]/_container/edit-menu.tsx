@@ -5,7 +5,7 @@ import { useParams, useRouter } from 'next/navigation';
 import EditMenuHeroSection from '@/components/section/private/restaurant/edit-menu/hero-section';
 import Container from '@/components/ui/container';
 import { SidebarLayout } from '@/core/layouts/sidebar.layout';
-import { useGetProductsId } from '@/hooks/mutation/restaurant/query';
+import DatasQuery from '@/hooks/mutation/props.hooks';
 import { FormCreateProducts } from '@/types/form';
 import { fileToBase64 } from '@/utils/base64';
 import { useUpdateProducts } from '@/hooks/mutation/restaurant/mutation';
@@ -15,8 +15,7 @@ const EditMenuContainer = () => {
   const params = useParams();
   const id = params?.id as string;
   const update = useUpdateProducts();
-  const data = useGetProductsId(id);
-  const datas = data.data?.data || [];
+  const data = DatasQuery.Restaurant(id);
   const [preview, setPreview] = useState<string | null>(null);
   const router = useRouter();
 
@@ -54,7 +53,7 @@ const EditMenuContainer = () => {
     <SidebarLayout>
       <Container className="w-full min-h-screen flex flex-col">
         <EditMenuHeroSection
-          data={datas}
+          data={data.ProductDataId || []}
           formEditProduct={formEditProduct}
           setFormEditProduct={setFormEditProduct}
           onPictChange={handleChangePict}

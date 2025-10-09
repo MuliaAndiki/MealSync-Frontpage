@@ -1,7 +1,7 @@
 import Box from '@/components/ui/box';
 import View from '@/components/ui/view';
 import Image from 'next/image';
-import { CardProfileData, ChairData } from '@/configs/components.config';
+import { CardProfileData } from '@/configs/components.config';
 import Product from '@/components/products';
 import {
   Carousel,
@@ -12,16 +12,17 @@ import {
 } from '@/components/ui/carousel';
 import { Label } from '@radix-ui/react-label';
 import CardProfile from '@/components/card-profile';
-import { ParentModalType, ProductsType } from '@/types/components';
+import { ChairType, ParentModalType, ProductsType } from '@/types/components';
 import PopUp from '@/core/components/pop-up';
 import { useState } from 'react';
 import Chair from '@/components/chair';
 
 interface DashboardRestaurantProps {
   produtc: ProductsType[];
+  noChair: ChairType[];
 }
 
-const DashboardRestaurantSection: React.FC<DashboardRestaurantProps> = ({ produtc }) => {
+const DashboardRestaurantSection: React.FC<DashboardRestaurantProps> = ({ produtc, noChair }) => {
   const [isOpenModal, setIsOpenModal] = useState<ParentModalType>(null);
   return (
     <View>
@@ -67,8 +68,8 @@ const DashboardRestaurantSection: React.FC<DashboardRestaurantProps> = ({ produt
               {CardProfileData.map((items, key) => (
                 <CardProfile key={key} data={items} />
               ))}
-              {ChairData.map((items, key) => (
-                <Chair key={key} chair={items.chair} />
+              {noChair.map((items, key) => (
+                <Chair key={key} noChair={items.noChair} />
               ))}
             </Box>
           </Box>

@@ -10,6 +10,21 @@ export interface FormRegisterType {
   fullName: string;
 }
 
+export interface FormCreateChair {
+  noChair: number;
+  status: string;
+}
+
+export interface FormEditProfile {
+  address: string;
+  description: string;
+  logoUrl: string;
+}
+
+export interface FormCreateChair {
+  noChair: number;
+}
+
 export const FormCreateProductsSchema = z.object({
   name: z.string().min(1, 'Nama produk wajib diisi'),
   price: z.number().min(1, 'Harga harus lebih dari 0'),

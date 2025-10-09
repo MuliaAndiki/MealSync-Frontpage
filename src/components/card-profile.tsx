@@ -4,7 +4,20 @@ import Vector from './svg/private/vector';
 import { Label } from '@radix-ui/react-label';
 import { IconMapPin, IconPhone } from '@tabler/icons-react';
 import { CardProfileProps } from '@/types/props';
-const CardProfile: React.FC<CardProfileProps> = ({ data }) => {
+import { Button } from './ui/button';
+import Link from 'next/link';
+
+interface CardProfilePropsV1 {
+  hidenRoutes?: string[];
+  isHiden?: any;
+}
+
+const CardProfile: React.FC<CardProfileProps & CardProfilePropsV1> = ({
+  data,
+  hidenRoutes,
+  isHiden,
+}) => {
+  const path = hidenRoutes?.includes(isHiden);
   return (
     <Box className="w-full bg-[#2D1912] h-auto  rounded-lg relative border">
       <Image
@@ -20,6 +33,13 @@ const CardProfile: React.FC<CardProfileProps> = ({ data }) => {
       <Box className="w-35 h-35  absolute flex rounded-full items-center justify-center -translate-y-15 ">
         <Image alt="icon" width={200} height={200} src={data.logo} />
       </Box>
+      {path && (
+        <Link href="/restaurant/dashboard/edit-profile">
+          <Button variant="glass" className="absolute right-1/12 translate-y-5">
+            Manajemnt Profile
+          </Button>
+        </Link>
+      )}
       <Box className="flex justify-center items-center gap-2 mt-25 h-full p-2 flex-col">
         <Label className="font-light  text-center">{data.desc}</Label>
         <Box className="w-full bg-foreground rounded-lg p-1">

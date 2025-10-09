@@ -2,14 +2,15 @@
 
 import HistoryHeroSection from '@/components/section/private/restaurant/history/hero-section';
 import Container from '@/components/ui/container';
-import { SidebarProvider } from '@/components/ui/sidebar';
 import { SidebarLayout } from '@/core/layouts/sidebar.layout';
+import { useState } from 'react';
 
 const HistoryContainer = () => {
+  const [content, setContent] = useState<'Pending' | 'Paid'>('Pending');
   return (
     <SidebarLayout>
       <Container className="w-full min-h-screen flex flex-col">
-        <HistoryHeroSection />
+        <HistoryHeroSection content={content} setContent={setContent} />
       </Container>
     </SidebarLayout>
   );

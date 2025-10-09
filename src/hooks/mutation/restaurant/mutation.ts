@@ -1,5 +1,5 @@
 import { TResponse } from '@/pkg/react-query/mutation-wrapper.type';
-import { FormCreateProducts } from '@/types/form';
+import { FormCreateChair, FormCreateProducts, FormEditProfile } from '@/types/form';
 import { useMutation } from '@tanstack/react-query';
 import Api from '@/services/props.service';
 import { useAppNameSpase } from '@/hooks/useNameSpace';
@@ -77,6 +77,59 @@ export function useUpdateProducts(options?: { onAfterSucces?: () => void }) {
       alert.toast({
         title: 'Error',
         message: 'Failed Update Product',
+        icon: 'error',
+      });
+    },
+  });
+}
+
+export function useCreateChair(options?: { onAfterSucces?: () => void }) {
+  const { alert, queryClient } = useAppNameSpase();
+  return useMutation<TResponse<any>, Error, FormCreateChair>({
+    mutationFn: (payload) => Api.Restaurant.CreateChair(payload),
+    onSuccess: () => {
+      alert.toast({
+        title: 'Succes',
+        message: 'Kursi Berhasil Di Bikin',
+        icon: 'success',
+        onVoid: () => {
+          options?.onAfterSucces?.();
+          queryClient.invalidateQueries({ queryKey: ['chair'], exact: false });
+        },
+      });
+    },
+    onError: (err) => {
+      console.error(err);
+      alert.toast({
+        title: 'Error',
+        message: 'Failed Update Profile',
+        icon: 'error',
+      });
+    },
+  });
+}
+
+// Belum Intergrate
+export function useEditProfile(options?: { onAfterSucces?: () => void }) {
+  const { alert, queryClient } = useAppNameSpase();
+  return useMutation<TResponse<any>, Error, FormEditProfile>({
+    mutationFn: () => Api.Restaurant.EditProfile(),
+    onSuccess: () => {
+      alert.toast({
+        title: 'Succes',
+        message: 'Profile Berhasil DiUpdate',
+        icon: 'success',
+        onVoid: () => {
+          options?.onAfterSucces?.();
+          queryClient.invalidateQueries({ queryKey: ['products'], exact: false });
+        },
+      });
+    },
+    onError: (err) => {
+      console.error(err);
+      alert.toast({
+        title: 'Error',
+        message: 'Failed Update Profile',
         icon: 'error',
       });
     },

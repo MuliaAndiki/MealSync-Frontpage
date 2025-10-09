@@ -8,6 +8,7 @@ import { formatCurrency } from '@/utils/format';
 import { ParentModalType } from '@/types/components';
 import Link from 'next/link';
 import { AlertContexType } from '@/types/ui';
+
 interface ProductsPropsV1 {
   hidenRoutes?: string[];
   isHiden?: any;

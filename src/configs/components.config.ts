@@ -128,9 +128,3 @@ export const HistoryData: HistoryType[] = [
     totalprice: 20000,
   },
 ];
-
-export const ChairData: ChairType[] = [
-  {
-    chair: 20,
-  },
-];

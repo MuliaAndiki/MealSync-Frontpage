@@ -3,18 +3,16 @@ import ManageHeroSection from '@/components/section/private/restaurant/manege/he
 import Container from '@/components/ui/container';
 import { SidebarLayout } from '@/core/layouts/sidebar.layout';
 import { useCreateProduct, useDeleteProduct } from '@/hooks/mutation/restaurant/mutation';
-import { useGetProducts } from '@/hooks/mutation/restaurant/query';
+import DatasQuery from '@/hooks/mutation/props.hooks';
 import { useAlert } from '@/hooks/useAlert/costum-alert';
 import { FormCreateProducts } from '@/types/form';
 import { usePathname } from 'next/navigation';
 import { useState } from 'react';
 import { fileToBase64 } from '@/utils/base64';
 import { ParentModalType } from '@/types/components';
-import { useEffect } from 'react';
 
 const ManageContainer = () => {
-  const data = useGetProducts();
-  const productData = data.data?.data;
+  const data = DatasQuery.Restaurant();
   const pathname = usePathname();
   const deletet = useDeleteProduct();
   const create = useCreateProduct({
@@ -90,8 +88,9 @@ const ManageContainer = () => {
     <SidebarLayout>
       <Container className="w-full min-h-screen flex flex-col ">
         <ManageHeroSection
+          chair={data.ChairData ?? []}
           isHiden={pathname}
-          data={productData ?? []}
+          data={data.ProductData ?? []}
           formAddProduct={formAddProduct}
           setFormAddProduct={setFormAddProduct}
           onCategory={handleChangeCategory}

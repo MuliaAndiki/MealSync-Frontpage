@@ -57,7 +57,7 @@ export interface HistoryType {
 }
 
 export interface ChairType {
-  chair: number;
+  noChair: number;
 }
 
 type ModalType = 'Form';

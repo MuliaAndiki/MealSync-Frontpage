@@ -2,8 +2,8 @@ import { ChairType } from '@/types/components';
 import Box from './ui/box';
 import { Label } from '@radix-ui/react-label';
 
-const Chair: React.FC<ChairType> = ({ chair }) => {
-  const chairsArray = Array.from({ length: chair });
+const Chair: React.FC<ChairType> = ({ noChair }) => {
+  const chairsArray = Array.from({ length: noChair });
   return (
     <Box className="bg-[#2D1912] flex justify-center items-center flex-col rounded-lg p-4 ">
       <Label className="text-lg font-bold">Tempat Duduk</Label>

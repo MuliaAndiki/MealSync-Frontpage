@@ -17,6 +17,7 @@ import { useState } from 'react';
 import Chair from '@/components/chair';
 import FallbackChair from '@/components/fallback/chair';
 import FallbackProduct from '@/components/fallback/product';
+import OrdersRealtime from './orders-realtime';
 
 interface DashboardRestaurantProps {
   produtc: ProductsType[];
@@ -73,10 +74,11 @@ const DashboardRestaurantSection: React.FC<DashboardRestaurantProps> = ({
               )}
             </Box>
           </Box>
-          <Box className="flex justify-center items-start sticky  h-fit max-h-screen flex-col">
+          <Box className="flex justify-center items-start sticky  h-fit max-h-screen flex-col overflow-y-auto">
             <Box className="flex flex-col w-full gap-2">
               <CardProfile data={profile} />
               {chair.length > 0 ? <Chair chairs={chair} /> : <FallbackChair />}
+              {profile && profile._id && <OrdersRealtime restaurantId={profile._id} />}
             </Box>
           </Box>
         </Box>

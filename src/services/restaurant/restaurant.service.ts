@@ -46,11 +46,11 @@ class RestaurantApi {
   }
 
   async GetOrder(): Promise<TResponse<any>> {
-    const res = await AxiosClient.get('/api/restaurant/products/orders');
+    const res = await AxiosClient.get('/api/restaurant/orders');
     return res.data;
   }
   async GetOrderHistory(): Promise<TResponse<any>> {
-    const res = await AxiosClient.get('/api/restaurant/products/orders/history');
+    const res = await AxiosClient.get('/api/restaurant/orders/history');
     return res.data;
   }
 }

@@ -2,7 +2,7 @@ import Image from 'next/image';
 import Box from './ui/box';
 import Vector from './svg/private/vector';
 import { Label } from '@radix-ui/react-label';
-import { IconMapPin, IconPhone } from '@tabler/icons-react';
+import { IconMapPin, IconMail } from '@tabler/icons-react';
 import { CardProfileProps } from '@/types/props';
 import { Button } from './ui/button';
 import Link from 'next/link';
@@ -19,19 +19,22 @@ const CardProfile: React.FC<CardProfileProps & CardProfilePropsV1> = ({
 }) => {
   const path = hidenRoutes?.includes(isHiden);
   return (
-    <Box className="w-full bg-[#2D1912] h-auto  rounded-lg relative border">
-      <Image
-        alt="restaurant"
-        src={data.banner}
-        width={300}
-        height={300}
-        className="rounded-lg overflow-hidden"
-      />
-      <Box className="absolute top-25">
-        <Vector />
+    <Box className="w-full bg-[#2D1912] h-auto  rounded-lg relative ">
+      <Box className="relative">
+        <Image
+          alt="restaurant"
+          src={data.profile?.pitch}
+          width={450}
+          height={450}
+          className="rounded-lg overflow-hidden"
+        />
+        <Box className="absolute bottom-0 w-full translate-y-1 ">
+          <Vector />
+        </Box>
       </Box>
+
       <Box className="w-35 h-35  absolute flex rounded-full items-center justify-center -translate-y-15 ">
-        <Image alt="icon" width={200} height={200} src={data.logo} />
+        <Image alt="icon" width={200} height={200} src={data.profile?.logoUrl} />
       </Box>
       {path && (
         <Link href="/restaurant/dashboard/edit-profile">
@@ -40,25 +43,33 @@ const CardProfile: React.FC<CardProfileProps & CardProfilePropsV1> = ({
           </Button>
         </Link>
       )}
-      <Box className="flex justify-center items-center gap-2 mt-25 h-full p-2 flex-col">
-        <Label className="font-light  text-center">{data.desc}</Label>
+      <Box className="flex justify-center items-center gap-2 mt-15 h-full p-2 flex-col ">
+        <Box className="flex justify-between items-center p-2 w-full">
+          <Label className="text-lg font-extrabold">{data.name}</Label>
+
+          <Link href="#">
+            <Label className="text-lg">QR</Label>
+          </Link>
+        </Box>
+        <Label className="font-light  text-center">{data.profile?.description}</Label>
         <Box className="w-full bg-foreground rounded-lg p-1">
-          <Box className="flex justify-center text-background items-center gap-4">
+          <Box className="flex justify-start text-background items-center">
             <IconMapPin className="text-[var(--label)]" stroke={2} size={40} />
-            <Label className="text-[var(--label)]">{data.lokasi}</Label>
+            <Label className="text-[var(--label)]">{data.profile?.address}</Label>
           </Box>
         </Box>
         <Box className="w-full bg-foreground rounded-lg p-1">
           <Box className="flex justify-start text-background items-center gap-4">
-            <IconPhone stroke={2} size={30} className="text-[var(--label)]" />
-            <Label className="text-[var(--label)]">{data.phone}</Label>
+            <IconMail stroke={2} size={30} className="text-[var(--label)]" />
+            <Label className="text-[var(--label)]">{data.email}</Label>
           </Box>
         </Box>
-        <Box className="flex justify-between items-center gap-4">
+        {/* Certi */}
+        {/* <Box className="flex justify-between items-center gap-4">
           <Image alt="label" src={data.image.label1} width={90} height={90} />
           <Image alt="label" src={data.image.label2} width={90} height={90} />
           <Image alt="label" src={data.image.label3} width={90} height={90} />
-        </Box>
+        </Box> */}
       </Box>
     </Box>
   );

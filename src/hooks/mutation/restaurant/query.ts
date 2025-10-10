@@ -5,17 +5,20 @@ class RestaurantData {
   ProductData: any;
   ProductDataId: any;
   ChairData: any;
+  ProfileData: any;
   isLoading: boolean;
   isError: boolean;
   refetchAll: () => void;
   refetchById: () => void;
 
-  constructor(productsQuery: any, productByIdQuery: any, chairsQuery: any) {
+  constructor(productsQuery: any, productByIdQuery: any, chairsQuery: any, profilesQuery: any) {
     this.ProductData = productsQuery.data?.data ?? [];
     this.ChairData = chairsQuery.data?.data ?? [];
     this.ProductDataId = productByIdQuery.data?.data ?? null;
-    this.isLoading = productsQuery.isLoading || productByIdQuery.isLoading;
-    this.isError = productsQuery.isError || productByIdQuery.isError;
+    this.ProfileData = profilesQuery.data?.data ?? null;
+    this.isLoading =
+      productByIdQuery.isLoading || productsQuery.isLoading || profilesQuery.isLoading;
+    this.isError = productsQuery.isError || productByIdQuery.isError || profilesQuery.isError;
     this.refetchAll = productsQuery.refetch;
     this.refetchById = productByIdQuery.refetch;
   }
@@ -41,5 +44,11 @@ export function useRestaurantData(id?: string) {
     staleTime: 1000 * 60 * 5,
   });
 
-  return new RestaurantData(productsQuery, productByIdQuery, chairsQuery);
+  const profilesQuery = useQuery({
+    queryKey: ['profile', 'restaurant'],
+    queryFn: () => Api.Restaurant.GetProfileRestaurant(),
+    staleTime: 1000 * 60 * 5,
+  });
+
+  return new RestaurantData(productsQuery, productByIdQuery, chairsQuery, profilesQuery);
 }

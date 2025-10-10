@@ -80,6 +80,7 @@ const Product: React.FC<ProductsProps & ProductsPropsV1> = ({
               className=" font-bold"
               variant={'destructive'}
               onClick={() => {
+                setSelectId!(data._id);
                 alert?.confirm({
                   title: 'Yakin?!',
                   deskripsi: 'Apakah Kamu Yakin Menhapus Product Ini?',

@@ -3,13 +3,13 @@ import View from '@/components/ui/view';
 import Image from 'next/image';
 import { Input } from '@/components/ui/input';
 import Product from '@/components/products';
-import { ChairType, ParentModalType, ProductsType } from '@/types/components';
+import { CardProfileType, ChairType, ParentModalType, ProductsType } from '@/types/components';
 import React, { useState } from 'react';
 import PopUp from '@/core/components/pop-up';
 import { Label } from '@radix-ui/react-label';
 import { Button } from '@/components/ui/button';
 import { IconMenu2, IconX } from '@tabler/icons-react';
-import { FormCreateProducts } from '@/types/form';
+import { FormCreateChair, FormCreateProducts } from '@/types/form';
 import {
   Select,
   SelectContent,
@@ -22,15 +22,18 @@ import { Textarea } from '@/components/ui/textarea';
 import UploadsTrigger from '@/utils/uploadsTriger';
 import { AlertContexType } from '@/types/ui';
 import CardProfile from '@/components/card-profile';
-import { CardProfileData } from '@/configs/components.config';
-import Chair from '@/components/chair';
+import Chairs from '@/components/chair';
+import FallbackChair from '@/components/fallback/chair';
+import FallbackProduct from '@/components/fallback/product';
 
 interface ManageProps {
   isHiden?: any;
-  data: ProductsType[];
+  product: ProductsType[];
   chair: ChairType[];
   formAddProduct: FormCreateProducts;
   setFormAddProduct: React.Dispatch<React.SetStateAction<FormCreateProducts>>;
+  formCreateChair: FormCreateChair;
+  setFormCreateChair: React.Dispatch<React.SetStateAction<FormCreateChair>>;
   onAdd?: () => void;
   isPending?: boolean;
   onPictChange?: (e: any) => void;
@@ -39,14 +42,17 @@ interface ManageProps {
   setPreview?: React.Dispatch<React.SetStateAction<string | null>>;
   isOpenModal: ParentModalType;
   setIsOpenModal: React.Dispatch<React.SetStateAction<ParentModalType>>;
-  setSeletId?: React.Dispatch<React.SetStateAction<string>>;
+  setSeletIdProduct?: React.Dispatch<React.SetStateAction<string>>;
   onDelete?: (_id: string) => void;
   alert?: AlertContexType;
+  onChair?: () => void;
+  onDeleteChair?: (_id: string) => void;
+  profile: CardProfileType;
 }
 
 const ManageHeroSection: React.FC<ManageProps> = ({
   isHiden,
-  data,
+  product,
   formAddProduct,
   setFormAddProduct,
   onAdd,
@@ -56,10 +62,15 @@ const ManageHeroSection: React.FC<ManageProps> = ({
   preview,
   isOpenModal,
   setIsOpenModal,
-  setSeletId,
+  setSeletIdProduct,
   onDelete,
   alert,
   chair,
+  onChair,
+  profile,
+  formCreateChair,
+  setFormCreateChair,
+  onDeleteChair,
 }) => {
   return (
     <View>
@@ -74,7 +85,7 @@ const ManageHeroSection: React.FC<ManageProps> = ({
               className="rounded-lg "
             />
 
-            <Box className="bg-[#2D1912] w-full rounded-t-2xl flex justify-center items-center p-4 flex-col">
+            <Box className="bg-[#2D1912] w-full  flex justify-center items-center p-4 flex-col">
               <Box className="flex justify-end items-center gap-4 w-full ">
                 <Button
                   variant={'destructive'}
@@ -86,38 +97,88 @@ const ManageHeroSection: React.FC<ManageProps> = ({
                 </Button>
               </Box>
               <Box className="grid grid-cols-5 grid-rows-1 gap-4 items-center w-full ">
-                {data.map((items, key) => (
-                  <Product
-                    key={key}
-                    data={items}
-                    hidenRoutes={['/restaurant/dashboard/manage']}
-                    isHiden={isHiden}
-                    isOpenModal={isOpenModal}
-                    setIsOpenModal={setIsOpenModal}
-                    setSelectId={setSeletId}
-                    onDelete={onDelete}
-                    alert={alert}
-                  />
-                ))}
+                {product && product.length > 0 ? (
+                  product.map((items, key) => (
+                    <Product
+                      key={key}
+                      data={items}
+                      hidenRoutes={['/restaurant/dashboard/manage']}
+                      isHiden={isHiden}
+                      isOpenModal={isOpenModal}
+                      setIsOpenModal={setIsOpenModal}
+                      setSelectId={setSeletIdProduct}
+                      onDelete={onDelete}
+                      alert={alert}
+                    />
+                  ))
+                ) : (
+                  <FallbackProduct />
+                )}
               </Box>
             </Box>
           </Box>
           <Box className="flex justify-center items-start sticky  h-full max-h-screen px-3">
             <Box className="flex flex-col w-full gap-2">
-              {CardProfileData.map((items, key) => (
-                <CardProfile
-                  key={key}
-                  data={items}
-                  isHiden={isHiden}
+              <CardProfile
+                data={profile}
+                isHiden={isHiden}
+                hidenRoutes={['/restaurant/dashboard/manage']}
+              />
+
+              {chair.length > 0 ? (
+                <Chairs
+                  chairs={chair}
                   hidenRoutes={['/restaurant/dashboard/manage']}
+                  isHiden={isHiden}
+                  setOpenModal={setIsOpenModal}
+                  alert={alert}
+                  onDeleteChair={onDeleteChair}
                 />
-              ))}
-              {chair.map((items, key) => (
-                <Chair key={key} noChair={items.noChair} />
-              ))}
+              ) : (
+                <FallbackChair
+                  hidenRoutes={['/restaurant/dashboard/manage']}
+                  setIsOpenModal={setIsOpenModal}
+                  isOpenModal={isOpenModal}
+                  isHiden={isHiden}
+                />
+              )}
             </Box>
           </Box>
         </Box>
+
+        <PopUp isOpen={isOpenModal === 'Chair'} onClose={() => setIsOpenModal(null)}>
+          <View className="w-full h-full">
+            <Box className="flex justify-center items-center flex-col">
+              <Box className="flex justify-between items-center w-full">
+                <Label className="text-lg font-semibold">Tambahakan Kursi :</Label>
+                <IconX onClick={() => setIsOpenModal(null)} className="cursor-pointer" />
+              </Box>
+              <Box className="flex flex-col justify-center items-start w-full mt-2">
+                <Label className="text-lg font-bold">Nomor:</Label>
+                <Input
+                  inputMode="numeric"
+                  value={formCreateChair.noChair}
+                  type="number"
+                  onChange={(e) =>
+                    setFormCreateChair((prev) => {
+                      const newObj = { ...prev, noChair: Number(e.target.value) };
+                      return newObj;
+                    })
+                  }
+                />
+              </Box>
+              <Button
+                variant={'native'}
+                onClick={() => onChair!()}
+                disabled={isPending}
+                className="w-full my-2"
+              >
+                {isPending ? 'Loading' : 'Tambahakan'}
+              </Button>
+              {/* Penjelasan  */}
+            </Box>
+          </View>
+        </PopUp>
 
         <PopUp isOpen={isOpenModal === 'Add'} onClose={() => setIsOpenModal(null)}>
           <View className="w-full h-full">

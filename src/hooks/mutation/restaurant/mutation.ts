@@ -102,7 +102,33 @@ export function useCreateChair(options?: { onAfterSucces?: () => void }) {
       console.error(err);
       alert.toast({
         title: 'Error',
-        message: 'Failed Update Profile',
+        message: 'Gagal Bikin Kursi',
+        icon: 'error',
+      });
+    },
+  });
+}
+
+export function useDeleteChair(options?: { onAfterSucces?: () => void }) {
+  const { alert, queryClient } = useAppNameSpase();
+  return useMutation<TResponse<any>, Error, string>({
+    mutationFn: (_id) => Api.Restaurant.DeleteChair(_id),
+    onSuccess: () => {
+      alert.toast({
+        title: 'Succes',
+        message: 'Kursi Berhasil Di Hapus',
+        icon: 'success',
+        onVoid: () => {
+          options?.onAfterSucces?.();
+          queryClient.invalidateQueries({ queryKey: ['chair'], exact: false });
+        },
+      });
+    },
+    onError: (err) => {
+      console.error(err);
+      alert.toast({
+        title: 'Error',
+        message: 'Gagal Delete Kursi',
         icon: 'error',
       });
     },

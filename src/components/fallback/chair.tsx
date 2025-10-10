@@ -1,0 +1,38 @@
+import { Label } from '@radix-ui/react-dropdown-menu';
+import Box from '../ui/box';
+import View from '../ui/view';
+import { IconArmchairOff } from '@tabler/icons-react';
+import { Button } from '../ui/button';
+import { ParentModalType } from '@/types/components';
+
+interface FallbackProps {
+  hidenRoutes?: string[];
+  isHiden?: any;
+  isOpenModal?: ParentModalType;
+  setIsOpenModal?: React.Dispatch<React.SetStateAction<ParentModalType>>;
+}
+
+const FallbackChair: React.FC<FallbackProps> = ({ hidenRoutes, isHiden, setIsOpenModal }) => {
+  const path = hidenRoutes?.includes(isHiden);
+  return (
+    <View className="w-full h-full">
+      <Box className="flex w-full justify-center items-center bg-[#2D1912] rounded-lg">
+        <Box className="flex justify-center items-center flex-col gap-3 my-2">
+          <Label className="text-2xl font-extrabold">Kamu Tidak Memiliki Kursi</Label>
+          <IconArmchairOff size={100} />
+          {path && (
+            <Button
+              variant={'glass'}
+              className="text-lg font-bold"
+              onClick={() => setIsOpenModal!('Chair')}
+            >
+              Tambahkan Kursi
+            </Button>
+          )}
+        </Box>
+      </Box>
+    </View>
+  );
+};
+
+export default FallbackChair;

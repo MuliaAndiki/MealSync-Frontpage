@@ -8,6 +8,7 @@ import { Input } from '@/components/ui/input';
 import { ParentModalType, ProductsType } from '@/types/components';
 import { useState } from 'react';
 import PopUp from '@/core/components/pop-up';
+import FallbackProduct from '@/components/fallback/product';
 interface MenuProps {
   category: 'Makanan' | 'Minuman';
   setCategory: React.Dispatch<React.SetStateAction<'Makanan' | 'Minuman'>>;
@@ -42,16 +43,20 @@ const MenuHeroSection: React.FC<MenuProps> = ({ category, setCategory, products 
           </Box>
 
           <Box className="grid grid-cols-5 p-2 grid-rows-1 gap-4  items-center w-full my-4">
-            {products
-              .filter((item) => item.category.toLowerCase() === category.toLowerCase())
-              .map((items, key) => (
-                <Product
-                  data={items}
-                  key={key}
-                  isOpenModal={isOpenModal}
-                  setIsOpenModal={setIsOpenModal}
-                />
-              ))}
+            {products && products.length > 0 ? (
+              products
+                .filter((item) => item.category.toLowerCase() === category.toLowerCase())
+                .map((items, key) => (
+                  <Product
+                    data={items}
+                    key={key}
+                    isOpenModal={isOpenModal}
+                    setIsOpenModal={setIsOpenModal}
+                  />
+                ))
+            ) : (
+              <FallbackProduct />
+            )}
           </Box>
         </Box>
         <PopUp isOpen={isOpenModal === 'Form'} onClose={() => setIsOpenModal(null)}>

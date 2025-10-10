@@ -1,7 +1,6 @@
 import Box from '@/components/ui/box';
 import View from '@/components/ui/view';
 import Image from 'next/image';
-import { CardProfileData } from '@/configs/components.config';
 import Product from '@/components/products';
 import {
   Carousel,
@@ -12,17 +11,24 @@ import {
 } from '@/components/ui/carousel';
 import { Label } from '@radix-ui/react-label';
 import CardProfile from '@/components/card-profile';
-import { ChairType, ParentModalType, ProductsType } from '@/types/components';
+import { CardProfileType, ChairType, ParentModalType, ProductsType } from '@/types/components';
 import PopUp from '@/core/components/pop-up';
 import { useState } from 'react';
 import Chair from '@/components/chair';
+import FallbackChair from '@/components/fallback/chair';
+import FallbackProduct from '@/components/fallback/product';
 
 interface DashboardRestaurantProps {
   produtc: ProductsType[];
-  noChair: ChairType[];
+  chair: ChairType[];
+  profile: CardProfileType;
 }
 
-const DashboardRestaurantSection: React.FC<DashboardRestaurantProps> = ({ produtc, noChair }) => {
+const DashboardRestaurantSection: React.FC<DashboardRestaurantProps> = ({
+  produtc,
+  chair,
+  profile,
+}) => {
   const [isOpenModal, setIsOpenModal] = useState<ParentModalType>(null);
   return (
     <View>
@@ -53,24 +59,24 @@ const DashboardRestaurantSection: React.FC<DashboardRestaurantProps> = ({ produt
               <Label className="font-extrabold">Menu Populer</Label>
             </Box>
             <Box className="grid grid-cols-4 grid-rows-1 gap-4 items-center w-full my-4">
-              {produtc.map((items, key) => (
-                <Product
-                  data={items}
-                  key={key}
-                  isOpenModal={isOpenModal}
-                  setIsOpenModal={setIsOpenModal}
-                />
-              ))}
+              {produtc && produtc.length > 0 ? (
+                produtc.map((items, key) => (
+                  <Product
+                    data={items}
+                    key={key}
+                    isOpenModal={isOpenModal}
+                    setIsOpenModal={setIsOpenModal}
+                  />
+                ))
+              ) : (
+                <FallbackProduct />
+              )}
             </Box>
           </Box>
           <Box className="flex justify-center items-start sticky  h-fit max-h-screen flex-col">
             <Box className="flex flex-col w-full gap-2">
-              {CardProfileData.map((items, key) => (
-                <CardProfile key={key} data={items} />
-              ))}
-              {noChair.map((items, key) => (
-                <Chair key={key} noChair={items.noChair} />
-              ))}
+              <CardProfile data={profile} />
+              {chair.length > 0 ? <Chair chairs={chair} /> : <FallbackChair />}
             </Box>
           </Box>
         </Box>

@@ -10,11 +10,6 @@ export interface FormRegisterType {
   fullName: string;
 }
 
-export interface FormCreateChair {
-  noChair: number;
-  status: string;
-}
-
 export interface FormEditProfile {
   address: string;
   description: string;
@@ -22,7 +17,7 @@ export interface FormEditProfile {
 }
 
 export interface FormCreateChair {
-  noChair: number;
+  noChair: number | undefined;
 }
 
 export const FormCreateProductsSchema = z.object({

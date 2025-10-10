@@ -27,16 +27,19 @@ export interface ProductsType {
 }
 
 export interface CardProfileType {
-  banner: string;
-  logo: string;
-  desc: string;
-  lokasi: string;
-  phone: string;
-  image: {
-    label1: string;
-    label2: string;
-    label3: string;
+  _id: string;
+  profile: {
+    address: string;
+    description: string;
+    profile: string;
+    logoUrl: string;
+    banner: string;
+    pitch: string;
+    vocher: string;
   };
+  name: string;
+  email: string;
+  uniqueUrl: string;
 }
 
 export interface MenusType {
@@ -57,9 +60,11 @@ export interface HistoryType {
 }
 
 export interface ChairType {
+  _id: string;
   noChair: number;
+  status: string;
 }
 
 type ModalType = 'Form';
 
-export type ParentModalType = ModalType | 'Add' | 'Edit' | null;
+export type ParentModalType = ModalType | 'Add' | 'Chair' | null;

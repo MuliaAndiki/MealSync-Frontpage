@@ -31,6 +31,14 @@ class RestaurantApi {
     const res = await AxiosClient.post(`/api/restaurant/chair`, payload);
     return res.data;
   }
+  async GetProfileRestaurant(): Promise<TResponse<any>> {
+    const res = await AxiosClient.get('/api/restaurant/profile');
+    return res.data;
+  }
+  async DeleteChair(_id: string): Promise<TResponse<any>> {
+    const res = await AxiosClient.delete(`/api/restaurant/chair/${_id}`);
+    return res.data;
+  }
   // Min Intergrate
   async EditProfile(): Promise<TResponse<any>> {
     const res = await AxiosClient.put('/api/restaurant/products/profile');

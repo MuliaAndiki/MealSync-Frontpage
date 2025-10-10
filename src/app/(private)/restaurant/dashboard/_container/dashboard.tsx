@@ -12,7 +12,8 @@ const DashboardRestaurantContainer = () => {
       <Container className="w-full min-h-screen flex flex-col">
         <DashboardRestaurantSection
           produtc={data.ProductData ?? []}
-          noChair={data.ChairData ?? []}
+          chair={data.ChairData ?? []}
+          profile={data.ProfileData ?? []}
         />
       </Container>
     </SidebarLayout>

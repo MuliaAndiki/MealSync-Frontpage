@@ -68,21 +68,6 @@ export const SponsorData: SponsorType[] = [
   },
 ];
 
-export const CardProfileData: CardProfileType[] = [
-  {
-    banner: '/images/restaurant.svg',
-    desc: 'Kami menghadirkan rasa dengan sentuhan seni dan inovasi, agar setiap piring menjadi pengalaman baru yang tak terlupakan',
-    logo: '/images/logo2.svg',
-    lokasi: 'Lorong Tunggai V, Lamgugob, Kec. Syiah Kuala.',
-    phone: '082216903771',
-    image: {
-      label1: '/images/logo4.svg',
-      label2: '/images/logo4.svg',
-      label3: '/images/logo4.svg',
-    },
-  },
-];
-
 export const MenuData: MenusType[] = [
   {
     title: 'Home',

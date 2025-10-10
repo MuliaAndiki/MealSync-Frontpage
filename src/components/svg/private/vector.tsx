@@ -1,8 +1,7 @@
 const Vector = () => {
   return (
     <svg
-      width="380"
-      height="204"
+      className="w-full h-full"
       viewBox="0 0 380 204"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"

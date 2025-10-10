@@ -2,10 +2,15 @@
 import ManageHeroSection from '@/components/section/private/restaurant/manege/hero-section';
 import Container from '@/components/ui/container';
 import { SidebarLayout } from '@/core/layouts/sidebar.layout';
-import { useCreateProduct, useDeleteProduct } from '@/hooks/mutation/restaurant/mutation';
+import {
+  useCreateChair,
+  useCreateProduct,
+  useDeleteChair,
+  useDeleteProduct,
+} from '@/hooks/mutation/restaurant/mutation';
 import DatasQuery from '@/hooks/mutation/props.hooks';
 import { useAlert } from '@/hooks/useAlert/costum-alert';
-import { FormCreateProducts } from '@/types/form';
+import { FormCreateChair, FormCreateProducts } from '@/types/form';
 import { usePathname } from 'next/navigation';
 import { useState } from 'react';
 import { fileToBase64 } from '@/utils/base64';
@@ -15,7 +20,13 @@ const ManageContainer = () => {
   const data = DatasQuery.Restaurant();
   const pathname = usePathname();
   const deletet = useDeleteProduct();
-  const create = useCreateProduct({
+  const deleteChair = useDeleteChair();
+  const createProduct = useCreateProduct({
+    onAfterSucces: () => {
+      setIsOpenModal(null);
+    },
+  });
+  const createChair = useCreateChair({
     onAfterSucces: () => {
       setIsOpenModal(null);
     },
@@ -24,13 +35,18 @@ const ManageContainer = () => {
   const [preview, setPreview] = useState<string | null>(null);
   const [isOpenModal, setIsOpenModal] = useState<ParentModalType>(null);
   // Ada Id
-  const [selectId, setSelectId] = useState<string>('');
+  const [selectIdProduct, setSelectIdProduct] = useState<string>('');
+
   const [formAddProduct, setFormAddProduct] = useState<FormCreateProducts>({
     category: '',
     pictProduct: null,
     name: '',
     price: 0,
     description: '',
+  });
+
+  const [formCreateChair, setFormCreateChair] = useState<FormCreateChair>({
+    noChair: undefined,
   });
 
   const handleChangeCategory = (e: string) => {
@@ -70,7 +86,7 @@ const ManageContainer = () => {
       return;
     }
 
-    create.mutate(formAddProduct);
+    createProduct.mutate(formAddProduct);
   };
 
   const handleDeleteProduct = (id: string) => {
@@ -84,25 +100,55 @@ const ManageContainer = () => {
     }
     deletet.mutate(id);
   };
+
+  const handleCreateChair = () => {
+    if (!formCreateChair.noChair) {
+      alert.toast({
+        title: 'Warning',
+        message: 'Mohon Cek Kembali',
+        icon: 'warning',
+      });
+      return;
+    }
+    return createChair.mutate(formCreateChair);
+  };
+
+  const handleDeleteChair = (id: string) => {
+    if (!id) {
+      alert.toast({
+        title: 'Warning',
+        message: 'Mohon Cek Kembali ',
+        icon: 'warning',
+      });
+      return;
+    }
+    deleteChair.mutate(id);
+  };
+
   return (
     <SidebarLayout>
       <Container className="w-full min-h-screen flex flex-col ">
         <ManageHeroSection
           chair={data.ChairData ?? []}
+          profile={data.ProfileData ?? []}
           isHiden={pathname}
-          data={data.ProductData ?? []}
+          product={data.ProductData ?? []}
           formAddProduct={formAddProduct}
           setFormAddProduct={setFormAddProduct}
           onCategory={handleChangeCategory}
-          isPending={create.isPending}
+          isPending={createProduct.isPending}
           onAdd={() => handleCreateProducts()}
           onPictChange={handleChangePict}
           preview={preview}
           isOpenModal={isOpenModal}
           setIsOpenModal={setIsOpenModal}
-          setSeletId={setSelectId}
+          setSeletIdProduct={setSelectIdProduct}
           onDelete={handleDeleteProduct}
           alert={alert}
+          formCreateChair={formCreateChair}
+          setFormCreateChair={setFormCreateChair}
+          onChair={() => handleCreateChair()}
+          onDeleteChair={handleDeleteChair}
         />
       </Container>
     </SidebarLayout>

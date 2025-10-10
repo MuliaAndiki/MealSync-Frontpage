@@ -9,7 +9,6 @@ import DatasQuery from '@/hooks/mutation/props.hooks';
 import { FormCreateProducts } from '@/types/form';
 import { fileToBase64 } from '@/utils/base64';
 import { useUpdateProducts } from '@/hooks/mutation/restaurant/mutation';
-import { flattenToFormData } from '@/utils/form-data.util';
 
 const EditMenuContainer = () => {
   const params = useParams();

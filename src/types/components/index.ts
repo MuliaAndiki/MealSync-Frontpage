@@ -3,12 +3,6 @@ export interface SosmedType {
   value: string;
 }
 
-export interface RestaurantCardType {
-  image: string;
-  title: string;
-  button: string;
-}
-
 export interface SponsorType {
   image: string;
   title: string;
@@ -24,6 +18,13 @@ export interface ProductsType {
   rating: number;
   count: number;
   category: string;
+  isAvailable: boolean;
+}
+
+export interface RestaurantCardType {
+  image: string;
+  title: string;
+  button: string;
 }
 
 export interface CardProfileType {

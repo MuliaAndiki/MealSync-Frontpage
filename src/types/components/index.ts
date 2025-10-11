@@ -66,6 +66,18 @@ export interface ChairType {
   status: string;
 }
 
+export interface CartType {
+  _id: string;
+  userId: string;
+  items: {
+    _id: string;
+    quantity: number;
+    subtotal: number;
+    product: ProductsType;
+  }[];
+  total: number;
+}
+
 export interface UniqueUrlProfileType {
   restaurant: {
     _id: string;

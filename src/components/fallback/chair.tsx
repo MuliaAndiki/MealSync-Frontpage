@@ -20,8 +20,8 @@ const FallbackChair: React.FC<FallbackProps> = ({ hidenRoutes, isHiden, setIsOpe
     <View className="w-full h-full">
       <Box className="flex w-full justify-center items-center bg-[#2D1912] rounded-lg">
         <Box className="flex justify-center items-center flex-col gap-3 my-2">
-          <Label className="text-2xl font-extrabold">Kamu Tidak Memiliki Kursi</Label>
-          <IconArmchairOff size={100} />
+          <Label className="text-lg font-extrabold  ">Kamu Tidak Memiliki Kursi</Label>
+          <IconArmchairOff size={70} />
           {path && (
             <Button
               variant={'glass'}

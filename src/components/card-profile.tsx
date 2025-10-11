@@ -1,5 +1,5 @@
 import { Label } from '@radix-ui/react-label';
-import { IconMail,IconMapPin } from '@tabler/icons-react';
+import { IconMail, IconMapPin } from '@tabler/icons-react';
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -41,7 +41,7 @@ const CardProfile: React.FC<CardProfileProps & CardProfilePropsV1> = ({
       {path && (
         <Link href="/restaurant/dashboard/edit-profile">
           <Button variant="glass" className="absolute right-1/12 translate-y-5">
-            Manajemnt Profile
+            Profile
           </Button>
         </Link>
       )}

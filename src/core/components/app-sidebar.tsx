@@ -38,7 +38,7 @@ export function AppSidebar() {
     <Sidebar collapsible="icon" className="border-r">
       <SidebarHeader className="border-b p-4 h-20 flex justify-center">
         {isCollapsed ? (
-          <SidebarTrigger className="flex justify-center items-center">
+          <SidebarTrigger className="flex justify-center  items-center">
             <Image src="/images/logo.svg" alt="Logo" width={200} height={200} />
           </SidebarTrigger>
         ) : (
@@ -89,14 +89,13 @@ export function AppSidebar() {
                   );
                 })}
               </SidebarMenu>
-              <SidebarMenu className="w-full">
-                <Box className="flex justify-start items-center gap-4">
-                  <Settings className="h-3 w-3 lg:h-5 lg:w-5" />
-                  <Label className="text-base lg:text-lg">Pengaturan</Label>
+              <SidebarMenu className="w-full flex justify-center items-center gap-2">
+                <Box className="flex justify-center items-start gap-4">
+                  {!isCollapsed ? 'Pengaturan' : <Settings />}
                 </Box>
                 <Button
                   variant={'destructive'}
-                  className="font-semibold"
+                  className="font-semibold w-full"
                   onClick={() => logout.mutate({})}
                   disabled={logout.isPending}
                 >

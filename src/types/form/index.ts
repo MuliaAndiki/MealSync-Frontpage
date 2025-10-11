@@ -29,6 +29,14 @@ export interface FormCreateOrder {
   chairNo: number;
 }
 
+export interface FormAddCart {
+  quantity: number | null;
+}
+
+export interface FormUpdateCart {
+  quantity: number;
+}
+
 export const FormCreateProductsSchema = z.object({
   name: z.string().min(1, 'Nama produk wajib diisi'),
   price: z.number().min(1, 'Harga harus lebih dari 0'),

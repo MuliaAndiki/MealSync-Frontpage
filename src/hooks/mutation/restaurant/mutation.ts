@@ -15,7 +15,7 @@ export function useCreateProduct(options?: { onAfterSucces?: () => void }) {
         message: 'Product Berhasil Dibikin',
         icon: 'success',
         onVoid: () => {
-          queryClient.invalidateQueries({ queryKey: ['products'], exact: false });
+          queryClient.invalidateQueries({ predicate: (query) => query.queryKey[0] === 'products' });
           options?.onAfterSucces?.();
         },
       });
@@ -41,7 +41,7 @@ export function useDeleteProduct(options?: { onAfterSucces?: () => void }) {
         message: 'Berhasil Delete Product',
         icon: 'success',
         onVoid: () => {
-          queryClient.invalidateQueries({ queryKey: ['products'], exact: false });
+          queryClient.invalidateQueries({ predicate: (query) => query.queryKey[0] === 'products' });
           options?.onAfterSucces?.();
         },
       });
@@ -69,7 +69,7 @@ export function useUpdateProducts(options?: { onAfterSucces?: () => void }) {
         icon: 'success',
         onVoid: () => {
           options?.onAfterSucces?.();
-          queryClient.invalidateQueries({ queryKey: ['products'], exact: false });
+          queryClient.invalidateQueries({ predicate: (query) => query.queryKey[0] === 'products' });
         },
       });
     },
@@ -95,7 +95,7 @@ export function useCreateChair(options?: { onAfterSucces?: () => void }) {
         icon: 'success',
         onVoid: () => {
           options?.onAfterSucces?.();
-          queryClient.invalidateQueries({ queryKey: ['chair'], exact: false });
+          queryClient.invalidateQueries({ predicate: (query) => query.queryKey[0] === 'chair' });
         },
       });
     },
@@ -121,7 +121,7 @@ export function useDeleteChair(options?: { onAfterSucces?: () => void }) {
         icon: 'success',
         onVoid: () => {
           options?.onAfterSucces?.();
-          queryClient.invalidateQueries({ queryKey: ['chair'], exact: false });
+          queryClient.invalidateQueries({ predicate: (query) => query.queryKey[0] === 'chair' });
         },
       });
     },
@@ -148,7 +148,7 @@ export function useEditProfile(options?: { onAfterSucces?: () => void }) {
         icon: 'success',
         onVoid: () => {
           options?.onAfterSucces?.();
-          queryClient.invalidateQueries({ queryKey: ['products'], exact: false });
+          queryClient.invalidateQueries({ predicate: (query) => query.queryKey[0] === 'profile' });
         },
       });
     },

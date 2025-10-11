@@ -1,7 +1,7 @@
 'use client';
 import { Html5Qrcode } from 'html5-qrcode';
 import { useRouter } from 'next/navigation';
-import { useEffect,useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import toast from 'react-hot-toast';
 
 import DashboardUserSection from '@/components/section/private/user/dashboard/hero-section';
@@ -69,7 +69,7 @@ const DashboardUserContainer = () => {
 
       if (response?.data?.restaurant) {
         toast.success(`Mengarahkan ke ${response.data.restaurant.name}...`);
-        router.push(`/user/dsahboard/restaurant/${uniqueUrl}`);
+        router.push(`/user/dashboard/restaurant/${uniqueUrl}`);
       } else {
         toast.error('QR Code tidak valid. Restaurant tidak ditemukan.');
         setQrResult(null);

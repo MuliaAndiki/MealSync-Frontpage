@@ -1,36 +1,46 @@
 'use client';
 
+import { useEffect, useState } from 'react';
+
+import Cart from '@/components/cart';
 import Box from '@/components/ui/box';
-import { SidebarInset,SidebarProvider } from '@/components/ui/sidebar';
+import { SidebarInset, SidebarProvider } from '@/components/ui/sidebar';
 import View from '@/components/ui/view';
 import { AppSidebar } from '@/core/components/app-sidebar';
+import DatasQuery from '@/hooks/mutation/props.hooks';
+import {
+  useDeleteAllCartItem,
+  useDeleteCartItem,
+  useUpdateCartItem,
+} from '@/hooks/mutation/user/mutation';
 
 import LanguageDropdown from '../components/language.dropdown';
-import NotificationDropdown from '../components/notification.dropdown';
 import ThemeToggle from '../components/theme-toggle';
-// import UserDropdown from '../components/user.dropdown';
-
-// import AppBar from "../components/app-bar";
 
 interface AppLayoutProps {
   children: React.ReactNode;
 }
 
 export function SidebarLayout({ children }: AppLayoutProps) {
-  //   const [isScrolled, setIsScrolled] = useState(false);
+  const data = DatasQuery.User();
+  const deleteAll = useDeleteAllCartItem();
+  const itemCount = data?.chartData?.items?.length ?? 0;
+  const [selectId, setSelectId] = useState<string | null>(null);
+  const deleteCart = useDeleteCartItem();
+  const updateCart = useUpdateCartItem();
 
-  //   useEffect(() => {
-  //     const handleScroll = () => {
-  //       if (window.scrollY > 0) {
-  //         setIsScrolled(true);
-  //       } else {
-  //         setIsScrolled(false);
-  //       }
-  //     };
+  const handleDeleteAllCart = () => {
+    deleteAll.mutate({});
+  };
 
-  //     window.addEventListener('scroll', handleScroll);
-  //     return () => window.removeEventListener('scroll', handleScroll);
-  //   }, []);
+  const handleDeleteCart = () => {
+    deleteCart.mutate({ _id: selectId! });
+  };
+
+  const handleUpdateQuantity = (_id: string, newQuantity: number) => {
+    if (newQuantity < 1) return;
+    updateCart.mutate({ _id, quantity: newQuantity });
+  };
 
   return (
     <SidebarProvider defaultOpen>
@@ -43,13 +53,19 @@ export function SidebarLayout({ children }: AppLayoutProps) {
                 <Box className="flex items-center gap-4">
                   <ThemeToggle />
                   <LanguageDropdown />
-                  <NotificationDropdown />
-                  {/* <UserDropdown /> */}
+                  <Cart
+                    content={data.chartData}
+                    onDeleteAll={() => handleDeleteAllCart()}
+                    isPending={deleteAll.isPending || updateCart.isPending}
+                    itemCount={itemCount}
+                    setSelectId={setSelectId}
+                    onDelete={handleDeleteCart}
+                    handleUpdate={handleUpdateQuantity}
+                  />
                 </Box>
               </Box>
             </Box>
 
-            {/* Content */}
             <Box className="flex-1 overflow-auto w-full">
               <Box className=" h-full  w-full mx-auto max-w-none p-[1rem]">{children}</Box>
             </Box>

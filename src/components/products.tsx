@@ -38,7 +38,7 @@ const Product: React.FC<ProductsProps & ProductsPropsV1> = ({
         src={data.pictProduct}
         width={200}
         height={200}
-        className="object-cover aspect-square"
+        className="object-cover aspect-square rounded-lg"
       />
       <Box className="flex mt-2 gap-1">
         {Array.from({ length: 5 }).map((_, key) => (
@@ -60,16 +60,16 @@ const Product: React.FC<ProductsProps & ProductsPropsV1> = ({
         </Box>
         {!path ? (
           <Box className="flex justify-between items-center rounded-lg gap-2">
-            <Button variant={'glass'} onClick={() => setIsOpenModal!('Form')} className="font-bold">
+            <Button
+              variant={'glass'}
+              onClick={() => {
+                setIsOpenModal!('Form');
+                setSelectId!(data._id);
+              }}
+              className="font-bold"
+            >
               Tambahkan Keranjang
             </Button>
-            {/* <Button variant={'destructive'} className="h-7 w-7" onClick={() => onDeccrement!()}>
-              -
-            </Button>
-            <Label className="font-bold text-[var(--labelhi)]">{data.count}</Label>
-            <Button variant={'native'} className="h-7 w-7" onClick={() => onIncrement!()}>
-              +
-            </Button> */}
           </Box>
         ) : (
           <Box className="flex flex-col justify-center w-full gap-2 ">

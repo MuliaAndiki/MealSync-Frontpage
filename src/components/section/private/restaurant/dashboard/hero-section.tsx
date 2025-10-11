@@ -19,7 +19,7 @@ import View from '@/components/ui/view';
 import PopUp from '@/core/components/pop-up';
 import { CardProfileType, ChairType, ParentModalType, ProductsType } from '@/types/components';
 
-import OrdersRealtime from './orders-realtime';
+// import OrdersRealtime from './orders-realtime';
 
 interface DashboardRestaurantProps {
   produtc: ProductsType[];
@@ -80,7 +80,7 @@ const DashboardRestaurantSection: React.FC<DashboardRestaurantProps> = ({
             <Box className="flex flex-col w-full gap-2">
               <CardProfile data={profile} />
               {chair.length > 0 ? <Chair chairs={chair} /> : <FallbackChair />}
-              {profile && profile._id && <OrdersRealtime restaurantId={profile._id} />}
+              {/* {profile && profile._id && <OrdersRealtime restaurantId={profile._id} />} */}
             </Box>
           </Box>
         </Box>

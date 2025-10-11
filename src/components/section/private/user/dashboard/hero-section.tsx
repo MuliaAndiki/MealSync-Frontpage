@@ -24,7 +24,7 @@ const DashboardUserSection: React.FC<DashboardUserProps> = ({
   return (
     <View>
       <Box className="flex min-h-screen flex-col justify-center items-center gap-6 p-4">
-        <Box className="text-center">
+        <Box className="text-center  flex flex-col">
           <Label className="text-4xl md:text-5xl font-extrabold">Scan QR Restaurant</Label>
           <Label className="text-muted-foreground mt-2">
             Scan QR code untuk mengakses menu restaurant
@@ -46,7 +46,7 @@ const DashboardUserSection: React.FC<DashboardUserProps> = ({
             </Label>
           </Box>
         )}
-        s
+
         <div
           ref={qrRegionRef}
           id="qr-scanner"

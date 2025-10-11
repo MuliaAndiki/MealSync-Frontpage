@@ -51,19 +51,23 @@ const DashboardUserContainer = () => {
 
   const validateAndRedirect = async (decodedText: string) => {
     setIsValidating(true);
+
     try {
       let uniqueUrl = decodedText;
 
-      if (decodedText.includes('http') || decodedText.includes('restaurant')) {
-        const urlParts = decodedText.split('/');
-        uniqueUrl = urlParts[urlParts.length - 1];
+      try {
+        const url = new URL(decodedText);
+
+        const pathSegments = url.pathname.split('/').filter(Boolean);
+        uniqueUrl = pathSegments[pathSegments.length - 1];
+      } catch {
+        uniqueUrl = decodedText;
       }
 
       const response = await UserApi.getRestaurantByUniqueUrl(uniqueUrl);
 
-      if (response && response.data && response.data.restaurant) {
+      if (response?.data?.restaurant) {
         toast.success(`Mengarahkan ke ${response.data.restaurant.name}...`);
-
         router.push(`/user/restaurant/${uniqueUrl}`);
       } else {
         toast.error('QR Code tidak valid. Restaurant tidak ditemukan.');

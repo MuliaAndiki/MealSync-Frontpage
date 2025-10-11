@@ -1,12 +1,12 @@
 'use client';
 import { Label } from '@radix-ui/react-label';
-import { CheckCircle, Clock, Loader2, UtensilsCrossed,XCircle } from 'lucide-react';
+import { CheckCircle, Clock, Loader2, UtensilsCrossed, XCircle } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 
 import Box from '@/components/ui/box';
 import RestaurantApi from '@/services/restaurant/restaurant.service';
-import { getSocket,initSocketConnection, joinRestaurantRoom } from '@/utils/socket.client';
+import { getSocket, initSocketConnection, joinRestaurantRoom } from '@/utils/socket.client';
 
 interface OrderItem {
   productId: string;
@@ -67,7 +67,7 @@ const OrdersRealtime: React.FC<OrdersRealtimeProps> = ({ restaurantId }) => {
 
   const setupSocket = () => {
     const socket = initSocketConnection();
-    
+
     if (socket && restaurantId) {
       joinRestaurantRoom(restaurantId);
 
@@ -174,8 +174,8 @@ const OrdersRealtime: React.FC<OrdersRealtimeProps> = ({ restaurantId }) => {
                 order.status === 'pending'
                   ? 'border-l-yellow-500 bg-yellow-50'
                   : order.status === 'paid'
-                  ? 'border-l-green-500 bg-green-50'
-                  : 'border-l-red-500 bg-red-50'
+                    ? 'border-l-green-500 bg-green-50'
+                    : 'border-l-red-500 bg-red-50'
               }`}
             >
               <div className="flex justify-between items-start mb-3">
@@ -194,10 +194,7 @@ const OrdersRealtime: React.FC<OrdersRealtimeProps> = ({ restaurantId }) => {
 
               <div className="space-y-2 mb-3">
                 {order.items.map((item, idx) => (
-                  <div
-                    key={idx}
-                    className="flex justify-between text-sm bg-white p-2 rounded"
-                  >
+                  <div key={idx} className="flex justify-between text-sm bg-white p-2 rounded">
                     <span>
                       {item.name} x{item.quantity}
                     </span>
@@ -208,9 +205,7 @@ const OrdersRealtime: React.FC<OrdersRealtimeProps> = ({ restaurantId }) => {
 
               <div className="flex justify-between items-center pt-3 border-t">
                 <span className="font-semibold">Total:</span>
-                <span className="text-xl font-bold text-blue-600">
-                  {formatPrice(order.total)}
-                </span>
+                <span className="text-xl font-bold text-blue-600">{formatPrice(order.total)}</span>
               </div>
             </Box>
           ))}

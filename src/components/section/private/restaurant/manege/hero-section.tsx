@@ -97,7 +97,7 @@ const ManageHeroSection: React.FC<ManageProps> = ({
                   <IconMenu2 />
                 </Button>
               </Box>
-              <Box className="grid grid-cols-5 grid-rows-1 gap-4 items-center w-full ">
+              <Box className="grid grid-cols-4 grid-rows-1 gap-4 items-center w-full ">
                 {product && product.length > 0 ? (
                   product.map((items, key) => (
                     <Product

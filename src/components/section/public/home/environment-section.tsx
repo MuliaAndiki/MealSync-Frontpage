@@ -1,9 +1,10 @@
+import { Label } from '@radix-ui/react-label';
+import Image from 'next/image';
+
 import Box from '@/components/ui/box';
 import View from '@/components/ui/view';
 import { SponsorData } from '@/configs/components.config';
 import { MobileProps } from '@/types/hooks';
-import { Label } from '@radix-ui/react-label';
-import Image from 'next/image';
 
 const EnvironmentSection: React.FC<MobileProps> = ({ isMobile }) => {
   return (

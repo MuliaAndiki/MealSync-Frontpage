@@ -1,13 +1,13 @@
 'use client';
 
-import { AppSidebar } from '@/core/components/app-sidebar';
-import { SidebarProvider, SidebarInset } from '@/components/ui/sidebar';
-import View from '@/components/ui/view';
 import Box from '@/components/ui/box';
+import { SidebarInset,SidebarProvider } from '@/components/ui/sidebar';
+import View from '@/components/ui/view';
+import { AppSidebar } from '@/core/components/app-sidebar';
 
-import ThemeToggle from '../components/theme-toggle';
 import LanguageDropdown from '../components/language.dropdown';
 import NotificationDropdown from '../components/notification.dropdown';
+import ThemeToggle from '../components/theme-toggle';
 // import UserDropdown from '../components/user.dropdown';
 
 // import AppBar from "../components/app-bar";

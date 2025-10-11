@@ -1,8 +1,10 @@
-import { ChairType, ParentModalType } from '@/types/components';
-import Box from './ui/box';
 import { Label } from '@radix-ui/react-label';
-import { Button } from './ui/button';
+
+import { ChairType, ParentModalType } from '@/types/components';
 import { AlertContexType } from '@/types/ui';
+
+import Box from './ui/box';
+import { Button } from './ui/button';
 
 interface ChairsProps {
   chairs: ChairType[];
@@ -25,8 +27,8 @@ const Chairs: React.FC<ChairsProps> = ({
 
   return (
     <Box className="bg-[#2D1912] flex justify-center items-center flex-col rounded-lg p-4 ">
-      <Box className="w-full flex justify-evenly items-center">
-        <Label className="text-lg font-bold">Tempat Duduk</Label>
+      <Box className="w-full flex justify-between items-center p-1">
+        <Label className="text-lg font-bold">Tempat Duduk :</Label>
         {path && (
           <Button variant={'glass'} className="font-bold" onClick={() => setOpenModal!('Chair')}>
             +

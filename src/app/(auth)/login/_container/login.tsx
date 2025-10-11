@@ -1,13 +1,14 @@
 'use client';
+import { useState } from 'react';
+
 import LoginSection from '@/components/section/auth/login-section';
+import Box from '@/components/ui/box';
 import Container from '@/components/ui/container';
 import View from '@/components/ui/view';
-import Box from '@/components/ui/box';
-import { useState } from 'react';
-import { FormLoginType } from '@/types/form';
+import { useAppSelector } from '@/hooks/dispatch/dispatch';
 import { useLogin } from '@/hooks/mutation/auth/mutation';
 import { useAlert } from '@/hooks/useAlert/costum-alert';
-import { useAppSelector } from '@/hooks/dispatch/dispatch';
+import { FormLoginType } from '@/types/form';
 
 const LoginContainer = () => {
   const alert = useAlert();

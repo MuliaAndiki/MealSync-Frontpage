@@ -1,8 +1,9 @@
+import { Label } from '@radix-ui/react-dropdown-menu';
+import { IconPhone } from '@tabler/icons-react';
+
 import Box from '@/components/ui/box';
 import { Button } from '@/components/ui/button';
 import View from '@/components/ui/view';
-import { Label } from '@radix-ui/react-dropdown-menu';
-import { IconPhone } from '@tabler/icons-react';
 
 const HeroSection = () => {
   return (

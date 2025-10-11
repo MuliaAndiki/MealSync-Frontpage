@@ -1,13 +1,14 @@
-import { cn } from '@/utils/classname';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent } from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
 import { Label } from '@radix-ui/react-dropdown-menu';
 import Link from 'next/link';
-import View from '@/components/ui/view';
+
 import Box from '@/components/ui/box';
-import { FormLoginType } from '@/types/form';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent } from '@/components/ui/card';
 import Form from '@/components/ui/form';
+import { Input } from '@/components/ui/input';
+import View from '@/components/ui/view';
+import { FormLoginType } from '@/types/form';
+import { cn } from '@/utils/classname';
 
 interface LoginProps {
   formLogin: FormLoginType;

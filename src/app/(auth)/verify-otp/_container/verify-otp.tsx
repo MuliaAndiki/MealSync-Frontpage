@@ -1,8 +1,9 @@
 'use client';
-import VerifyOtpSection from '@/components/section/auth/verifyOtp-section';
-import Container from '@/components/ui/container';
-import Box from '@/components/ui/box';
 import Image from 'next/image';
+
+import VerifyOtpSection from '@/components/section/auth/verifyOtp-section';
+import Box from '@/components/ui/box';
+import Container from '@/components/ui/container';
 
 const VerifyOtpContainer = () => {
   return (

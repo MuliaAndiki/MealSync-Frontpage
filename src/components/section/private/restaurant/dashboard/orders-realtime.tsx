@@ -1,11 +1,12 @@
 'use client';
-import { useEffect, useState } from 'react';
-import Box from '@/components/ui/box';
 import { Label } from '@radix-ui/react-label';
-import { Clock, CheckCircle, XCircle, Loader2, UtensilsCrossed } from 'lucide-react';
-import { initSocketConnection, joinRestaurantRoom, getSocket } from '@/utils/socket.client';
-import RestaurantApi from '@/services/restaurant/restaurant.service';
+import { CheckCircle, Clock, Loader2, UtensilsCrossed,XCircle } from 'lucide-react';
+import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
+
+import Box from '@/components/ui/box';
+import RestaurantApi from '@/services/restaurant/restaurant.service';
+import { getSocket,initSocketConnection, joinRestaurantRoom } from '@/utils/socket.client';
 
 interface OrderItem {
   productId: string;

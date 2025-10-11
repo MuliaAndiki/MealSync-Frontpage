@@ -1,7 +1,13 @@
-import Box from '@/components/ui/box';
-import View from '@/components/ui/view';
+import { Label } from '@radix-ui/react-label';
 import Image from 'next/image';
+import { useState } from 'react';
+
+import CardProfile from '@/components/card-profile';
+import Chair from '@/components/chair';
+import FallbackChair from '@/components/fallback/chair';
+import FallbackProduct from '@/components/fallback/product';
 import Product from '@/components/products';
+import Box from '@/components/ui/box';
 import {
   Carousel,
   CarouselContent,
@@ -9,14 +15,10 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from '@/components/ui/carousel';
-import { Label } from '@radix-ui/react-label';
-import CardProfile from '@/components/card-profile';
-import { CardProfileType, ChairType, ParentModalType, ProductsType } from '@/types/components';
+import View from '@/components/ui/view';
 import PopUp from '@/core/components/pop-up';
-import { useState } from 'react';
-import Chair from '@/components/chair';
-import FallbackChair from '@/components/fallback/chair';
-import FallbackProduct from '@/components/fallback/product';
+import { CardProfileType, ChairType, ParentModalType, ProductsType } from '@/types/components';
+
 import OrdersRealtime from './orders-realtime';
 
 interface DashboardRestaurantProps {

@@ -1,7 +1,8 @@
+import { useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
+
 import { useAppDispatch } from '@/hooks/dispatch/dispatch';
 import { useAlert } from '@/hooks/useAlert/costum-alert';
-import { useQueryClient } from '@tanstack/react-query';
 
 export function useAppNameSpase() {
   const alert = useAlert();

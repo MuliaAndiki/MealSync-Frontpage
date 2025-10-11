@@ -1,17 +1,18 @@
 'use client';
 import { useParams } from 'next/navigation';
+import { use, useEffect } from 'react';
+
+import RestaurantOrderSection from '@/components/section/private/user/restaurant/order-section';
 import Container from '@/components/ui/container';
 import { SidebarLayout } from '@/core/layouts/sidebar.layout';
-import RestaurantOrderSection from '@/components/section/private/user/restaurant/order-section';
 import DatasQuery from '@/hooks/mutation/props.hooks';
-import { useEffect } from 'react';
 import { useAppNameSpase } from '@/hooks/useNameSpace';
 
 const RestaurantOrderContainer = () => {
   const params = useParams();
   const uniqueUrl = params.uniqueUrl as string;
-  const { alert } = useAppNameSpase();
   const userData = DatasQuery.User(uniqueUrl);
+  const { alert } = useAppNameSpase();
 
   useEffect(() => {
     if (userData.isError) {
@@ -27,7 +28,11 @@ const RestaurantOrderContainer = () => {
   return (
     <SidebarLayout>
       <Container className="w-full min-h-screen">
-        <RestaurantOrderSection profileUnique={userData.getRestaurantByUniqueUrlData} />
+        <RestaurantOrderSection
+          profileUnique={userData.getRestaurantByUniqueUrlData.restaurant ?? []}
+          Products={userData.getRestaurantByUniqueUrlData.products ?? []}
+          chairs={userData.getRestaurantByUniqueUrlData.chairs ?? []}
+        />
       </Container>
     </SidebarLayout>
   );

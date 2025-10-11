@@ -1,9 +1,10 @@
+import { Label } from '@radix-ui/react-label';
+import Image from 'next/image';
+
 import Box from '@/components/ui/box';
 import { Button } from '@/components/ui/button';
 import View from '@/components/ui/view';
 import { RestaurantCardData } from '@/configs/components.config';
-import { Label } from '@radix-ui/react-label';
-import Image from 'next/image';
 import { MobileProps } from '@/types/hooks';
 
 const RestaurantSection: React.FC<MobileProps> = ({ isMobile }) => {

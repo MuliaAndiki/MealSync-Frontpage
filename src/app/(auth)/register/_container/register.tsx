@@ -1,12 +1,13 @@
 'use client';
+import { useState } from 'react';
+
 import RegisterSection from '@/components/section/auth/register-section';
+import Box from '@/components/ui/box';
 import Container from '@/components/ui/container';
 import View from '@/components/ui/view';
-import Box from '@/components/ui/box';
-import { useState } from 'react';
-import { FormRegisterType } from '@/types/form';
-import { useAlert } from '@/hooks/useAlert/costum-alert';
 import { useRegister } from '@/hooks/mutation/auth/mutation';
+import { useAlert } from '@/hooks/useAlert/costum-alert';
+import { FormRegisterType } from '@/types/form';
 
 const RegisterContainer = () => {
   const alert = useAlert();

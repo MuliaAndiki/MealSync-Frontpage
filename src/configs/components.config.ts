@@ -1,16 +1,14 @@
+import { IconHome, IconMail, IconMenu2,IconPhoneCall } from '@tabler/icons-react';
+import { IconCircleCheck, IconClipboardText, IconToolsKitchen2 } from '@tabler/icons-react';
+import { Home } from 'lucide-react';
+
 import {
-  CardProfileType,
-  ChairType,
   HistoryType,
   MenusType,
-  ProductsType,
   RestaurantCardType,
   SosmedType,
   SponsorType,
 } from '@/types/components';
-import { IconHome, IconMail, IconPhoneCall, IconMenu2 } from '@tabler/icons-react';
-import { IconCircleCheck, IconClipboardText, IconToolsKitchen2 } from '@tabler/icons-react';
-import { Home, Settings } from 'lucide-react';
 
 export const SosmedData: SosmedType[] = [
   {
@@ -78,11 +76,6 @@ export const MenuData: MenusType[] = [
     title: 'Menu',
     url: '/restaurant/dashboard/menu',
     icon: IconToolsKitchen2,
-  },
-  {
-    title: 'Settings',
-    url: '#',
-    icon: Settings,
   },
   {
     title: 'Purchase History',

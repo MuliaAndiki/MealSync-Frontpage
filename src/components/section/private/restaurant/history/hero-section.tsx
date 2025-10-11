@@ -1,8 +1,8 @@
-import Box from '@/components/ui/box';
-import View from '@/components/ui/view';
 import HistoryCard from '@/components/history';
-import { HistoryData } from '@/configs/components.config';
+import Box from '@/components/ui/box';
 import { Button } from '@/components/ui/button';
+import View from '@/components/ui/view';
+import { HistoryData } from '@/configs/components.config';
 
 interface HistoryCardProps {
   content: 'Pending' | 'Paid';

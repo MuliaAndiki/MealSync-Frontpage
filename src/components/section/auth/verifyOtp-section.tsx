@@ -1,16 +1,17 @@
 import { GalleryVerticalEnd } from 'lucide-react';
-import Box from '@/components/ui/box';
-import View from '@/components/ui/view';
-import Form from '@/components/ui/form';
-import { cn } from '@/utils/classname';
-import { Button } from '@/components/ui/button';
 import Link from 'next/link';
+
+import Box from '@/components/ui/box';
+import { Button } from '@/components/ui/button';
+import Form from '@/components/ui/form';
 import {
   InputOTP,
   InputOTPGroup,
   InputOTPSeparator,
   InputOTPSlot,
 } from '@/components/ui/input-otp';
+import View from '@/components/ui/view';
+import { cn } from '@/utils/classname';
 
 const VerifyOtpSection = ({ className, ...props }: React.ComponentProps<'div'>) => {
   return (

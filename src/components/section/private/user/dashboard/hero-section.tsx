@@ -1,8 +1,9 @@
-import Box from '@/components/ui/box';
-import View from '@/components/ui/view';
 import { Label } from '@radix-ui/react-label';
-import { Scan, Loader2 } from 'lucide-react';
+import { Loader2,Scan } from 'lucide-react';
+
+import Box from '@/components/ui/box';
 import { Button } from '@/components/ui/button';
+import View from '@/components/ui/view';
 
 interface DashboardUserProps {
   qrResult: string | null;

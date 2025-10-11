@@ -1,13 +1,15 @@
-import Box from './ui/box';
-import Image from 'next/image';
 import { Label } from '@radix-ui/react-label';
-import { Button } from './ui/button';
-import { ProductsProps } from '@/types/props';
 import { Star } from 'lucide-react';
-import { formatCurrency } from '@/utils/format';
-import { ParentModalType } from '@/types/components';
+import Image from 'next/image';
 import Link from 'next/link';
+
+import { ParentModalType } from '@/types/components';
+import { ProductsProps } from '@/types/props';
 import { AlertContexType } from '@/types/ui';
+import { formatCurrency } from '@/utils/format';
+
+import Box from './ui/box';
+import { Button } from './ui/button';
 
 interface ProductsPropsV1 {
   hidenRoutes?: string[];

@@ -1,15 +1,16 @@
-import { cn } from '@/utils/classname';
+import { Label } from '@radix-ui/react-dropdown-menu';
+import Image from 'next/image';
+import Link from 'next/link';
+import React from 'react';
+
+import Box from '@/components/ui/box';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
-import { Label } from '@radix-ui/react-dropdown-menu';
-import Link from 'next/link';
-import View from '@/components/ui/view';
-import Box from '@/components/ui/box';
-import Image from 'next/image';
-import { FormRegisterType } from '@/types/form';
-import React from 'react';
 import Form from '@/components/ui/form';
+import { Input } from '@/components/ui/input';
+import View from '@/components/ui/view';
+import { FormRegisterType } from '@/types/form';
+import { cn } from '@/utils/classname';
 
 interface RegisterProps {
   formRegister: FormRegisterType;

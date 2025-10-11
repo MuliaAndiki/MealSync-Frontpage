@@ -1,9 +1,10 @@
 'use client';
 
+import { useState } from 'react';
+
 import HistoryHeroSection from '@/components/section/private/restaurant/history/hero-section';
 import Container from '@/components/ui/container';
 import { SidebarLayout } from '@/core/layouts/sidebar.layout';
-import { useState } from 'react';
 
 const HistoryContainer = () => {
   const [content, setContent] = useState<'Pending' | 'Paid'>('Pending');

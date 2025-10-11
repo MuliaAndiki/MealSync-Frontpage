@@ -1,4 +1,5 @@
 import { cookies } from 'next/headers';
+
 import { APP_SESSION_COOKIE_KEY } from '@/configs/cookies.config';
 
 export async function authValidator(): Promise<boolean> {

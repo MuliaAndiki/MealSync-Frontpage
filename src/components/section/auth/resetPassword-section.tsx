@@ -1,12 +1,12 @@
 import { GalleryVerticalEnd } from 'lucide-react';
 
-import { cn } from '@/utils/classname';
+import Box from '@/components/ui/box';
 import { Button } from '@/components/ui/button';
+import Form from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import Form from '@/components/ui/form';
-import Box from '@/components/ui/box';
 import View from '@/components/ui/view';
+import { cn } from '@/utils/classname';
 const ResetPasswordSection = ({ className, ...props }: React.ComponentProps<'div'>) => {
   return (
     <View className={cn('flex flex-col gap-6 ', className)} {...props}>

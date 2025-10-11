@@ -1,9 +1,10 @@
-import { appConfig } from '@/configs/app.config';
+import { Icon } from '@iconify/react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { Icon } from '@iconify/react';
+
 import Box from '@/components/ui/box';
 import View from '@/components/ui/view';
+import { appConfig } from '@/configs/app.config';
 
 export default function AppFooter() {
   return (

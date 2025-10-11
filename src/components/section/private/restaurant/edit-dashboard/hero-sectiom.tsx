@@ -1,6 +1,7 @@
+import { Label } from '@radix-ui/react-label';
+
 import Container from '@/components/ui/container';
 import View from '@/components/ui/view';
-import { Label } from '@radix-ui/react-label';
 
 const EditDashboardHeroSection = () => {
   return (

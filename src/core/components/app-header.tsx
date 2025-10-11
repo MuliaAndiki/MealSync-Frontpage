@@ -1,5 +1,14 @@
 'use client';
 
+import Image from 'next/image';
+import Link from 'next/link';
+import { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
+
+import Slider from '@/components/svg/home/slider';
+import Box from '@/components/ui/box';
+import { Button } from '@/components/ui/button';
+import Container from '@/components/ui/container';
 import {
   NavigationMenu,
   NavigationMenuItem,
@@ -7,24 +16,16 @@ import {
   NavigationMenuList,
   navigationMenuTriggerStyle,
 } from '@/components/ui/navigation-menu';
+import Shape from '@/components/ui/shape';
+import View from '@/components/ui/view';
 import { navigationMenuConfig } from '@/configs/app.config';
+import { useIsMobile } from '@/hooks/use-mobile';
 import { cn } from '@/utils/classname';
-import Image from 'next/image';
-import Link from 'next/link';
-import { useEffect, useState } from 'react';
 
 import LanguageDropdown from './language.dropdown';
 // @ts-nocheck
 import NotificationDropdown from './notification.dropdown';
 import ThemeToggle from './theme-toggle';
-import View from '@/components/ui/view';
-import Box from '@/components/ui/box';
-import Shape from '@/components/ui/shape';
-import Slider from '@/components/svg/home/slider';
-import Container from '@/components/ui/container';
-import { Button } from '@/components/ui/button';
-import { useDispatch } from 'react-redux';
-import { useIsMobile } from '@/hooks/use-mobile';
 
 export default function AppHeader() {
   const mobile = useIsMobile();

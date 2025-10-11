@@ -1,11 +1,13 @@
-import Image from 'next/image';
-import Box from './ui/box';
-import Vector from './svg/private/vector';
 import { Label } from '@radix-ui/react-label';
-import { IconMapPin, IconMail } from '@tabler/icons-react';
-import { CardProfileProps } from '@/types/props';
-import { Button } from './ui/button';
+import { IconMail,IconMapPin } from '@tabler/icons-react';
+import Image from 'next/image';
 import Link from 'next/link';
+
+import { CardProfileProps } from '@/types/props';
+
+import Vector from './svg/private/vector';
+import Box from './ui/box';
+import { Button } from './ui/button';
 
 interface CardProfilePropsV1 {
   hidenRoutes?: string[];

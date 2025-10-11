@@ -1,5 +1,6 @@
-import Api from '@/services/props.service';
 import { useQuery } from '@tanstack/react-query';
+
+import Api from '@/services/props.service';
 
 class userData {
   OrderHistoryData: any;
@@ -11,9 +12,9 @@ class userData {
   constructor(orderHistoryQuery: any, getRestaurantByUniqueUrlQuery: any) {
     this.OrderHistoryData = orderHistoryQuery.data?.data ?? [];
     this.getRestaurantByUniqueUrlData = getRestaurantByUniqueUrlQuery.data?.data ?? [];
-    this.isLoading = orderHistoryQuery.isLoading;
-    this.isError = orderHistoryQuery.isError;
-    this.refetchAll = orderHistoryQuery.refetch;
+    this.isLoading = orderHistoryQuery.isLoading || getRestaurantByUniqueUrlQuery.isLoading;
+    this.isError = orderHistoryQuery.isError || getRestaurantByUniqueUrlQuery.isError;
+    this.refetchAll = orderHistoryQuery.refetch || getRestaurantByUniqueUrlQuery.refetch;
   }
 }
 
@@ -25,9 +26,10 @@ export function useUserData(uniqueUrl?: string) {
   });
 
   const getRestaurantByUniqueUrlQuery = useQuery({
-    queryKey: ['restaurant', 'byUniqueUrl'],
+    queryKey: ['restaurant', 'byUniqueUrl', uniqueUrl],
     queryFn: () => Api.User.getRestaurantByUniqueUrl(uniqueUrl!),
     staleTime: 1000 * 60 * 5,
+    enabled: !!uniqueUrl,
   });
 
   return new userData(orderHistoryQuery, getRestaurantByUniqueUrlQuery);

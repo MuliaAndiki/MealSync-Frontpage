@@ -35,6 +35,10 @@ class RestaurantApi {
     const res = await AxiosClient.get('/api/restaurant/profile');
     return res.data;
   }
+  async GetProfileRestaurantUniq(uniqueUrl: string): Promise<TResponse<any>> {
+    const res = await AxiosClient.get(`/api/restaurant/profile/${uniqueUrl}`);
+    return res.data;
+  }
   async DeleteChair(_id: string): Promise<TResponse<any>> {
     const res = await AxiosClient.delete(`/api/restaurant/chair/${_id}`);
     return res.data;

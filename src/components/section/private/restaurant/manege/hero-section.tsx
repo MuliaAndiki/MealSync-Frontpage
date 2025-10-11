@@ -1,15 +1,16 @@
-import Box from '@/components/ui/box';
-import View from '@/components/ui/view';
-import Image from 'next/image';
-import { Input } from '@/components/ui/input';
-import Product from '@/components/products';
-import { CardProfileType, ChairType, ParentModalType, ProductsType } from '@/types/components';
-import React, { useState } from 'react';
-import PopUp from '@/core/components/pop-up';
 import { Label } from '@radix-ui/react-label';
-import { Button } from '@/components/ui/button';
 import { IconMenu2, IconX } from '@tabler/icons-react';
-import { FormCreateChair, FormCreateProducts } from '@/types/form';
+import Image from 'next/image';
+import React, { useState } from 'react';
+
+import CardProfile from '@/components/card-profile';
+import Chairs from '@/components/chair';
+import FallbackChair from '@/components/fallback/chair';
+import FallbackProduct from '@/components/fallback/product';
+import Product from '@/components/products';
+import Box from '@/components/ui/box';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
 import {
   Select,
   SelectContent,
@@ -17,14 +18,14 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { CategortProduct } from '@/core/enum';
 import { Textarea } from '@/components/ui/textarea';
-import UploadsTrigger from '@/utils/uploadsTriger';
+import View from '@/components/ui/view';
+import PopUp from '@/core/components/pop-up';
+import { CategortProduct } from '@/core/enum';
+import { CardProfileType, ChairType, ParentModalType, ProductsType } from '@/types/components';
+import { FormCreateChair, FormCreateProducts } from '@/types/form';
 import { AlertContexType } from '@/types/ui';
-import CardProfile from '@/components/card-profile';
-import Chairs from '@/components/chair';
-import FallbackChair from '@/components/fallback/chair';
-import FallbackProduct from '@/components/fallback/product';
+import UploadsTrigger from '@/utils/uploadsTriger';
 
 interface ManageProps {
   isHiden?: any;

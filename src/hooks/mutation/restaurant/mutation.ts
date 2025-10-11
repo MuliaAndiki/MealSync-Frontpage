@@ -1,8 +1,9 @@
-import { TResponse } from '@/pkg/react-query/mutation-wrapper.type';
-import { FormCreateChair, FormCreateProducts, FormEditProfile } from '@/types/form';
 import { useMutation } from '@tanstack/react-query';
-import Api from '@/services/props.service';
+
 import { useAppNameSpase } from '@/hooks/useNameSpace';
+import { TResponse } from '@/pkg/react-query/mutation-wrapper.type';
+import Api from '@/services/props.service';
+import { FormCreateChair, FormCreateProducts, FormEditProfile } from '@/types/form';
 
 export function useCreateProduct(options?: { onAfterSucces?: () => void }) {
   const { alert, queryClient } = useAppNameSpase();

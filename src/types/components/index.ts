@@ -66,6 +66,23 @@ export interface ChairType {
   status: string;
 }
 
+export interface UniqueUrlProfileType {
+  restaurant: {
+    _id: string;
+    name: string;
+    uniqueUrl: string;
+    profile: {
+      address: string | null;
+      description: string | null;
+      logoUrl: string | null;
+      banner: string | null;
+      pitch: string | null;
+      certi: string[];
+    };
+  };
+  products: ProductsType[];
+  chairs: ChairType[];
+}
 type ModalType = 'Form';
 
 export type ParentModalType = ModalType | 'Add' | 'Chair' | null;

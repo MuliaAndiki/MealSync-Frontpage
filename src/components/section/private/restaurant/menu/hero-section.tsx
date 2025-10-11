@@ -1,14 +1,15 @@
-import View from '@/components/ui/view';
-import Box from '@/components/ui/box';
-import Image from 'next/image';
 import { Label } from '@radix-ui/react-label';
-import { Button } from '@/components/ui/button';
-import Product from '@/components/products';
-import { Input } from '@/components/ui/input';
-import { ParentModalType, ProductsType } from '@/types/components';
+import Image from 'next/image';
 import { useState } from 'react';
-import PopUp from '@/core/components/pop-up';
+
 import FallbackProduct from '@/components/fallback/product';
+import Product from '@/components/products';
+import Box from '@/components/ui/box';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import View from '@/components/ui/view';
+import PopUp from '@/core/components/pop-up';
+import { ParentModalType, ProductsType } from '@/types/components';
 interface MenuProps {
   category: 'Makanan' | 'Minuman';
   setCategory: React.Dispatch<React.SetStateAction<'Makanan' | 'Minuman'>>;

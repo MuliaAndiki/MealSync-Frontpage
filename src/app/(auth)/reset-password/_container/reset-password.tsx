@@ -1,9 +1,10 @@
 'use client';
 
-import ResetPasswordSection from '@/components/section/auth/resetPassword-section';
-import Container from '@/components/ui/container';
 import Image from 'next/image';
+
+import ResetPasswordSection from '@/components/section/auth/resetPassword-section';
 import Box from '@/components/ui/box';
+import Container from '@/components/ui/container';
 
 const ResetPasswordContainer = () => {
   return (

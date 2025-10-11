@@ -1,9 +1,10 @@
+import { Label } from '@radix-ui/react-label';
+import Image from 'next/image';
+
 import Nasgor from '@/components/svg/home/nasgor';
 import Box from '@/components/ui/box';
-import { SosmedData } from '@/configs/components.config';
-import { Label } from '@radix-ui/react-label';
 import View from '@/components/ui/view';
-import Image from 'next/image';
+import { SosmedData } from '@/configs/components.config';
 import { MobileProps } from '@/types/hooks';
 
 const AboutSection = () => {

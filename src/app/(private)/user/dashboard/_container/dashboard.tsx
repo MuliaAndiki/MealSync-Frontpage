@@ -1,12 +1,13 @@
 'use client';
+import { Html5Qrcode } from 'html5-qrcode';
+import { useRouter } from 'next/navigation';
+import { useEffect,useRef, useState } from 'react';
+import toast from 'react-hot-toast';
+
 import DashboardUserSection from '@/components/section/private/user/dashboard/hero-section';
 import Container from '@/components/ui/container';
 import { SidebarLayout } from '@/core/layouts/sidebar.layout';
-import { useRef, useState, useEffect } from 'react';
-import { Html5Qrcode } from 'html5-qrcode';
-import { useRouter } from 'next/navigation';
 import UserApi from '@/services/user/user.service';
-import toast from 'react-hot-toast';
 
 const DashboardUserContainer = () => {
   const router = useRouter();
@@ -51,20 +52,24 @@ const DashboardUserContainer = () => {
 
   const validateAndRedirect = async (decodedText: string) => {
     setIsValidating(true);
+
     try {
       let uniqueUrl = decodedText;
 
-      if (decodedText.includes('http') || decodedText.includes('restaurant')) {
-        const urlParts = decodedText.split('/');
-        uniqueUrl = urlParts[urlParts.length - 1];
+      try {
+        const url = new URL(decodedText);
+
+        const pathSegments = url.pathname.split('/').filter(Boolean);
+        uniqueUrl = pathSegments[pathSegments.length - 1];
+      } catch {
+        uniqueUrl = decodedText;
       }
 
       const response = await UserApi.getRestaurantByUniqueUrl(uniqueUrl);
 
-      if (response && response.data && response.data.restaurant) {
+      if (response?.data?.restaurant) {
         toast.success(`Mengarahkan ke ${response.data.restaurant.name}...`);
-
-        router.push(`/user/restaurant/${uniqueUrl}`);
+        router.push(`/user/dsahboard/restaurant/${uniqueUrl}`);
       } else {
         toast.error('QR Code tidak valid. Restaurant tidak ditemukan.');
         setQrResult(null);

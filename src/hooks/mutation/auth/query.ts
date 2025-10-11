@@ -1,4 +1,5 @@
 import { dataTagErrorSymbol, useQuery } from '@tanstack/react-query';
+
 import Api from '@/services/props.service';
 
 class AuthData {

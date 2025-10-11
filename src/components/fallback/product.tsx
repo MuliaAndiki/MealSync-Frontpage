@@ -1,6 +1,7 @@
+import { Label } from '@radix-ui/react-label';
+
 import Box from '../ui/box';
 import View from '../ui/view';
-import { Label } from '@radix-ui/react-label';
 
 const FallbackProduct: React.FC = () => {
   return (

@@ -1,8 +1,9 @@
+import { Label } from '@radix-ui/react-label';
+import Image from 'next/image';
+
 import Phone from '@/components/svg/home/phone';
 import Box from '@/components/ui/box';
 import View from '@/components/ui/view';
-import { Label } from '@radix-ui/react-label';
-import Image from 'next/image';
 import { MobileProps } from '@/types/hooks';
 
 const EventsSection: React.FC<MobileProps> = ({ isMobile }) => {

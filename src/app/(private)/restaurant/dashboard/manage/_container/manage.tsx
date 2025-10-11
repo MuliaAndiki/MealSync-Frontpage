@@ -1,20 +1,21 @@
 'use client';
+import { usePathname } from 'next/navigation';
+import { useState } from 'react';
+
 import ManageHeroSection from '@/components/section/private/restaurant/manege/hero-section';
 import Container from '@/components/ui/container';
 import { SidebarLayout } from '@/core/layouts/sidebar.layout';
+import DatasQuery from '@/hooks/mutation/props.hooks';
 import {
   useCreateChair,
   useCreateProduct,
   useDeleteChair,
   useDeleteProduct,
 } from '@/hooks/mutation/restaurant/mutation';
-import DatasQuery from '@/hooks/mutation/props.hooks';
 import { useAlert } from '@/hooks/useAlert/costum-alert';
-import { FormCreateChair, FormCreateProducts } from '@/types/form';
-import { usePathname } from 'next/navigation';
-import { useState } from 'react';
-import { fileToBase64 } from '@/utils/base64';
 import { ParentModalType } from '@/types/components';
+import { FormCreateChair, FormCreateProducts } from '@/types/form';
+import { fileToBase64 } from '@/utils/base64';
 
 const ManageContainer = () => {
   const data = DatasQuery.Restaurant();

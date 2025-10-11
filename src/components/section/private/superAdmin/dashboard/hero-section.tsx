@@ -1,6 +1,7 @@
-import View from '@/components/ui/view';
 import { Label } from '@radix-ui/react-label';
+
 import Box from '@/components/ui/box';
+import View from '@/components/ui/view';
 
 const DashboardSuperAdminSection = () => {
   return (

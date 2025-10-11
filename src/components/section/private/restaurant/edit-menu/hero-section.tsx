@@ -1,13 +1,14 @@
-import Box from '@/components/ui/box';
-import View from '@/components/ui/view';
-import { ProductsProps } from '@/types/props';
 import { Label } from '@radix-ui/react-label';
 import Image from 'next/image';
+
+import Box from '@/components/ui/box';
 import { Button } from '@/components/ui/button';
-import UploadsTrigger from '@/utils/uploadsTriger';
-import { FormCreateProducts } from '@/types/form';
 import { Input } from '@/components/ui/input';
 import { Switch } from '@/components/ui/switch';
+import View from '@/components/ui/view';
+import { FormCreateProducts } from '@/types/form';
+import { ProductsProps } from '@/types/props';
+import UploadsTrigger from '@/utils/uploadsTriger';
 
 interface EditMenuProps {
   formEditProduct?: FormCreateProducts;

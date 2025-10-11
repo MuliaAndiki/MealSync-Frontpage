@@ -1,6 +1,6 @@
-import AxiosClient from '@/utils/axios.client';
 import { TResponse } from '@/pkg/react-query/mutation-wrapper.type';
 import { FormLoginType, FormRegisterType } from '@/types/form';
+import AxiosClient from '@/utils/axios.client';
 
 class AuthApi {
   async Login(payload: FormLoginType): Promise<TResponse<any>> {

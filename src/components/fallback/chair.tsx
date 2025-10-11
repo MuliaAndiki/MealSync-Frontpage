@@ -1,9 +1,11 @@
 import { Label } from '@radix-ui/react-dropdown-menu';
-import Box from '../ui/box';
-import View from '../ui/view';
 import { IconArmchairOff } from '@tabler/icons-react';
-import { Button } from '../ui/button';
+
 import { ParentModalType } from '@/types/components';
+
+import Box from '../ui/box';
+import { Button } from '../ui/button';
+import View from '../ui/view';
 
 interface FallbackProps {
   hidenRoutes?: string[];

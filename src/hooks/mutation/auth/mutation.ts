@@ -1,31 +1,33 @@
-import { TResponse } from '@/pkg/react-query/mutation-wrapper.type';
 import { useMutation } from '@tanstack/react-query';
-import Api from '@/services/props.service';
-import { userSchema } from '@/types/api';
-import { setCurrentUser } from '@/stores/authSlice/authSlice';
+import { deleteCookie,setCookie } from 'cookies-next';
+
 import {
-  APP_SESSION_COOKIE_KEY,
   APP_REFRESH_TOKEN_COOKIE_EXPIRES_IN,
+  APP_SESSION_COOKIE_KEY,
 } from '@/configs/cookies.config';
-import { setCookie, deleteCookie } from 'cookies-next';
-import { logout } from '@/stores/authSlice/authSlice';
-import { FormRegisterType } from '@/types/form';
 import { useAppNameSpase } from '@/hooks/useNameSpace';
+import { TResponse } from '@/pkg/react-query/mutation-wrapper.type';
+import Api from '@/services/props.service';
+import { setCurrentUser } from '@/stores/authSlice/authSlice';
+import { logout } from '@/stores/authSlice/authSlice';
+import { userSchema } from '@/types/api';
+import { FormRegisterType } from '@/types/form';
 
 export function useLogin(options?: { onAfterSucces?: () => void }) {
   const { alert, router, dispatch } = useAppNameSpase();
   return useMutation<TResponse<any>, Error, any>({
     mutationFn: (payload) => Api.Auth.Login(payload),
     onSuccess: (res) => {
-      const role = res.data.role;
-      const token = res.data.token;
+      const userData = res.data;
+      const role = userData.role;
+      const token = userData.token;
       setCookie(APP_SESSION_COOKIE_KEY, token, {
         maxAge: APP_REFRESH_TOKEN_COOKIE_EXPIRES_IN / 1000,
         path: '/',
       });
 
       const userPayload: userSchema = {
-        user: res.data.data,
+        user: userData,
       };
 
       dispatch(setCurrentUser(userPayload));

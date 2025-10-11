@@ -1,9 +1,11 @@
-import Box from './ui/box';
-import Image from 'next/image';
 import { Label } from '@radix-ui/react-label';
 import { Star } from 'lucide-react';
-import { formatCurrency } from '@/utils/format';
+import Image from 'next/image';
+
 import { HistoryProps } from '@/types/props';
+import { formatCurrency } from '@/utils/format';
+
+import Box from './ui/box';
 
 const HistoryCard: React.FC<HistoryProps> = ({ data }) => {
   return (

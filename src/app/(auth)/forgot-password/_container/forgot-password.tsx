@@ -1,8 +1,9 @@
 'use client';
-import { ForgotPasswordHeroSection } from '@/components/section/auth/forgotPassword-section';
-import Container from '@/components/ui/container';
 import Image from 'next/image';
+
+import { ForgotPasswordHeroSection } from '@/components/section/auth/forgotPassword-section';
 import Box from '@/components/ui/box';
+import Container from '@/components/ui/container';
 
 const ForgotPasswordContainer = () => {
   return (

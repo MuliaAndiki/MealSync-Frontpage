@@ -1,4 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
+
 import Api from '@/services/props.service';
 
 class RestaurantData {
@@ -6,25 +7,40 @@ class RestaurantData {
   ProductDataId: any;
   ChairData: any;
   ProfileData: any;
+  ProfileDataUniq: any;
   isLoading: boolean;
   isError: boolean;
   refetchAll: () => void;
   refetchById: () => void;
 
-  constructor(productsQuery: any, productByIdQuery: any, chairsQuery: any, profilesQuery: any) {
+  constructor(
+    productsQuery: any,
+    productByIdQuery: any,
+    chairsQuery: any,
+    profileQuery: any,
+    profileUniqQuery: any
+  ) {
     this.ProductData = productsQuery.data?.data ?? [];
     this.ChairData = chairsQuery.data?.data ?? [];
     this.ProductDataId = productByIdQuery.data?.data ?? null;
-    this.ProfileData = profilesQuery.data?.data ?? null;
+    this.ProfileData = profileQuery.data?.data ?? null;
+    this.ProfileDataUniq = profileUniqQuery.data?.data ?? null;
     this.isLoading =
-      productByIdQuery.isLoading || productsQuery.isLoading || profilesQuery.isLoading;
-    this.isError = productsQuery.isError || productByIdQuery.isError || profilesQuery.isError;
+      productByIdQuery.isLoading ||
+      productsQuery.isLoading ||
+      profileQuery.isLoading ||
+      profileUniqQuery.isLoading;
+    this.isError =
+      productsQuery.isError ||
+      productByIdQuery.isError ||
+      profileQuery.isError ||
+      profileUniqQuery.isError;
     this.refetchAll = productsQuery.refetch;
     this.refetchById = productByIdQuery.refetch;
   }
 }
 
-export function useRestaurantData(id?: string) {
+export function useRestaurantData(id?: string, uniqueUrl?: string) {
   const productsQuery = useQuery({
     queryKey: ['restaurant', 'products'],
     queryFn: () => Api.Restaurant.GetProduct(),
@@ -44,11 +60,24 @@ export function useRestaurantData(id?: string) {
     staleTime: 1000 * 60 * 5,
   });
 
-  const profilesQuery = useQuery({
+  const profileQuery = useQuery({
     queryKey: ['profile', 'restaurant'],
     queryFn: () => Api.Restaurant.GetProfileRestaurant(),
     staleTime: 1000 * 60 * 5,
   });
 
-  return new RestaurantData(productsQuery, productByIdQuery, chairsQuery, profilesQuery);
+  const profileUniqQuery = useQuery({
+    queryKey: ['profile', 'restaurant', uniqueUrl],
+    queryFn: () => Api.Restaurant.GetProfileRestaurantUniq(uniqueUrl!),
+    enabled: !!uniqueUrl,
+    staleTime: 1000 * 60 * 5,
+  });
+
+  return new RestaurantData(
+    productsQuery,
+    productByIdQuery,
+    chairsQuery,
+    profileQuery,
+    profileUniqQuery
+  );
 }

@@ -53,7 +53,7 @@ const EditMenuContainer = () => {
     <SidebarLayout>
       <Container className="w-full min-h-screen flex flex-col">
         <EditMenuHeroSection
-          data={data.ProductDataId || []}
+          data={data.ProductByIdData || []}
           formEditProduct={formEditProduct}
           setFormEditProduct={setFormEditProduct}
           onPictChange={handleChangePict}

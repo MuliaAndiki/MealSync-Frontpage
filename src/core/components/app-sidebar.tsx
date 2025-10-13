@@ -21,7 +21,7 @@ import {
   SidebarTrigger,
   useSidebar,
 } from '@/components/ui/sidebar';
-import { MenuData } from '@/configs/components.config';
+import { MenuDataRestaurant, MenuDataUser } from '@/configs/components.config';
 import { useAppSelector } from '@/hooks/dispatch/dispatch';
 import { useLogout } from '@/hooks/mutation/auth/mutation';
 import { cn } from '@/utils/classname';
@@ -53,22 +53,11 @@ export function AppSidebar() {
         )}
       </SidebarHeader>
       <SidebarContent>
-        <SidebarGroup className="h-screen">
+        <SidebarGroup className="h-screen w-full ">
           {currentRole === 'user' && (
-            <Button
-              variant={'destructive'}
-              className="font-semibold"
-              onClick={() => logout.mutate({})}
-              disabled={logout.isPending}
-            >
-              {!isCollapsed ? 'Keluar' : <IconDoorExit />}
-            </Button>
-          )}
-
-          {currentRole === 'restaurant' && (
             <SidebarGroupContent className="flex h-full flex-col justify-between">
               <SidebarMenu className="w-full ">
-                {MenuData.map((item) => {
+                {MenuDataUser.map((item) => {
                   const isActive = pathname === item.url;
                   return (
                     <SidebarMenuItem key={item.title}>
@@ -90,8 +79,62 @@ export function AppSidebar() {
                 })}
               </SidebarMenu>
               <SidebarMenu className="w-full flex justify-center items-center gap-2">
-                <Box className="flex justify-center items-start gap-4">
-                  {!isCollapsed ? 'Pengaturan' : <Settings />}
+                <Box className="flex justify-star w-full items-start ">
+                  {!isCollapsed ? (
+                    <div className="flex justify-center items-center gap-2">
+                      <Settings />
+                      <Label className="text-lg font-bold"> Pengaturan</Label>
+                    </div>
+                  ) : (
+                    <Settings />
+                  )}
+                </Box>
+                <Button
+                  variant={'destructive'}
+                  className="font-semibold w-full"
+                  onClick={() => logout.mutate({})}
+                  disabled={logout.isPending}
+                >
+                  {!isCollapsed ? 'Keluar' : <IconDoorExit />}
+                </Button>
+              </SidebarMenu>
+            </SidebarGroupContent>
+          )}
+
+          {currentRole === 'restaurant' && (
+            <SidebarGroupContent className="flex h-full flex-col justify-between">
+              <SidebarMenu className="w-full ">
+                {MenuDataRestaurant.map((item) => {
+                  const isActive = pathname === item.url;
+                  return (
+                    <SidebarMenuItem key={item.title}>
+                      <SidebarMenuButton asChild tooltip={isCollapsed ? item.title : undefined}>
+                        <Link
+                          href={item.url}
+                          className={cn(
+                            'flex items-center gap-3 rounded-lg px-3 py-2 text-gray-500 transition-all hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50 h-10',
+                            isActive &&
+                              'bg-gray-100 text-gray-900 dark:bg-gray-800 dark:text-gray-50'
+                          )}
+                        >
+                          <item.icon className="h-6 w-6 lg:h-10 lg:w-10" />
+                          <span className="text-base lg:text-lg">{!isCollapsed && item.title}</span>
+                        </Link>
+                      </SidebarMenuButton>
+                    </SidebarMenuItem>
+                  );
+                })}
+              </SidebarMenu>
+              <SidebarMenu className="w-full flex justify-center items-center gap-2">
+                <Box className="flex justify-star w-full items-start ">
+                  {!isCollapsed ? (
+                    <div className="flex justify-center items-center gap-2">
+                      <Settings />
+                      <Label className="text-lg font-bold"> Pengaturan</Label>
+                    </div>
+                  ) : (
+                    <Settings />
+                  )}
                 </Box>
                 <Button
                   variant={'destructive'}

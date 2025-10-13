@@ -15,10 +15,7 @@ class RestaurantApi {
     const res = await AxiosClient.delete(`/api/restaurant/products/${_id}`);
     return res.data;
   }
-  async GetProductId(id: string): Promise<TResponse<any>> {
-    const res = await AxiosClient.get(`/api/restaurant/products/${id}`);
-    return res.data;
-  }
+
   async UpdateProducts(_id: string): Promise<TResponse<any>> {
     const res = await AxiosClient.put(`/api/restaurant/products/${_id}`);
     return res.data;
@@ -55,6 +52,11 @@ class RestaurantApi {
 
   async GetOrderHistory(): Promise<TResponse<any>> {
     const res = await AxiosClient.get('/api/restaurant/orders/history');
+    return res.data;
+  }
+  // Min Intergrate
+  async GetProductId(_id: string): Promise<TResponse<any>> {
+    const res = await AxiosClient.get(`/api/restaurant/products/${_id}`);
     return res.data;
   }
 }

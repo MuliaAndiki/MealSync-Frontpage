@@ -1,5 +1,4 @@
 import { useQuery } from '@tanstack/react-query';
-import { t } from 'i18next';
 
 import Api from '@/services/props.service';
 
@@ -7,24 +6,36 @@ class userData {
   OrderHistoryData: any;
   getRestaurantByUniqueUrlData: any;
   chartData: any;
+  orderData: any;
   isLoading: boolean;
   isError: boolean;
   refetchAll: () => void;
 
-  constructor(orderHistoryQuery: any, getRestaurantByUniqueUrlQuery: any, getCartQuery: any) {
+  constructor(
+    orderHistoryQuery: any,
+    getRestaurantByUniqueUrlQuery: any,
+    getCartQuery: any,
+    getOrdersQuery: any
+  ) {
     this.OrderHistoryData = orderHistoryQuery.data?.data ?? [];
     this.getRestaurantByUniqueUrlData = getRestaurantByUniqueUrlQuery.data?.data ?? [];
     this.chartData = getCartQuery.data?.data ?? [];
+    this.orderData = getOrdersQuery.data?.data ?? [];
     this.isLoading =
       orderHistoryQuery.isLoading ||
       getRestaurantByUniqueUrlQuery.isLoading ||
-      getCartQuery.isLoading;
+      getCartQuery.isLoading ||
+      getOrdersQuery.isLoading;
     this.isError =
-      orderHistoryQuery.isError || getRestaurantByUniqueUrlQuery.isError || getCartQuery.isError;
+      orderHistoryQuery.isError ||
+      getRestaurantByUniqueUrlQuery.isError ||
+      getCartQuery.isError ||
+      getOrdersQuery.isError;
     this.refetchAll = () => {
       orderHistoryQuery.refetch();
       getRestaurantByUniqueUrlQuery.refetch();
       getCartQuery.refetch();
+      getOrdersQuery.refetch();
     };
   }
 }
@@ -49,5 +60,12 @@ export function useUserData(uniqueUrl?: string) {
     staleTime: 1000 * 60 * 5,
   });
 
-  return new userData(orderHistoryQuery, getRestaurantByUniqueUrlQuery, getCartQuery);
+  // Min integration
+  const getOrders = useQuery({
+    queryKey: ['order', 'user'],
+    queryFn: () => Api.User.getOrders(),
+    staleTime: 1000 * 60 * 5,
+  });
+
+  return new userData(orderHistoryQuery, getRestaurantByUniqueUrlQuery, getCartQuery, getOrders);
 }

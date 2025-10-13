@@ -39,7 +39,7 @@ const Chairs: React.FC<ChairsProps> = ({
         {Array.from({ length: Math.ceil(chairs.length / 5) }).map((_, i) => (
           <Box key={i} className="flex justify-evenly items-center w-full text-center">
             {chairs.slice(i * 5, i * 5 + 5).map((chair) => (
-              <Box key={chair._id} className="flex justify-center items-center w-full p-1 ">
+              <Box key={chair._id} className="flex justify-center items-center w-full p-1  ">
                 <div
                   onClick={() =>
                     alert?.confirm({
@@ -52,7 +52,7 @@ const Chairs: React.FC<ChairsProps> = ({
                   }
                 >
                   <Box
-                    className={`w-12 h-12  rounded-sm flex justify-center items-center ${chair.status === 'empty' ? 'bg-foreground' : 'bg-red-600'} `}
+                    className={`w-12 h-12  rounded-sm flex justify-center items-center ${chair.status === 'empty' ? 'bg-foreground' : 'bg-red-600'} ${path ? 'hover:bg-red-500' : 'bg-foreground'} `}
                   >
                     <Label className="text-background font-bold">{chair.noChair}</Label>
                   </Box>

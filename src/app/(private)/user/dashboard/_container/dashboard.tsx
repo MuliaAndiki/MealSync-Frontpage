@@ -7,9 +7,11 @@ import toast from 'react-hot-toast';
 import DashboardUserSection from '@/components/section/private/user/dashboard/hero-section';
 import Container from '@/components/ui/container';
 import { SidebarLayout } from '@/core/layouts/sidebar.layout';
+import { useAppNameSpase } from '@/hooks/useNameSpace';
 import UserApi from '@/services/user/user.service';
 
 const DashboardUserContainer = () => {
+  const { alert } = useAppNameSpase();
   const router = useRouter();
   const qrRegionRef = useRef<HTMLDivElement>(null);
   const html5QrcodeRef = useRef<Html5Qrcode | null>(null);
@@ -26,21 +28,31 @@ const DashboardUserContainer = () => {
 
       await html5QrCode.start(
         { facingMode: 'environment' },
-        { fps: 10, qrbox: 250 },
+        { fps: 10, qrbox: 270, aspectRatio: 100 },
         (decodedText) => {
           setQrResult(decodedText);
           html5QrCode.stop().catch(console.error);
           setScannerStarted(false);
         },
-        (errorMessage) => {}
+        (errorMessage) => {
+          console.error(errorMessage);
+          alert.toast({
+            title: 'Error',
+            message: 'Mohon Coba Lagi',
+            icon: 'error',
+          });
+          return;
+        }
       );
 
       setScannerStarted(true);
     } catch (err) {
       console.error('Error start QR scanner:', err);
-      toast.error(
-        'Tidak bisa mengakses kamera. Pastikan izin diberikan dan kamera tidak digunakan aplikasi lain.'
-      );
+      alert.toast({
+        title: 'Error',
+        message: 'Gagal Mengizinkan Camera',
+        icon: 'error',
+      });
     }
   };
 
@@ -71,15 +83,27 @@ const DashboardUserContainer = () => {
         toast.success(`Mengarahkan ke ${response.data.restaurant.name}...`);
         router.push(`/user/dashboard/restaurant/${uniqueUrl}`);
       } else {
-        toast.error('QR Code tidak valid. Restaurant tidak ditemukan.');
+        alert.toast({
+          title: 'Error',
+          message: 'QR Code tidak valid. Restaurant tidak ditemukan.',
+          icon: 'error',
+        });
         setQrResult(null);
       }
     } catch (error: any) {
       console.error('Validation error:', error);
       if (error.response?.status === 404) {
-        toast.error('QR Code tidak valid. Restaurant tidak ditemukan.');
+        alert.toast({
+          title: 'Error',
+          message: 'QR Code tidak valid. Restaurant tidak ditemukan.',
+          icon: 'error',
+        });
       } else {
-        toast.error('Gagal memvalidasi QR Code. Silakan coba lagi.');
+        alert.toast({
+          title: 'Error',
+          message: 'Gagal memvalidasi QR Code. Silakan coba lagi',
+          icon: 'error',
+        });
       }
       setQrResult(null);
     } finally {

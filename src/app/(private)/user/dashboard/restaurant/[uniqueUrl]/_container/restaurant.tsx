@@ -45,7 +45,7 @@ const RestaurantOrderContainer = () => {
   };
 
   return (
-    <SidebarLayout>
+    <SidebarLayout uniqueUrl={uniqueUrl}>
       <Container className="w-full min-h-screen">
         <RestaurantOrderSection
           setFormAddChart={setFormAddToCart}

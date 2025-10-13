@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import Cart from '@/components/cart';
 import Box from '@/components/ui/box';
@@ -9,25 +9,38 @@ import View from '@/components/ui/view';
 import { AppSidebar } from '@/core/components/app-sidebar';
 import DatasQuery from '@/hooks/mutation/props.hooks';
 import {
+  useCreateOrder,
   useDeleteAllCartItem,
   useDeleteCartItem,
   useUpdateCartItem,
 } from '@/hooks/mutation/user/mutation';
+import { useAppNameSpase } from '@/hooks/useNameSpace';
+import { ParentModalType } from '@/types/components';
+import { FormCreateOrder } from '@/types/form';
 
 import LanguageDropdown from '../components/language.dropdown';
 import ThemeToggle from '../components/theme-toggle';
 
 interface AppLayoutProps {
   children: React.ReactNode;
+  uniqueUrl?: string;
 }
 
-export function SidebarLayout({ children }: AppLayoutProps) {
-  const data = DatasQuery.User();
+export function SidebarLayout({ children, uniqueUrl }: AppLayoutProps) {
+  const [isOpenModal, setIsOpenModal] = useState<ParentModalType>(null);
+  const data = DatasQuery.User(uniqueUrl);
+  const { alert } = useAppNameSpase();
   const deleteAll = useDeleteAllCartItem();
   const itemCount = data?.chartData?.items?.length ?? 0;
   const [selectId, setSelectId] = useState<string | null>(null);
   const deleteCart = useDeleteCartItem();
   const updateCart = useUpdateCartItem();
+  const orderProdutc = useCreateOrder();
+  const [formCreateOrder, setFormCreateOrder] = useState<FormCreateOrder>({
+    items: [],
+    chairNo: 0,
+    uniqueUrl: '',
+  });
 
   const handleDeleteAllCart = () => {
     deleteAll.mutate({});
@@ -40,6 +53,19 @@ export function SidebarLayout({ children }: AppLayoutProps) {
   const handleUpdateQuantity = (_id: string, newQuantity: number) => {
     if (newQuantity < 1) return;
     updateCart.mutate({ _id, quantity: newQuantity });
+  };
+
+  //  Min Testing
+  const handleOrderProdutc = () => {
+    if (!formCreateOrder.chairNo || !formCreateOrder.items || formCreateOrder.uniqueUrl) {
+      alert.toast({
+        title: 'Warning',
+        message: 'Mohon Coba Lagi',
+        icon: 'warning',
+      });
+      return;
+    }
+    orderProdutc.mutate(formCreateOrder);
   };
 
   return (
@@ -61,6 +87,13 @@ export function SidebarLayout({ children }: AppLayoutProps) {
                     setSelectId={setSelectId}
                     onDelete={handleDeleteCart}
                     handleUpdate={handleUpdateQuantity}
+                    alert={alert}
+                    chairs={data.getRestaurantByUniqueUrlData.chairs ?? []}
+                    isOpenModal={isOpenModal}
+                    setIsOpenModal={setIsOpenModal}
+                    formCreateOrder={formCreateOrder}
+                    onOrder={() => handleOrderProdutc()}
+                    setFormCreateOrder={setFormCreateOrder}
                   />
                 </Box>
               </Box>

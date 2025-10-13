@@ -4,39 +4,36 @@ import Api from '@/services/props.service';
 
 class RestaurantData {
   ProductData: any;
-  ProductDataId: any;
   ChairData: any;
   ProfileData: any;
   ProfileDataUniq: any;
+  ProductByIdData: any;
   OrderData: any;
   isLoading: boolean;
   isError: boolean;
   refetchAll: () => void;
-  refetchById: () => void;
 
   constructor(
     productsQuery: any,
-    productByIdQuery: any,
     chairsQuery: any,
     profileQuery: any,
     profileUniqQuery: any,
-    orderQuery: any
+    orderQuery: any,
+    productByIdQuery: any
   ) {
     this.ProductData = productsQuery.data?.data ?? [];
     this.ChairData = chairsQuery.data?.data ?? [];
-    this.ProductDataId = productByIdQuery.data?.data ?? null;
+    this.ProductByIdData = productByIdQuery.data?.data ?? null;
     this.ProfileData = profileQuery.data?.data ?? null;
     this.ProfileDataUniq = profileUniqQuery.data?.data ?? null;
     this.OrderData = orderQuery.data?.data ?? [];
     this.isLoading =
-      productByIdQuery.isLoading ||
       productsQuery.isLoading ||
       profileQuery.isLoading ||
       profileUniqQuery.isLoading ||
       orderQuery.isLoading;
     this.isError =
       productsQuery.isError ||
-      productByIdQuery.isError ||
       profileQuery.isError ||
       profileUniqQuery.isError ||
       orderQuery.isError;
@@ -46,7 +43,6 @@ class RestaurantData {
       profileQuery.refetch() ||
       orderQuery.refetch() ||
       profileUniqQuery.refetch();
-    this.refetchById = productByIdQuery.refetch();
   }
 }
 
@@ -57,6 +53,7 @@ export function useRestaurantData(id?: string, uniqueUrl?: string) {
     staleTime: 1000 * 60 * 5,
   });
 
+  // Problematic query
   const productByIdQuery = useQuery({
     queryKey: ['products', 'id', id],
     queryFn: () => Api.Restaurant.GetProductId(id!),
@@ -91,10 +88,10 @@ export function useRestaurantData(id?: string, uniqueUrl?: string) {
 
   return new RestaurantData(
     productsQuery,
-    productByIdQuery,
     chairsQuery,
     profileQuery,
     profileUniqQuery,
-    orderQuery
+    orderQuery,
+    productByIdQuery
   );
 }

@@ -1,4 +1,4 @@
-import { IconHome, IconMail, IconMenu2,IconPhoneCall } from '@tabler/icons-react';
+import { IconHome, IconMail, IconMenu2, IconPhoneCall } from '@tabler/icons-react';
 import { IconCircleCheck, IconClipboardText, IconToolsKitchen2 } from '@tabler/icons-react';
 import { Home } from 'lucide-react';
 
@@ -66,7 +66,7 @@ export const SponsorData: SponsorType[] = [
   },
 ];
 
-export const MenuData: MenusType[] = [
+export const MenuDataRestaurant: MenusType[] = [
   {
     title: 'Home',
     url: '/restaurant/dashboard',
@@ -91,6 +91,24 @@ export const MenuData: MenusType[] = [
     title: 'Manajement',
     icon: IconMenu2,
     url: '/restaurant/dashboard/manage',
+  },
+];
+
+export const MenuDataUser: MenusType[] = [
+  {
+    title: 'Home',
+    url: '/user/dashboard',
+    icon: Home,
+  },
+  {
+    title: 'Purchase History',
+    url: '#',
+    icon: IconClipboardText,
+  },
+  {
+    title: 'Order Status',
+    url: '/user/dashboard/order',
+    icon: IconCircleCheck,
   },
 ];
 

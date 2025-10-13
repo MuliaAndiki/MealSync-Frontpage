@@ -12,7 +12,10 @@ class UserApi {
     const res = await AxiosClient.post('/api/user/order', payload);
     return res.data;
   }
-
+  async getOrders(): Promise<TResponse<any>> {
+    const res = await AxiosClient.get('/api/user/orders');
+    return res.data;
+  }
   async getOrderHistory(): Promise<TResponse<any>> {
     const res = await AxiosClient.get('/api/user/orders/history');
     return res.data;

@@ -1,5 +1,5 @@
 import { Label } from '@radix-ui/react-label';
-import { IconBell } from '@tabler/icons-react';
+import { IconBell, IconX } from '@tabler/icons-react';
 
 import { Button } from '@/components/ui/button';
 import {
@@ -12,13 +12,21 @@ import {
   SheetTitle,
   SheetTrigger,
 } from '@/components/ui/sheet';
-import { CartType } from '@/types/components';
+import PopUp from '@/core/components/pop-up';
+import { CartType, ChairType, ParentModalType } from '@/types/components';
+import { FormCreateOrder } from '@/types/form';
+import { AlertContexType } from '@/types/ui';
 import { formatCurrency } from '@/utils/format';
 
 import CartContent from './cart-content';
+import Chairs from './chair';
+import FallbackChair from './fallback/chair';
 import Box from './ui/box';
+import { Input } from './ui/input';
+import View from './ui/view';
 
 interface CartProps {
+  chairs: ChairType[];
   content?: CartType;
   onDeleteAll?: () => void;
   onDelete?: () => void;
@@ -27,6 +35,11 @@ interface CartProps {
   itemCount?: any;
   setSelectId?: React.Dispatch<React.SetStateAction<string | null>>;
   handleUpdate?: any;
+  isOpenModal?: ParentModalType;
+  setIsOpenModal?: React.Dispatch<React.SetStateAction<ParentModalType>>;
+  alert?: AlertContexType;
+  formCreateOrder?: FormCreateOrder;
+  setFormCreateOrder?: React.Dispatch<React.SetStateAction<FormCreateOrder>>;
 }
 
 const Cart: React.FC<CartProps> = ({
@@ -36,7 +49,13 @@ const Cart: React.FC<CartProps> = ({
   content,
   isPending,
   itemCount,
+  chairs,
   setSelectId,
+  alert,
+  formCreateOrder,
+  setFormCreateOrder,
+  isOpenModal,
+  setIsOpenModal,
   handleUpdate,
 }) => {
   return (
@@ -84,7 +103,7 @@ const Cart: React.FC<CartProps> = ({
             </Box>
           )}
 
-          <Button type="submit" variant="native" onClick={onOrder}>
+          <Button type="submit" variant="native" onClick={() => setIsOpenModal!('Order')}>
             Pesan
           </Button>
 
@@ -101,6 +120,41 @@ const Cart: React.FC<CartProps> = ({
             <Button variant="outline">Tutup</Button>
           </SheetClose>
         </SheetFooter>
+
+        <PopUp isOpen={isOpenModal === 'Order'} onClose={() => setIsOpenModal!(null)}>
+          <View className="w-full h-full">
+            <Box className="flex justify-center items-center flex-col">
+              <Box className="w-full flex justify-between items-center p-2">
+                <Label className="text-lg font-bold">Order :</Label>
+                <IconX size={20} onClick={() => setIsOpenModal!(null)} />
+              </Box>
+              <Box className="grid grid-cols-2 grid-rows-1 w-full gap-2">
+                {chairs.length > 0 ? <Chairs chairs={chairs} /> : <FallbackChair />}
+                <div className="flex justify-start items-start w-full flex-col">
+                  <Label className="text-lg font-bold">Nomor Kursi :</Label>
+                  <Input
+                    value={formCreateOrder?.chairNo}
+                    onChange={(e) =>
+                      setFormCreateOrder!((prev) => {
+                        const newObj = { ...prev, chairNo: Number(e.target.value) };
+                        return newObj;
+                      })
+                    }
+                  />
+
+                  <Button
+                    className="w-full my-2"
+                    variant={'native'}
+                    onClick={() => onOrder!()}
+                    disabled={isPending}
+                  >
+                    {isPending ? 'tunggu..' : 'Order'}
+                  </Button>
+                </div>
+              </Box>
+            </Box>
+          </View>
+        </PopUp>
       </SheetContent>
     </Sheet>
   );

@@ -97,4 +97,4 @@ export interface UniqueUrlProfileType {
 }
 type ModalType = 'Form';
 
-export type ParentModalType = ModalType | 'Add' | 'Chair' | null;
+export type ParentModalType = ModalType | 'Add' | 'Chair' | 'Order' | null;

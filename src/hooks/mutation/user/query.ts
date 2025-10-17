@@ -1,7 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
-import { stat } from 'fs';
 
-import { useAppSelector } from '@/hooks/dispatch/dispatch';
+import { useAppNameSpase } from '@/hooks/useNameSpace';
 import Api from '@/services/props.service';
 
 class userData {
@@ -43,8 +42,8 @@ class userData {
 }
 
 export function useUserData(uniqueUrl?: string) {
-  // Global State
-  const role = useAppSelector((state) => state.auth.currentUser?.user.role);
+  const { currentRole } = useAppNameSpase();
+
   const orderHistoryQuery = useQuery({
     queryKey: ['order', 'history'],
     queryFn: () => Api.User.getOrderHistory(),
@@ -68,7 +67,7 @@ export function useUserData(uniqueUrl?: string) {
     queryKey: ['order', 'user'],
     queryFn: () => Api.User.getOrders(),
     staleTime: 1000 * 60 * 5,
-    enabled: role === 'USER',
+    enabled: currentRole === 'user',
   });
 
   return new userData(orderHistoryQuery, getRestaurantByUniqueUrlQuery, getCartQuery, getOrders);

@@ -58,10 +58,10 @@ export function useDeleteProduct(options?: { onAfterSucces?: () => void }) {
   });
 }
 
-export function useUpdateProducts(options?: { onAfterSucces?: () => void }) {
-  const { alert, queryClient } = useAppNameSpase();
-  return useMutation<TResponse<any>, Error, string>({
-    mutationFn: (_id) => Api.Restaurant.UpdateProducts(_id),
+export function useUpdateProducts(_id: string, options?: { onAfterSucces?: () => void }) {
+  const { alert, queryClient, router } = useAppNameSpase();
+  return useMutation<TResponse<any>, Error, FormCreateProducts>({
+    mutationFn: (payload) => Api.Restaurant.UpdateProducts(_id, payload),
     onSuccess: () => {
       alert.toast({
         title: 'Success',
@@ -70,6 +70,7 @@ export function useUpdateProducts(options?: { onAfterSucces?: () => void }) {
         onVoid: () => {
           options?.onAfterSucces?.();
           queryClient.invalidateQueries({ predicate: (query) => query.queryKey[0] === 'products' });
+          router.push('/restaurant/dashboard/manage');
         },
       });
     },

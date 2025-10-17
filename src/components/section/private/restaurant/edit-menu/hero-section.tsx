@@ -11,7 +11,6 @@ import { ProductsProps } from '@/types/props';
 import UploadsTrigger from '@/utils/uploadsTriger';
 
 interface EditMenuProps {
-  formEditProduct?: FormCreateProducts;
   setFormEditProduct?: React.Dispatch<React.SetStateAction<FormCreateProducts>>;
   isPending?: boolean;
   preview?: string | null;
@@ -22,7 +21,6 @@ interface EditMenuProps {
 
 const EditMenuHeroSection: React.FC<EditMenuProps & ProductsProps> = ({
   data,
-  formEditProduct,
   isPending,
   preview,
   setFormEditProduct,
@@ -32,16 +30,32 @@ const EditMenuHeroSection: React.FC<EditMenuProps & ProductsProps> = ({
 }) => {
   return (
     <View>
-      <Box className="flex justify-center items-center w-full min-h-screen flex-col">
+      <Box className="flex justify-start items-center  w-full min-h-screen flex-col">
         <Box className="grid grid-cols-2 grid-rows-1  w-full">
           <Box className="flex justify-between items-start w-full flex-col p-4 ">
             <Box className="flex justify-center items-center w-full max-w-100">
               <Label className="text-lg font-bold w-full">Nama Menu :</Label>
-              <Input defaultValue={data.name} />
+              <Input
+                defaultValue={data.name}
+                onChange={(e) =>
+                  setFormEditProduct!((prev) => {
+                    const newObj = { ...prev, name: e.target.value };
+                    return newObj;
+                  })
+                }
+              />
             </Box>
             <Box className="flex justify-center items-center w-full max-w-100">
               <Label className="text-lg font-bold w-full">Deskripsi :</Label>
-              <Input defaultValue={data.description} />
+              <Input
+                defaultValue={data.description}
+                onChange={(e) =>
+                  setFormEditProduct!((prev) => {
+                    const newObj = { ...prev, description: e.target.value };
+                    return newObj;
+                  })
+                }
+              />
             </Box>
             <Box className="flex justify-center items-center w-full max-w-100">
               <Label className="text-lg font-bold w-full">Kategori :</Label>
@@ -49,7 +63,15 @@ const EditMenuHeroSection: React.FC<EditMenuProps & ProductsProps> = ({
             </Box>
             <Box className="flex justify-center items-center w-full max-w-100">
               <Label className="text-lg font-bold w-full">Price :</Label>
-              <Input defaultValue={data.price} />
+              <Input
+                defaultValue={data.price}
+                onChange={(e) =>
+                  setFormEditProduct!((prev) => {
+                    const newObj = { ...prev, price: Number(e.target.value) };
+                    return newObj;
+                  })
+                }
+              />
             </Box>
           </Box>
           <Box className="flex justify-center items-center w-full flex-col">
@@ -102,11 +124,21 @@ const EditMenuHeroSection: React.FC<EditMenuProps & ProductsProps> = ({
           </Box>
         </Box>
         <Box className="flex justify-around items-center  w-full">
-          <Button variant={'native'} className="text-lg" onClick={() => onSave!()}>
-            Saves
+          <Button
+            variant={'native'}
+            className="text-lg"
+            onClick={() => onSave!()}
+            disabled={isPending}
+          >
+            {isPending ? 'Tunggu' : 'Simpan'}
           </Button>
-          <Button variant={'destructive'} className="text-lg" onClick={() => router.back()}>
-            Batal
+          <Button
+            variant={'destructive'}
+            className="text-lg"
+            onClick={() => router.back()}
+            disabled={isPending}
+          >
+            {isPending ? 'Tunggu' : 'Batal'}
           </Button>
         </Box>
       </Box>

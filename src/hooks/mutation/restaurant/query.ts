@@ -1,5 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 
+import { useAppSelector } from '@/hooks/dispatch/dispatch';
 import Api from '@/services/props.service';
 
 class RestaurantData {
@@ -47,6 +48,9 @@ class RestaurantData {
 }
 
 export function useRestaurantData(id?: string, uniqueUrl?: string) {
+  // Global State
+  const role = useAppSelector((state) => state.auth.currentUser?.user.role);
+
   const productsQuery = useQuery({
     queryKey: ['products', 'restaurant'],
     queryFn: () => Api.Restaurant.GetProduct(),
@@ -84,6 +88,7 @@ export function useRestaurantData(id?: string, uniqueUrl?: string) {
     queryKey: ['order', 'restaurant'],
     queryFn: () => Api.Restaurant.GetOrder(),
     staleTime: 1000 * 60 * 5,
+    enabled: role === 'restaurant',
   });
 
   return new RestaurantData(

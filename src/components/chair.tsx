@@ -44,7 +44,7 @@ const Chairs: React.FC<ChairsProps> = ({
                   onClick={() =>
                     alert?.confirm({
                       title: 'Yakin?!',
-                      deskripsi: 'Apakah Kamu Yakin Menhapus Product Ini?',
+                      deskripsi: 'Apakah Kamu Yakin Menhapus Kursi Ini?',
                       icon: 'warning',
                       onConfirm: () => onDeleteChair!(chair._id),
                       onClose: () => {},

@@ -10,18 +10,18 @@ import { AuthProvider } from '@/core/providers/auth.provider';
 import { ThemeProvider } from '@/core/providers/theme.provider';
 import { AlertProvinder } from '@/hooks/useAlert/costum-alert';
 import { ReactQueryClientProvider } from '@/pkg/react-query/query-client.pkg';
-import { persistor,store } from '@/stores/store';
+import { persistor, store } from '@/stores/store';
 
 import { composeProviders } from './composeProvinders';
 
 const Providers = composeProviders([
+  ReactQueryClientProvider,
   ({ children }) => <SidebarProvider defaultOpen={false}>{children}</SidebarProvider>,
   ({ children }) => <Provider store={store}>{children}</Provider>,
   ({ children }) => <PersistGate persistor={persistor}>{children}</PersistGate>,
   AuthProvider,
   ThemeProvider,
   AlertProvinder,
-  ReactQueryClientProvider,
 ]);
 
 export function AppProviders({ children }: { children: React.ReactNode }) {

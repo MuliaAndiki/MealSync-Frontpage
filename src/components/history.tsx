@@ -11,10 +11,9 @@ const HistoryCard: React.FC<HistoryProps> = ({ data }) => {
   return (
     <Box className="flex justify-between items-center ">
       <Box className="flex gap-2 ">
-        <Image alt="food" src={data.image} width={200} height={200} className="rounded-lg" />
+        {/* <Image alt="food" src={data.image} width={200} height={200} className="rounded-lg" /> */}
         <Box className="flex justify-evenly items-start flex-col ">
           <Label className="text-3xl font-bold">{data.title}</Label>
-          <Label className="text-lg font-bold">{formatCurrency(data.price)}</Label>
           <Box className="flex">
             {Array.from({ length: 5 }).map((_, key) => (
               <Star

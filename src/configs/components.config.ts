@@ -5,6 +5,7 @@ import { Home } from 'lucide-react';
 import {
   HistoryType,
   MenusType,
+  OrderType,
   RestaurantCardType,
   SosmedType,
   SponsorType,
@@ -84,7 +85,7 @@ export const MenuDataRestaurant: MenusType[] = [
   },
   {
     title: 'Order Status',
-    url: '#',
+    url: '/restaurant/dashboard/order',
     icon: IconCircleCheck,
   },
   {
@@ -102,7 +103,7 @@ export const MenuDataUser: MenusType[] = [
   },
   {
     title: 'Purchase History',
-    url: '#',
+    url: '/user/dashboard/history',
     icon: IconClipboardText,
   },
   {
@@ -122,5 +123,27 @@ export const HistoryData: HistoryType[] = [
     status: 'selesai',
     time: '14.30',
     totalprice: 20000,
+  },
+];
+
+export const OrderCardData: OrderType[] = [
+  {
+    _id: '1',
+    userId: 'u1',
+    restaurantId: 'r1',
+    items: [
+      {
+        _id: 'i1',
+        productId: 'p1',
+        name: 'Burger',
+        price: 10000,
+        quantity: 2,
+      },
+    ],
+    total: 20000,
+    status: 'selesai',
+    chairNo: 5,
+    createdAt: '2023-08-15T10:00:00Z',
+    updatedAt: '2023-08-15T12:00:00Z',
   },
 ];

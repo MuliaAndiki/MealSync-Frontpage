@@ -34,15 +34,7 @@ const DashboardUserContainer = () => {
           html5QrCode.stop().catch(console.error);
           setScannerStarted(false);
         },
-        (errorMessage) => {
-          console.error(errorMessage);
-          alert.toast({
-            title: 'Error',
-            message: 'Mohon Coba Lagi',
-            icon: 'error',
-          });
-          return;
-        }
+        (errorMessage) => {}
       );
 
       setScannerStarted(true);

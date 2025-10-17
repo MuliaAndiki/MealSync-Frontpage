@@ -40,6 +40,10 @@ class UserApi {
     const res = await AxiosClient.get('/api/user/cart');
     return res.data;
   }
+  async cancelOrder(orderId: string): Promise<TResponse<any>> {
+    const res = await AxiosClient.delete(`/api/user/order/${orderId}`);
+    return res.data;
+  }
 }
 
 export default new UserApi();

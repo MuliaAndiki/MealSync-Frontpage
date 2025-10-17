@@ -103,7 +103,22 @@ const Cart: React.FC<CartProps> = ({
             </Box>
           )}
 
-          <Button type="submit" variant="native" onClick={() => setIsOpenModal!('Order')}>
+          {/* Ilmu */}
+          <Button
+            type="submit"
+            variant="native"
+            onClick={() => {
+              setFormCreateOrder!((prev) => ({
+                ...prev,
+                items:
+                  content?.items.map((item) => ({
+                    productId: item.product._id,
+                    quantity: item.quantity,
+                  })) || [],
+              }));
+              setIsOpenModal!('Order');
+            }}
+          >
             Pesan
           </Button>
 

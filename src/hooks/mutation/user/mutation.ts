@@ -5,7 +5,6 @@ import { TResponse } from '@/pkg/react-query/mutation-wrapper.type';
 import Api from '@/services/props.service';
 import { FormAddCart, FormCreateOrder } from '@/types/form';
 
-//  belum intergrate
 export function useCreateOrder(options?: { affterSuccess?: () => void }) {
   const { alert, queryClient } = useAppNameSpase();
   return useMutation<TResponse<any>, Error, FormCreateOrder>({
@@ -18,6 +17,10 @@ export function useCreateOrder(options?: { affterSuccess?: () => void }) {
         onVoid: () => {
           options?.affterSuccess?.();
           queryClient.invalidateQueries({ predicate: (query) => query.queryKey[0] === 'order' });
+          queryClient.invalidateQueries({ predicate: (query) => query.queryKey[0] === 'cart' });
+          queryClient.invalidateQueries({
+            predicate: (query) => query.queryKey[0] === 'restaurant',
+          });
         },
       });
     },
@@ -112,7 +115,7 @@ export function useDeleteCartItem(options?: { affterSuccess?: () => void }) {
   });
 }
 
-export const useDeleteAllCartItem = (options?: { affterSuccess?: () => void }) => {
+export function useDeleteAllCartItem(options?: { affterSuccess?: () => void }) {
   const { alert, queryClient } = useAppNameSpase();
   return useMutation<TResponse<any>, Error, any>({
     mutationFn: () => Api.User.deleteAllCartItem(),
@@ -136,4 +139,30 @@ export const useDeleteAllCartItem = (options?: { affterSuccess?: () => void }) =
       });
     },
   });
-};
+}
+
+export function useCancelOrder(options?: { affterSuccess?: () => void }) {
+  const { alert, queryClient } = useAppNameSpase();
+  return useMutation<TResponse<any>, Error, string>({
+    mutationFn: (orderId) => Api.User.cancelOrder(orderId),
+    onSuccess: () => {
+      alert.toast({
+        title: 'Success',
+        message: 'Berhasil Membatalkan Order',
+        icon: 'success',
+        onVoid: () => {
+          options?.affterSuccess?.();
+          queryClient.invalidateQueries({ predicate: (query) => query.queryKey[0] === 'order' });
+        },
+      });
+    },
+    onError: (err) => {
+      console.error(err);
+      alert.toast({
+        title: 'Error',
+        message: 'Gagal Membatalkan Order',
+        icon: 'error',
+      });
+    },
+  });
+}

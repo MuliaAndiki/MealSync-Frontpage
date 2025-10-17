@@ -37,3 +37,8 @@ export interface PopUpProps {
   onClose: () => void;
   className?: string;
 }
+
+export interface SpreedType {
+  orientation?: 'horizontal' | 'vertical';
+  className?: string;
+}

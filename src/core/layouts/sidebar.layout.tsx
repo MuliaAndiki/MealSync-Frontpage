@@ -35,11 +35,15 @@ export function SidebarLayout({ children, uniqueUrl }: AppLayoutProps) {
   const [selectId, setSelectId] = useState<string | null>(null);
   const deleteCart = useDeleteCartItem();
   const updateCart = useUpdateCartItem();
-  const orderProdutc = useCreateOrder();
+  const orderProdutc = useCreateOrder({
+    affterSuccess: () => {
+      setIsOpenModal(null);
+    },
+  });
   const [formCreateOrder, setFormCreateOrder] = useState<FormCreateOrder>({
     items: [],
     chairNo: 0,
-    uniqueUrl: '',
+    uniqueUrl: uniqueUrl!,
   });
 
   const handleDeleteAllCart = () => {
@@ -55,9 +59,8 @@ export function SidebarLayout({ children, uniqueUrl }: AppLayoutProps) {
     updateCart.mutate({ _id, quantity: newQuantity });
   };
 
-  //  Min Testing
   const handleOrderProdutc = () => {
-    if (!formCreateOrder.chairNo || !formCreateOrder.items || formCreateOrder.uniqueUrl) {
+    if (!formCreateOrder.chairNo || !formCreateOrder.items) {
       alert.toast({
         title: 'Warning',
         message: 'Mohon Coba Lagi',
@@ -65,6 +68,7 @@ export function SidebarLayout({ children, uniqueUrl }: AppLayoutProps) {
       });
       return;
     }
+
     orderProdutc.mutate(formCreateOrder);
   };
 

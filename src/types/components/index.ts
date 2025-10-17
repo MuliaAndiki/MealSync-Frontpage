@@ -78,6 +78,24 @@ export interface CartType {
   total: number;
 }
 
+export interface OrderType {
+  _id: string;
+  userId: string;
+  restaurantId: string;
+  items: {
+    _id: string;
+    productId: string;
+    name: string;
+    price: number;
+    quantity: number;
+  }[];
+  total: number;
+  status: string;
+  chairNo: number;
+  createdAt: string;
+  updatedAt: string;
+}
+
 export interface UniqueUrlProfileType {
   restaurant: {
     _id: string;
@@ -97,4 +115,6 @@ export interface UniqueUrlProfileType {
 }
 type ModalType = 'Form';
 
-export type ParentModalType = ModalType | 'Add' | 'Chair' | 'Order' | null;
+export type ParentModalType = ModalType | 'Add' | 'Chair' | 'Order' | 'Pay' | null;
+
+export type StatusType = 'pending' | 'paid' | 'failed' | 'completed' | 'cancelled';

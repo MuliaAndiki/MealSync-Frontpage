@@ -16,8 +16,8 @@ class RestaurantApi {
     return res.data;
   }
 
-  async UpdateProducts(_id: string): Promise<TResponse<any>> {
-    const res = await AxiosClient.put(`/api/restaurant/products/${_id}`);
+  async UpdateProducts(_id: string, payload: FormCreateProducts): Promise<TResponse<any>> {
+    const res = await AxiosClient.put(`/api/restaurant/products/${_id}`, payload);
     return res.data;
   }
   async GeChair(): Promise<TResponse<any>> {
@@ -54,7 +54,6 @@ class RestaurantApi {
     const res = await AxiosClient.get('/api/restaurant/orders/history');
     return res.data;
   }
-  // Min Intergrate
   async GetProductId(_id: string): Promise<TResponse<any>> {
     const res = await AxiosClient.get(`/api/restaurant/products/${_id}`);
     return res.data;

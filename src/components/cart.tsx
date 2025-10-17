@@ -15,11 +15,11 @@ import {
 import PopUp from '@/core/components/pop-up';
 import { CartType, ChairType, ParentModalType } from '@/types/components';
 import { FormCreateOrder } from '@/types/form';
-import { AlertContexType } from '@/types/ui';
 import { formatCurrency } from '@/utils/format';
 
 import CartContent from './cart-content';
 import Chairs from './chair';
+import FallbackCart from './fallback/cart';
 import FallbackChair from './fallback/chair';
 import Box from './ui/box';
 import { Input } from './ui/input';
@@ -37,7 +37,6 @@ interface CartProps {
   handleUpdate?: any;
   isOpenModal?: ParentModalType;
   setIsOpenModal?: React.Dispatch<React.SetStateAction<ParentModalType>>;
-  alert?: AlertContexType;
   formCreateOrder?: FormCreateOrder;
   setFormCreateOrder?: React.Dispatch<React.SetStateAction<FormCreateOrder>>;
 }
@@ -51,7 +50,6 @@ const Cart: React.FC<CartProps> = ({
   itemCount,
   chairs,
   setSelectId,
-  alert,
   formCreateOrder,
   setFormCreateOrder,
   isOpenModal,
@@ -91,7 +89,7 @@ const Cart: React.FC<CartProps> = ({
               />
             </Box>
           ) : (
-            <p className="text-center text-sm  mt-6">Keranjang kosong</p>
+            <FallbackCart />
           )}
         </Box>
 

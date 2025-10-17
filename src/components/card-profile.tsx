@@ -39,7 +39,7 @@ const CardProfile: React.FC<CardProfileProps & CardProfilePropsV1> = ({
         <Image alt="icon" width={200} height={200} src={data.profile?.logoUrl} />
       </Box>
       {path && (
-        <Link href="/restaurant/dashboard/edit-profile">
+        <Link href={`/restaurant/dashboard/edit-profile/${data._id}`}>
           <Button variant="glass" className="absolute right-1/12 translate-y-5">
             Profile
           </Button>

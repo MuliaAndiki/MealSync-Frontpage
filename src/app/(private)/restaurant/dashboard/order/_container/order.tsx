@@ -5,11 +5,19 @@ import OrderHeroSection from '@/components/section/private/restaurant/order/hero
 import Container from '@/components/ui/container';
 import { SidebarLayout } from '@/core/layouts/sidebar.layout';
 import DatasQuery from '@/hooks/mutation/props.hooks';
+import { useCancelOrder } from '@/hooks/mutation/user/mutation';
+import { useAppNameSpase } from '@/hooks/useNameSpace';
 import { StatusType } from '@/types/components';
 
 const OrderContainer = () => {
+  const { alert, currentRole } = useAppNameSpase();
+  const cancel = useCancelOrder();
   const data = DatasQuery.Restaurant();
   const [isStatus, setIsStatus] = useState<StatusType>('pending');
+
+  const handleCancelOrder = (orderId: string) => {
+    return cancel.mutate(orderId);
+  };
 
   return (
     <SidebarLayout>
@@ -18,6 +26,9 @@ const OrderContainer = () => {
           isStatus={isStatus}
           setIsStatus={setIsStatus}
           orderData={data.OrderData ?? []}
+          onCancel={handleCancelOrder}
+          alert={alert}
+          curentRole={currentRole}
         />
       </Container>
     </SidebarLayout>

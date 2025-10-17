@@ -1,5 +1,5 @@
 'use client';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import DashboardRestaurantSection from '@/components/section/private/restaurant/dashboard/hero-section';
 import Container from '@/components/ui/container';
@@ -12,7 +12,8 @@ import { FormAddCart } from '@/types/form';
 
 const DashboardRestaurantContainer = () => {
   const data = DatasQuery.Restaurant();
-  const { alert } = useAppNameSpase();
+  const uniqueUrl = data.ProfileData?.uniqueUrl ?? '';
+
   const [isOpenModal, setIsOpenModal] = useState<ParentModalType>(null);
   const cart = useAddToCart({
     afterSuccess: () => {
@@ -31,8 +32,11 @@ const DashboardRestaurantContainer = () => {
       productId,
     });
   };
+
+  if (!uniqueUrl) return null;
+
   return (
-    <SidebarLayout>
+    <SidebarLayout uniqueUrl={uniqueUrl ?? ''}>
       <Container className="w-full min-h-screen flex flex-col">
         <DashboardRestaurantSection
           produtc={data.ProductData ?? []}

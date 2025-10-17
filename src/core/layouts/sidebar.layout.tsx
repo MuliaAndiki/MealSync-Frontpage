@@ -40,6 +40,7 @@ export function SidebarLayout({ children, uniqueUrl }: AppLayoutProps) {
       setIsOpenModal(null);
     },
   });
+
   const [formCreateOrder, setFormCreateOrder] = useState<FormCreateOrder>({
     items: [],
     chairNo: 0,
@@ -68,6 +69,7 @@ export function SidebarLayout({ children, uniqueUrl }: AppLayoutProps) {
       });
       return;
     }
+    console.log(formCreateOrder);
 
     orderProdutc.mutate(formCreateOrder);
   };
@@ -91,7 +93,6 @@ export function SidebarLayout({ children, uniqueUrl }: AppLayoutProps) {
                     setSelectId={setSelectId}
                     onDelete={handleDeleteCart}
                     handleUpdate={handleUpdateQuantity}
-                    alert={alert}
                     chairs={data.getRestaurantByUniqueUrlData.chairs ?? []}
                     isOpenModal={isOpenModal}
                     setIsOpenModal={setIsOpenModal}

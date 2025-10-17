@@ -1,7 +1,15 @@
 import { Label } from '@radix-ui/react-label';
 import { IconDots } from '@tabler/icons-react';
 import Image from 'next/image';
+import Link from 'next/link';
 
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
 import { ParentModalType } from '@/types/components';
 import { OrderCardProps } from '@/types/props';
 import { AlertContexType } from '@/types/ui';
@@ -17,6 +25,7 @@ interface OrderCardPropsV2 {
   setIsOpenModal?: React.Dispatch<React.SetStateAction<ParentModalType>>;
   alert?: AlertContexType;
   onCancel: (orderId: string) => void;
+  curentRole?: any;
 }
 
 const OrderCard: React.FC<OrderCardProps & OrderCardPropsV2> = ({
@@ -25,6 +34,7 @@ const OrderCard: React.FC<OrderCardProps & OrderCardPropsV2> = ({
   setIsOpenModal,
   alert,
   onCancel,
+  curentRole,
 }) => {
   return (
     <Box className="w-full border rounded-lg p-3">
@@ -80,9 +90,26 @@ const OrderCard: React.FC<OrderCardProps & OrderCardPropsV2> = ({
         <Label className="font-semibold">{formatCurrency(data?.total)}</Label>
       </Box>
       <Box className="flex justify-between items-center gap-2 overflow-hidden">
-        <Button variant={'glass'}>
-          <IconDots />
-        </Button>
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button variant="outline">
+              <IconDots />
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent className="w-56" align="start">
+            <DropdownMenuGroup>
+              <Link
+                href={
+                  curentRole === 'restaurant'
+                    ? `/restaurant/dashboard/order/detail/${data._id}`
+                    : `/user/dashboard/order/detail/${data._id}`
+                }
+              >
+                <DropdownMenuItem className=" font-bold">Lihat Details</DropdownMenuItem>
+              </Link>
+            </DropdownMenuGroup>
+          </DropdownMenuContent>
+        </DropdownMenu>
         <Box className="w-full ">
           <Button
             variant={'destructive'}

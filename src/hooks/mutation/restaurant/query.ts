@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 
-import { useAppSelector } from '@/hooks/dispatch/dispatch';
+import { useAppNameSpase } from '@/hooks/useNameSpace';
 import Api from '@/services/props.service';
 
 class RestaurantData {
@@ -38,18 +38,18 @@ class RestaurantData {
       profileQuery.isError ||
       profileUniqQuery.isError ||
       orderQuery.isError;
-    this.refetchAll =
-      productsQuery.refetch() ||
-      chairsQuery.refetch() ||
-      profileQuery.refetch() ||
-      orderQuery.refetch() ||
+    this.refetchAll = () => {
+      productsQuery.refetch();
+      chairsQuery.refetch();
+      profileQuery.refetch();
+      orderQuery.refetch();
       profileUniqQuery.refetch();
+    };
   }
 }
 
 export function useRestaurantData(id?: string, uniqueUrl?: string) {
-  // Global State
-  const role = useAppSelector((state) => state.auth.currentUser?.user.role);
+  const { currentRole } = useAppNameSpase();
 
   const productsQuery = useQuery({
     queryKey: ['products', 'restaurant'],
@@ -88,7 +88,7 @@ export function useRestaurantData(id?: string, uniqueUrl?: string) {
     queryKey: ['order', 'restaurant'],
     queryFn: () => Api.Restaurant.GetOrder(),
     staleTime: 1000 * 60 * 5,
-    enabled: role === 'restaurant',
+    enabled: currentRole === 'restaurant',
   });
 
   return new RestaurantData(

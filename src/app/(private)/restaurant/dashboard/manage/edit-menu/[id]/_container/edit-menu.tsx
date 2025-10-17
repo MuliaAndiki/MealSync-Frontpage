@@ -14,7 +14,7 @@ import { fileToBase64 } from '@/utils/base64';
 const EditMenuContainer = () => {
   const params = useParams();
   const id = params?.id as string;
-  const update = useUpdateProducts();
+  const update = useUpdateProducts(id);
   const data = DatasQuery.Restaurant(id);
   const [preview, setPreview] = useState<string | null>(null);
   const router = useRouter();
@@ -43,10 +43,13 @@ const EditMenuContainer = () => {
 
   const handleUpdateProduct = () => {
     const payload = Object.fromEntries(
-      Object.entries(formEditProduct).filter(([_, v]) => v !== '' && v !== null)
+      Object.entries(formEditProduct).filter(
+        ([key, value]) =>
+          key !== 'number' && value !== '' && value !== null && value !== 0 && value !== undefined
+      )
     );
 
-    return update.mutate(payload as any);
+    update.mutate(payload as any);
   };
 
   return (
@@ -54,7 +57,6 @@ const EditMenuContainer = () => {
       <Container className="w-full min-h-screen flex flex-col">
         <EditMenuHeroSection
           data={data.ProductByIdData || []}
-          formEditProduct={formEditProduct}
           setFormEditProduct={setFormEditProduct}
           onPictChange={handleChangePict}
           preview={preview}

@@ -1,21 +1,27 @@
-import { Label } from '@radix-ui/react-label';
-import { ListOrdered } from 'lucide-react';
+import { IconClipboardOff } from '@tabler/icons-react';
+
+import { useTranslate } from '@/hooks/useTranslate';
 
 import Box from '../ui/box';
-import View from '../ui/view';
+import { Card, CardContent } from '../ui/card';
 
-// Setup Props
 interface OrderFallbackProps {}
 
-// Initial Component Fallback
 const OrderFallback: React.FC<OrderFallbackProps> = () => {
+  const { t } = useTranslate();
+  
   return (
-    <View className="w-full h-full">
-      <Box className="flex justify-center items-center rounded-lg flex-col">
-        <Label className="text-lg font-bold">Sekarang Kamu Tidak Memiliki Order</Label>
-        <ListOrdered size={50} />
-      </Box>
-    </View>
+    <Card className="w-full">
+      <CardContent className="py-12">
+        <Box className="flex flex-col items-center justify-center gap-4 text-muted-foreground">
+          <IconClipboardOff size={64} className="opacity-50" />
+          <Box className="text-center space-y-1">
+            <p className="text-lg font-semibold">{t('fallback.no_orders')}</p>
+            <p className="text-sm">{t('fallback.orders_appear')}</p>
+          </Box>
+        </Box>
+      </CardContent>
+    </Card>
   );
 };
 

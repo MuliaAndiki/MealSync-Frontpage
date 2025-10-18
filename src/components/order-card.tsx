@@ -1,6 +1,5 @@
 import { Label } from '@radix-ui/react-label';
 import { IconDots } from '@tabler/icons-react';
-import Image from 'next/image';
 import Link from 'next/link';
 
 import {
@@ -40,13 +39,9 @@ const OrderCard: React.FC<OrderCardProps & OrderCardPropsV2> = ({
     <Box className="w-full border rounded-lg p-3">
       <Box className="w-full  flex justify-between  items-center   ">
         <Box className="flex justify-center items-center gap-2 ">
-          <Image
-            src="/images/Kopi.jpeg"
-            alt="chair"
-            width={50}
-            height={50}
-            className="aspect-square object-cover rounded-lg"
-          />
+          <Box className="w-auto px-3 py-2 bg-[#5B9844] rounded-lg">
+            <p>{data.chairNo}</p>
+          </Box>
           <Box className="flex justify-center items-start flex-col">
             <Label className="text-lg font-semibold">Pemesanan Makanan</Label>
             <Label className="font-semibold">{getDate(data.createdAt)} </Label>

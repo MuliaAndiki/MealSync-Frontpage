@@ -18,9 +18,6 @@ import { useAppNameSpase } from '@/hooks/useNameSpace';
 import { ParentModalType } from '@/types/components';
 import { FormCreateOrder } from '@/types/form';
 
-import LanguageDropdown from '../components/language.dropdown';
-import ThemeToggle from '../components/theme-toggle';
-
 interface AppLayoutProps {
   children: React.ReactNode;
   uniqueUrl?: string;
@@ -28,8 +25,23 @@ interface AppLayoutProps {
 
 export function SidebarLayout({ children, uniqueUrl }: AppLayoutProps) {
   const [isOpenModal, setIsOpenModal] = useState<ParentModalType>(null);
-  const data = DatasQuery.User(uniqueUrl);
-  const { alert } = useAppNameSpase();
+  const { alert, currentRole } = useAppNameSpase();
+
+  const userData = DatasQuery.User(uniqueUrl);
+  const restaurantData = DatasQuery.Restaurant();
+
+  const data =
+    currentRole === 'restaurant'
+      ? {
+          chartData: userData.chartData,
+          getRestaurantByUniqueUrlData: restaurantData.ProfileData
+            ? {
+                chairs: restaurantData.ChairData ?? [],
+              }
+            : { chairs: [] },
+          refetchAll: restaurantData.refetchAll,
+        }
+      : userData;
   const deleteAll = useDeleteAllCartItem();
   const itemCount = data?.chartData?.items?.length ?? 0;
   const [selectId, setSelectId] = useState<string | null>(null);
@@ -44,8 +56,24 @@ export function SidebarLayout({ children, uniqueUrl }: AppLayoutProps) {
   const [formCreateOrder, setFormCreateOrder] = useState<FormCreateOrder>({
     items: [],
     chairNo: 0,
-    uniqueUrl: uniqueUrl!,
+    uniqueUrl: '',
   });
+
+  useEffect(() => {
+    const newUniqueUrl =
+      currentRole === 'restaurant'
+        ? (restaurantData.ProfileData?.uniqueUrl ?? '')
+        : (uniqueUrl ?? '');
+
+    if (newUniqueUrl) {
+      setFormCreateOrder((prev) => {
+        if (prev.uniqueUrl !== newUniqueUrl) {
+          return { ...prev, uniqueUrl: newUniqueUrl };
+        }
+        return prev;
+      });
+    }
+  }, [currentRole, restaurantData.ProfileData?.uniqueUrl, uniqueUrl]);
 
   const handleDeleteAllCart = () => {
     deleteAll.mutate({});
@@ -83,8 +111,6 @@ export function SidebarLayout({ children, uniqueUrl }: AppLayoutProps) {
             <Box className="flex p-4 items-center gap-2 border-b w-full h-20">
               <Box className="flex items-center justify-end  mx-auto w-full">
                 <Box className="flex items-center gap-4">
-                  <ThemeToggle />
-                  <LanguageDropdown />
                   <Cart
                     content={data.chartData}
                     onDeleteAll={() => handleDeleteAllCart()}

@@ -79,16 +79,6 @@ export function AppSidebar() {
                 })}
               </SidebarMenu>
               <SidebarMenu className="w-full flex justify-center items-center gap-2">
-                <Box className="flex justify-star w-full items-start ">
-                  {!isCollapsed ? (
-                    <div className="flex justify-center items-center gap-2">
-                      <Settings />
-                      <Label className="text-lg font-bold"> Pengaturan</Label>
-                    </div>
-                  ) : (
-                    <Settings />
-                  )}
-                </Box>
                 <Button
                   variant={'destructive'}
                   className="font-semibold w-full"
@@ -126,16 +116,6 @@ export function AppSidebar() {
                 })}
               </SidebarMenu>
               <SidebarMenu className="w-full flex justify-center items-center gap-2">
-                <Box className="flex justify-star w-full items-start ">
-                  {!isCollapsed ? (
-                    <div className="flex justify-center items-center gap-2">
-                      <Settings />
-                      <Label className="text-lg font-bold"> Pengaturan</Label>
-                    </div>
-                  ) : (
-                    <Settings />
-                  )}
-                </Box>
                 <Button
                   variant={'destructive'}
                   className="font-semibold w-full"

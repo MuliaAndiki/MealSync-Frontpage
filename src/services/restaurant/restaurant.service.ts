@@ -44,9 +44,8 @@ class RestaurantApi {
     const res = await AxiosClient.get('/api/restaurant/orders');
     return res.data;
   }
-  // Min Intergrate
-  async EditProfile(): Promise<TResponse<any>> {
-    const res = await AxiosClient.put('/api/restaurant/products/profile');
+  async EditProfile(payload: any): Promise<TResponse<any>> {
+    const res = await AxiosClient.put('/api/restaurant/profile', payload);
     return res.data;
   }
 

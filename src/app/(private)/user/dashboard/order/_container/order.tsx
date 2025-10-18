@@ -1,5 +1,6 @@
 'use client';
 import OrderHeroSection from '@/components/section/private/user/order/hero-section';
+import { OrderSkeleton } from '@/components/skeleton/dashboard-skeleton';
 import Container from '@/components/ui/container';
 import { SidebarLayout } from '@/core/layouts/sidebar.layout';
 import DatasQuery from '@/hooks/mutation/props.hooks';
@@ -15,11 +16,21 @@ const OrderContainer = () => {
     return cancel.mutate(orderId);
   };
 
+  if (data.isLoading) {
+    return (
+      <SidebarLayout>
+        <Container className="w-full min-h-screen flex flex-col">
+          <OrderSkeleton />
+        </Container>
+      </SidebarLayout>
+    );
+  }
+
   return (
     <SidebarLayout>
-      <Container className="w-full h-full flex flex-col">
+      <Container className="w-full min-h-screen flex flex-col">
         <OrderHeroSection
-          orderData={data.orderData ?? []}
+          orderData={data.orderData || []}
           onCancel={handleCancelOrder}
           isPending={cancel.isPending}
           alert={alert}

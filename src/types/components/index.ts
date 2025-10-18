@@ -118,3 +118,17 @@ type ModalType = 'Form';
 export type ParentModalType = ModalType | 'Add' | 'Chair' | 'Order' | 'Pay' | null;
 
 export type StatusType = 'pending' | 'paid' | 'failed' | 'completed' | 'cancelled';
+
+export interface PurchaseType {
+  _id: string;
+  orderId: string;
+  amount: number;
+  status: 'completed' | 'failed';
+  paymentMethod: string;
+  createdAt: string;
+  items?: Array<{
+    name: string;
+    quantity: number;
+    price: number;
+  }>;
+}

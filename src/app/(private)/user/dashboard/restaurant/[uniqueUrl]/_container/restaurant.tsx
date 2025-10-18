@@ -3,6 +3,7 @@ import { useParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
 import RestaurantOrderSection from '@/components/section/private/user/restaurant/order-section';
+import { DashboardSkeleton } from '@/components/skeleton/dashboard-skeleton';
 import Container from '@/components/ui/container';
 import { SidebarLayout } from '@/core/layouts/sidebar.layout';
 import DatasQuery from '@/hooks/mutation/props.hooks';
@@ -15,6 +16,7 @@ const RestaurantOrderContainer = () => {
   const params = useParams();
   const uniqueUrl = params.uniqueUrl as string;
   const userData = DatasQuery.User(uniqueUrl);
+
   const cart = useAddToCart({
     afterSuccess: () => {
       setIsOpenModal(null);
@@ -26,6 +28,14 @@ const RestaurantOrderContainer = () => {
   const [formAddToCart, setFormAddToCart] = useState<FormAddCart>({
     quantity: null,
   });
+
+  const handleAddToCart = (productId: string) => {
+    cart.mutate({
+      payload: formAddToCart,
+      productId,
+    });
+  };
+
   useEffect(() => {
     if (userData.isError) {
       alert.toast({
@@ -37,12 +47,15 @@ const RestaurantOrderContainer = () => {
     return;
   }, [userData.isError]);
 
-  const handleAddToCart = (productId: string) => {
-    cart.mutate({
-      payload: formAddToCart,
-      productId,
-    });
-  };
+  if (userData.isLoading) {
+    return (
+      <SidebarLayout uniqueUrl={uniqueUrl}>
+        <Container className="w-full min-h-screen flex flex-col">
+          <DashboardSkeleton />
+        </Container>
+      </SidebarLayout>
+    );
+  }
 
   return (
     <SidebarLayout uniqueUrl={uniqueUrl}>

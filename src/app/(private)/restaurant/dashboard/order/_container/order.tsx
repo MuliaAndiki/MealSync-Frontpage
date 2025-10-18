@@ -2,6 +2,7 @@
 import { useState } from 'react';
 
 import OrderHeroSection from '@/components/section/private/restaurant/order/hero-section';
+import { OrderSkeleton } from '@/components/skeleton/dashboard-skeleton';
 import Container from '@/components/ui/container';
 import { SidebarLayout } from '@/core/layouts/sidebar.layout';
 import DatasQuery from '@/hooks/mutation/props.hooks';
@@ -14,6 +15,16 @@ const OrderContainer = () => {
   const cancel = useCancelOrder();
   const data = DatasQuery.Restaurant();
   const [isStatus, setIsStatus] = useState<StatusType>('pending');
+  
+  if (data.isLoading) {
+    return (
+      <SidebarLayout>
+        <Container className="w-full min-h-screen flex flex-col">
+          <OrderSkeleton />
+        </Container>
+      </SidebarLayout>
+    );
+  }
 
   const handleCancelOrder = (orderId: string) => {
     return cancel.mutate(orderId);

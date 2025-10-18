@@ -3,6 +3,7 @@ import { usePathname } from 'next/navigation';
 import { useState } from 'react';
 
 import ManageHeroSection from '@/components/section/private/restaurant/manege/hero-section';
+import { ManageSkeleton } from '@/components/skeleton/dashboard-skeleton';
 import Container from '@/components/ui/container';
 import { SidebarLayout } from '@/core/layouts/sidebar.layout';
 import DatasQuery from '@/hooks/mutation/props.hooks';
@@ -20,6 +21,7 @@ import { fileToBase64 } from '@/utils/base64';
 const ManageContainer = () => {
   const data = DatasQuery.Restaurant();
   const pathname = usePathname();
+
   const deletet = useDeleteProduct();
   const deleteChair = useDeleteChair();
   const createProduct = useCreateProduct({
@@ -49,6 +51,16 @@ const ManageContainer = () => {
   const [formCreateChair, setFormCreateChair] = useState<FormCreateChair>({
     noChair: undefined,
   });
+
+  if (data.isLoading) {
+    return (
+      <SidebarLayout>
+        <Container className="w-full min-h-screen flex flex-col">
+          <ManageSkeleton />
+        </Container>
+      </SidebarLayout>
+    );
+  }
 
   const handleChangeCategory = (e: string) => {
     setFormAddProduct((prev) => ({
@@ -131,7 +143,6 @@ const ManageContainer = () => {
       <Container className="w-full min-h-screen flex flex-col ">
         <ManageHeroSection
           chair={data.ChairData ?? []}
-          profile={data.ProfileData ?? []}
           isHiden={pathname}
           product={data.ProductData ?? []}
           formAddProduct={formAddProduct}

@@ -3,7 +3,7 @@ import { useMutation } from '@tanstack/react-query';
 import { useAppNameSpase } from '@/hooks/useNameSpace';
 import { TResponse } from '@/pkg/react-query/mutation-wrapper.type';
 import Api from '@/services/props.service';
-import { FormAddCart, FormCreateOrder } from '@/types/form';
+import { FormAddCart, FormCreateOrder, FormEditUserProfile } from '@/types/form';
 
 export function useCreateOrder(options?: { affterSuccess?: () => void }) {
   const { alert, queryClient } = useAppNameSpase();
@@ -161,6 +161,32 @@ export function useCancelOrder(options?: { affterSuccess?: () => void }) {
       alert.toast({
         title: 'Error',
         message: 'Gagal Membatalkan Order',
+        icon: 'error',
+      });
+    },
+  });
+}
+
+export function useUpdateUserProfile(options?: { affterSuccess?: () => void }) {
+  const { alert, queryClient } = useAppNameSpase();
+  return useMutation<TResponse<any>, Error, FormEditUserProfile>({
+    mutationFn: (payload: FormEditUserProfile) => Api.User.updateUserProfile(payload),
+    onSuccess: () => {
+      alert.toast({
+        title: 'Berhasil',
+        message: 'Profile berhasil diperbarui',
+        icon: 'success',
+        onVoid: () => {
+          options?.affterSuccess?.();
+          queryClient.invalidateQueries({ predicate: (query) => query.queryKey[0] === 'user' });
+        },
+      });
+    },
+    onError: (err) => {
+      console.error(err);
+      alert.toast({
+        title: 'Error',
+        message: 'Gagal memperbarui profile',
         icon: 'error',
       });
     },

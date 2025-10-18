@@ -4,6 +4,7 @@ import { useParams, useRouter } from 'next/navigation';
 import { useState } from 'react';
 
 import EditMenuHeroSection from '@/components/section/private/restaurant/edit-menu/hero-section';
+import { EditMenuSkeleton } from '@/components/skeleton/detail-skeleton';
 import Container from '@/components/ui/container';
 import { SidebarLayout } from '@/core/layouts/sidebar.layout';
 import DatasQuery from '@/hooks/mutation/props.hooks';
@@ -26,6 +27,16 @@ const EditMenuContainer = () => {
     price: 0,
     description: '',
   });
+
+  if (data.isLoading) {
+    return (
+      <SidebarLayout>
+        <Container className="w-full min-h-screen flex flex-col">
+          <EditMenuSkeleton />
+        </Container>
+      </SidebarLayout>
+    );
+  }
 
   const handleChangePict = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -62,6 +73,7 @@ const EditMenuContainer = () => {
           preview={preview}
           router={router}
           onSave={() => handleUpdateProduct()}
+          isPending={update.isPending}
         />
       </Container>
     </SidebarLayout>

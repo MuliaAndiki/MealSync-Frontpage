@@ -44,6 +44,14 @@ class UserApi {
     const res = await AxiosClient.delete(`/api/user/order/${orderId}`);
     return res.data;
   }
+  async getUserProfile(): Promise<TResponse<any>> {
+    const res = await AxiosClient.get('/api/user/profile');
+    return res.data;
+  }
+  async updateUserProfile(payload: any): Promise<TResponse<any>> {
+    const res = await AxiosClient.put('/api/user/profile', payload);
+    return res.data;
+  }
 }
 
 export default new UserApi();

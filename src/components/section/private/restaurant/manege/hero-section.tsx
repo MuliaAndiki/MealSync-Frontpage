@@ -48,7 +48,6 @@ interface ManageProps {
   alert?: AlertContexType;
   onChair?: () => void;
   onDeleteChair?: (_id: string) => void;
-  profile: CardProfileType;
 }
 
 const ManageHeroSection: React.FC<ManageProps> = ({
@@ -68,7 +67,6 @@ const ManageHeroSection: React.FC<ManageProps> = ({
   alert,
   chair,
   onChair,
-  profile,
   formCreateChair,
   setFormCreateChair,
   onDeleteChair,
@@ -86,7 +84,7 @@ const ManageHeroSection: React.FC<ManageProps> = ({
               className="rounded-lg "
             />
 
-            <Box className="bg-[#2D1912] w-full  flex justify-center items-center p-4 flex-col">
+            <Box className=" w-full  flex justify-center items-center p-4 flex-col">
               <Box className="flex justify-end items-center gap-4 w-full ">
                 <Button
                   variant={'destructive'}
@@ -120,12 +118,6 @@ const ManageHeroSection: React.FC<ManageProps> = ({
           </Box>
           <Box className="flex justify-center items-start sticky  h-full max-h-screen px-3">
             <Box className="flex flex-col w-full gap-2">
-              <CardProfile
-                data={profile}
-                isHiden={isHiden}
-                hidenRoutes={['/restaurant/dashboard/manage']}
-              />
-
               {chair.length > 0 ? (
                 <Chairs
                   chairs={chair}
@@ -148,104 +140,117 @@ const ManageHeroSection: React.FC<ManageProps> = ({
         </Box>
 
         <PopUp isOpen={isOpenModal === 'Chair'} onClose={() => setIsOpenModal(null)}>
-          <View className="w-full h-full">
-            <Box className="flex justify-center items-center flex-col">
+          <View className="w-full h-full p-1">
+            <Box className="flex justify-center items-center flex-col space-y-4">
               <Box className="flex justify-between items-center w-full">
-                <Label className="text-lg font-semibold">Tambahakan Kursi :</Label>
-                <IconX onClick={() => setIsOpenModal(null)} className="cursor-pointer" />
+                <Box>
+                  <h3 className="text-xl font-bold">Tambah Kursi Baru</h3>
+                  <p className="text-sm text-muted-foreground">Masukkan nomor kursi yang akan ditambahkan</p>
+                </Box>
+                <Button variant="ghost" size="icon" onClick={() => setIsOpenModal(null)}>
+                  <IconX size={20} />
+                </Button>
               </Box>
-              <Box className="flex flex-col justify-center items-start w-full mt-2">
-                <Label className="text-lg font-bold">Nomor:</Label>
-                <Input
-                  inputMode="numeric"
-                  value={formCreateChair.noChair}
-                  type="number"
-                  onChange={(e) =>
-                    setFormCreateChair((prev) => {
-                      const newObj = { ...prev, noChair: Number(e.target.value) };
-                      return newObj;
-                    })
-                  }
-                />
+              
+              <Box className="w-full space-y-3">
+                <Box className="space-y-2">
+                  <Label htmlFor="chair-number" className="text-sm font-medium">
+                    Nomor Kursi
+                  </Label>
+                  <Input
+                    id="chair-number"
+                    inputMode="numeric"
+                    value={formCreateChair.noChair}
+                    type="number"
+                    placeholder="Contoh: 1"
+                    onChange={(e) =>
+                      setFormCreateChair((prev) => ({
+                        ...prev,
+                        noChair: Number(e.target.value),
+                      }))
+                    }
+                  />
+                </Box>
+
+                <Box className="flex gap-2 pt-2">
+                  <Button
+                    variant="outline"
+                    onClick={() => setIsOpenModal(null)}
+                    disabled={isPending}
+                    className="flex-1"
+                  >
+                    Batal
+                  </Button>
+                  <Button
+                    variant="native"
+                    onClick={() => onChair!()}
+                    disabled={isPending}
+                    className="flex-1"
+                  >
+                    {isPending ? 'Menambahkan...' : 'Tambah Kursi'}
+                  </Button>
+                </Box>
               </Box>
-              <Button
-                variant={'native'}
-                onClick={() => onChair!()}
-                disabled={isPending}
-                className="w-full my-2"
-              >
-                {isPending ? 'Loading' : 'Tambahakan'}
-              </Button>
-              {/* Penjelasan  */}
             </Box>
           </View>
         </PopUp>
 
         <PopUp isOpen={isOpenModal === 'Add'} onClose={() => setIsOpenModal(null)}>
-          <View className="w-full h-full">
-            <Box className="flex justify-center items-center flex-col">
+          <View className="w-full h-full p-1">
+            <Box className="flex justify-center items-center flex-col space-y-4">
               <Box className="flex justify-between items-center w-full">
-                <Label className="text-lg font-extrabold">Bikin Produtcs</Label>
-                <IconX onClick={() => setIsOpenModal(null)} className="cursor-pointer" />
+                <Box>
+                  <h3 className="text-xl font-bold">Tambah Menu Baru</h3>
+                  <p className="text-sm text-muted-foreground">Lengkapi informasi menu yang akan ditambahkan</p>
+                </Box>
+                <Button variant="ghost" size="icon" onClick={() => setIsOpenModal(null)}>
+                  <IconX size={20} />
+                </Button>
               </Box>
-              <Box className="flex justify-center items-center w-full flex-col ">
-                <Box className="flex justify-center items-start flex-col w-full my-2 ">
-                  <Label className="text-lg font-extrabold">Nama :</Label>
+
+              <Box className="w-full space-y-4 max-h-[60vh] overflow-y-auto">
+                <Box className="space-y-2">
+                  <Label htmlFor="product-name" className="text-sm font-medium">
+                    Nama Menu
+                  </Label>
                   <Input
-                    placeholder="roti"
+                    id="product-name"
+                    placeholder="Contoh: Nasi Goreng Special"
                     value={formAddProduct.name}
                     onChange={(e) =>
-                      setFormAddProduct((prev) => {
-                        const newObj = { ...prev, name: e.target.value };
-                        return newObj;
-                      })
+                      setFormAddProduct((prev) => ({
+                        ...prev,
+                        name: e.target.value,
+                      }))
                     }
                   />
                 </Box>
-                <Box className="flex justify-center items-start flex-col w-full my-2 ">
-                  <Label className="text-lg font-extrabold">Harga :</Label>
+
+                <Box className="space-y-2">
+                  <Label htmlFor="product-price" className="text-sm font-medium">
+                    Harga (Rp)
+                  </Label>
                   <Input
-                    placeholder="000"
+                    id="product-price"
+                    placeholder="25000"
                     type="number"
                     inputMode="numeric"
                     onChange={(e) =>
-                      setFormAddProduct((prev) => {
-                        const newObj = { ...prev, price: Number(e.target.value) };
-                        return newObj;
-                      })
+                      setFormAddProduct((prev) => ({
+                        ...prev,
+                        price: Number(e.target.value),
+                      }))
                     }
                   />
                 </Box>
-                <Box className="flex justify-center items-start flex-col w-full my-2 ">
-                  <Label className="text-lg font-extrabold">Gambar :</Label>
-                  <UploadsTrigger
-                    onChange={(e) => onPictChange!(e)}
-                    accept="image/**"
-                    multiple={false}
-                    className="w-full"
-                  >
-                    <Button className="w-full" variant={'native'}>
-                      Tambahakan Gambar
-                    </Button>
-                    {preview && (
-                      <Image
-                        alt="gambar"
-                        width={100}
-                        height={100}
-                        src={preview}
-                        className="mt-2 rounded-lg"
-                      />
-                    )}
-                    <Label className="flex justify-end text-sm font-semibold italic">
-                      Format: .jpg .webp .png
-                    </Label>
-                  </UploadsTrigger>
-                </Box>
-                <Box className="flex justify-center items-start flex-col w-full my-2 ">
-                  <Label className="text-lg font-extrabold">Category :</Label>
+
+                <Box className="space-y-2">
+                  <Label htmlFor="product-category" className="text-sm font-medium">
+                    Kategori
+                  </Label>
                   <Select onValueChange={(e) => onCategory!(e)} value={formAddProduct.category}>
                     <SelectTrigger className="w-full">
-                      <SelectValue placeholder="pilih category" />
+                      <SelectValue placeholder="Pilih kategori" />
                     </SelectTrigger>
                     <SelectContent>
                       {CategortProduct.map((items) => (
@@ -256,26 +261,73 @@ const ManageHeroSection: React.FC<ManageProps> = ({
                     </SelectContent>
                   </Select>
                 </Box>
-                <Box className="flex justify-center items-start flex-col w-full my-2 ">
-                  <Label className="text-lg font-extrabold">Deskripsi :</Label>
+
+                <Box className="space-y-2">
+                  <Label className="text-sm font-medium">Foto Menu</Label>
+                  <Box className="border-2 border-dashed border-muted rounded-lg p-4">
+                    <UploadsTrigger
+                      onChange={(e) => onPictChange!(e)}
+                      accept="image/*"
+                      multiple={false}
+                      className="w-full"
+                    >
+                      <Button className="w-full" variant="outline" type="button">
+                        <IconMenu2 className="mr-2" size={18} />
+                        Pilih Gambar
+                      </Button>
+                    </UploadsTrigger>
+                    {preview && (
+                      <Box className="mt-3 flex justify-center">
+                        <Image
+                          alt="Preview"
+                          width={150}
+                          height={150}
+                          src={preview}
+                          className="rounded-lg object-cover"
+                        />
+                      </Box>
+                    )}
+                    <p className="text-xs text-muted-foreground mt-2 text-center">
+                      Format: JPG, PNG, WebP (Max 5MB)
+                    </p>
+                  </Box>
+                </Box>
+
+                <Box className="space-y-2">
+                  <Label htmlFor="product-description" className="text-sm font-medium">
+                    Deskripsi
+                  </Label>
                   <Textarea
-                    placeholder="Masukan Deskripsi"
+                    id="product-description"
+                    placeholder="Jelaskan menu Anda dengan detail..."
+                    rows={4}
                     onChange={(e) =>
-                      setFormAddProduct((prev) => {
-                        const newObj = { ...prev, description: e.target.value };
-                        return newObj;
-                      })
+                      setFormAddProduct((prev) => ({
+                        ...prev,
+                        description: e.target.value,
+                      }))
                     }
                   />
                 </Box>
+              </Box>
+
+              <Box className="flex gap-2 w-full pt-2">
+                <Button
+                  variant="outline"
+                  onClick={() => setIsOpenModal(null)}
+                  disabled={isPending}
+                  className="flex-1"
+                >
+                  Batal
+                </Button>
                 <Button
                   type="button"
-                  className="w-full"
-                  variant={'destructive'}
+                  className="flex-1"
+                  variant="native"
                   disabled={isPending}
                   onClick={() => onAdd!()}
                 >
-                  {isPending ? 'Tunggu' : 'Bikin'}
+                  {isPending ? 'Menambahkan...' : 'Tambah Menu'}
                 </Button>
               </Box>
             </Box>

@@ -9,6 +9,7 @@ type Theme = 'light' | 'dark';
 interface ThemeContextType {
   theme: Theme;
   toggleTheme: () => void;
+  setTheme: (theme: Theme) => void;
 }
 
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
@@ -32,10 +33,9 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     }
   }, []);
 
-  const toggleTheme = () => {
-    const newTheme = theme === 'light' ? 'dark' : 'light';
+  const applyTheme = (newTheme: Theme) => {
     setTheme(newTheme);
-    document.documentElement.classList.toggle('dark');
+    document.documentElement.classList.toggle('dark', newTheme === 'dark');
     localStorage.setItem('theme', newTheme);
 
     // Apply theme variables
@@ -50,12 +50,21 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     });
   };
 
+  const toggleTheme = () => {
+    const newTheme = theme === 'light' ? 'dark' : 'light';
+    applyTheme(newTheme);
+  };
+
+  const changeTheme = (newTheme: Theme) => {
+    applyTheme(newTheme);
+  };
+
   // Prevent hydration mismatch
   if (!mounted) {
     return null;
   }
 
-  return <ThemeContext.Provider value={{ theme, toggleTheme }}>{children}</ThemeContext.Provider>;
+  return <ThemeContext.Provider value={{ theme, toggleTheme, setTheme: changeTheme }}>{children}</ThemeContext.Provider>;
 }
 
 export function useTheme() {

@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 
 import Box from '@/components/ui/box';
+import { useTranslate } from '@/hooks/useTranslate';
 import RestaurantApi from '@/services/restaurant/restaurant.service';
 import { getSocket, initSocketConnection, joinRestaurantRoom } from '@/utils/socket.client';
 
@@ -31,6 +32,7 @@ interface OrdersRealtimeProps {
 }
 
 const OrdersRealtime: React.FC<OrdersRealtimeProps> = ({ restaurantId }) => {
+  const { t } = useTranslate();
   const [orders, setOrders] = useState<Order[]>([]);
   const [loading, setLoading] = useState(true);
   const [chairUpdates, setChairUpdates] = useState<{ chairNo: number; status: string }[]>([]);
@@ -116,11 +118,11 @@ const OrdersRealtime: React.FC<OrdersRealtimeProps> = ({ restaurantId }) => {
   const getStatusIcon = (status: string) => {
     switch (status) {
       case 'pending':
-        return <Clock className="w-5 h-5 text-yellow-500" />;
+        return <Clock className="w-5 h-5 text-yellow-600 dark:text-yellow-500" />;
       case 'paid':
-        return <CheckCircle className="w-5 h-5 text-green-500" />;
+        return <CheckCircle className="w-5 h-5 text-green-600 dark:text-green-500" />;
       case 'failed':
-        return <XCircle className="w-5 h-5 text-red-500" />;
+        return <XCircle className="w-5 h-5 text-destructive" />;
       default:
         return null;
     }
@@ -129,11 +131,12 @@ const OrdersRealtime: React.FC<OrdersRealtimeProps> = ({ restaurantId }) => {
   const getStatusText = (status: string) => {
     switch (status) {
       case 'pending':
-        return 'Menunggu Pembayaran';
+        return t('purchase.status.pending');
       case 'paid':
-        return 'Sudah Dibayar';
+      case 'completed':
+        return t('purchase.status.completed');
       case 'failed':
-        return 'Gagal';
+        return t('purchase.status.failed');
       default:
         return status;
     }
@@ -152,7 +155,7 @@ const OrdersRealtime: React.FC<OrdersRealtimeProps> = ({ restaurantId }) => {
   }
 
   return (
-    <Box className="p-6">
+    <Box className="p-6 border rounded-lg bg-card">
       <div className="mb-6">
         <Label className="text-2xl font-bold">Pesanan Real-Time</Label>
         <p className="text-muted-foreground text-sm mt-1">
@@ -162,20 +165,20 @@ const OrdersRealtime: React.FC<OrdersRealtimeProps> = ({ restaurantId }) => {
 
       {orders.length === 0 ? (
         <div className="text-center py-12">
-          <UtensilsCrossed className="w-16 h-16 mx-auto text-muted-foreground mb-4" />
-          <p className="text-muted-foreground">Belum ada pesanan</p>
+          <UtensilsCrossed className="w-16 h-16 mx-auto text-muted-foreground opacity-50 mb-4" />
+          <p className="text-muted-foreground">{t('fallback.no_orders')}</p>
         </div>
       ) : (
         <div className="space-y-4">
           {orders.map((order) => (
             <Box
               key={order._id}
-              className={`p-4 border-l-4 ${
+              className={`p-4 border-l-4 rounded-lg border bg-card ${
                 order.status === 'pending'
-                  ? 'border-l-yellow-500 bg-yellow-50'
+                  ? 'border-l-yellow-600 dark:border-l-yellow-500'
                   : order.status === 'paid'
-                    ? 'border-l-green-500 bg-green-50'
-                    : 'border-l-red-500 bg-red-50'
+                    ? 'border-l-green-600 dark:border-l-green-500'
+                    : 'border-l-destructive'
               }`}
             >
               <div className="flex justify-between items-start mb-3">
@@ -194,7 +197,7 @@ const OrdersRealtime: React.FC<OrdersRealtimeProps> = ({ restaurantId }) => {
 
               <div className="space-y-2 mb-3">
                 {order.items.map((item, idx) => (
-                  <div key={idx} className="flex justify-between text-sm bg-white p-2 rounded">
+                  <div key={idx} className="flex justify-between text-sm bg-muted/50 p-2 rounded">
                     <span>
                       {item.name} x{item.quantity}
                     </span>
@@ -205,7 +208,7 @@ const OrdersRealtime: React.FC<OrdersRealtimeProps> = ({ restaurantId }) => {
 
               <div className="flex justify-between items-center pt-3 border-t">
                 <span className="font-semibold">Total:</span>
-                <span className="text-xl font-bold text-blue-600">{formatPrice(order.total)}</span>
+                <span className="text-xl font-bold text-primary">{formatPrice(order.total)}</span>
               </div>
             </Box>
           ))}
@@ -219,14 +222,14 @@ const OrdersRealtime: React.FC<OrdersRealtimeProps> = ({ restaurantId }) => {
             {chairUpdates.map((chair) => (
               <div
                 key={chair.chairNo}
-                className={`p-2 rounded-lg text-center ${
+                className={`p-2 rounded-lg text-center border ${
                   chair.status === 'full'
-                    ? 'bg-red-100 text-red-700'
-                    : 'bg-green-100 text-green-700'
+                    ? 'bg-destructive/10 text-destructive border-destructive/20'
+                    : 'bg-green-500/10 text-green-700 dark:text-green-500 border-green-500/20'
                 }`}
               >
                 <p className="font-bold text-lg">Meja {chair.chairNo}</p>
-                <p className="text-xs">{chair.status === 'full' ? 'Terisi' : 'Kosong'}</p>
+                <p className="text-xs">{chair.status === 'full' ? t('chair.occupied') : t('chair.empty')}</p>
               </div>
             ))}
           </div>

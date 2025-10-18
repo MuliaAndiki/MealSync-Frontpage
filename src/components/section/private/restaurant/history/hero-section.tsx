@@ -1,37 +1,89 @@
-import HistoryCard from '@/components/history';
+'use client';
+
+import FallbackPurchase from '@/components/fallback/purchase';
+import Purchase from '@/components/purchase';
+import { Badge } from '@/components/ui/badge';
 import Box from '@/components/ui/box';
 import { Button } from '@/components/ui/button';
+import { Separator } from '@/components/ui/separator';
 import View from '@/components/ui/view';
-import { HistoryData } from '@/configs/components.config';
+import { useTranslate } from '@/hooks/useTranslate';
 
-interface HistoryCardProps {
-  content: 'Pending' | 'Paid';
-  setContent: React.Dispatch<React.SetStateAction<'Pending' | 'Paid'>>;
+interface HistoryHeroSectionProps {
+  content?: 'Pending' | 'Paid';
+  setContent?: (content: 'Pending' | 'Paid') => void;
+  orderHistory?: any[];
 }
 
-const HistoryHeroSection: React.FC<HistoryCardProps> = ({ content, setContent }) => {
+const HistoryHeroSection: React.FC<HistoryHeroSectionProps> = ({
+  content,
+  setContent,
+  orderHistory = [],
+}) => {
+  const { t } = useTranslate();
+
+  const filteredHistory = orderHistory.filter((order: any) => {
+    if (content === 'Pending') {
+      return order.status === 'pending' || order.status === 'processing';
+    }
+    return order.status === 'completed' || order.status === 'paid';
+  });
+
+  const pendingCount = orderHistory.filter(
+    (o: any) => o.status === 'pending' || o.status === 'processing'
+  ).length;
+  const completedCount = orderHistory.filter(
+    (o: any) => o.status === 'completed' || o.status === 'paid'
+  ).length;
+
   return (
     <View>
-      <Box className="flex min-h-screen w-full justify-center items-center relative z-0 overflow-x-hidden flex-col">
-        <Box className="bg-[#2D1912] w-full min-h-screen max-h-full rounded-lg">
-          <Box className="w-full h-full flex justify-center items-center p-2 gap-3">
-            <Button variant={'carosel'} onClick={() => setContent('Pending')} className="font-bold">
-              Pending
-            </Button>
-            <Button variant={'carosel'} onClick={() => setContent('Paid')} className="font-bold">
-              Lunas
-            </Button>
-          </Box>
-          <Box className="flex justify-center items-center flex-col p-2">
-            <Box className="w-full rounded-lg flex-col flex p-4 my-4 ">
-              {HistoryData.map((items, key) => (
-                <Box key={key} className="my-2 p-1">
-                  <HistoryCard data={items} />
-                </Box>
-              ))}
-            </Box>
-          </Box>
+      <Box className="flex justify-start items-center flex-col w-full min-h-screen gap-6 py-4 sm:py-6 px-4 sm:px-0">
+        <Box className="w-full">
+          <h1 className="text-2xl sm:text-3xl font-bold">{t('purchase.title')}</h1>
+          <p className="text-sm sm:text-base text-muted-foreground">
+            {t('purchase.restaurant_transaction_history')}
+          </p>
         </Box>
+
+        <Separator />
+
+        <Box className="w-full flex gap-2 flex-wrap">
+          <Button
+            variant={content === 'Pending' ? 'default' : 'outline'}
+            onClick={() => setContent!('Pending')}
+            className="relative"
+          >
+            {t('purchase.filter.pending')}
+            {pendingCount > 0 && (
+              <Badge className="ml-2" variant="destructive">
+                {pendingCount}
+              </Badge>
+            )}
+          </Button>
+          <Button
+            variant={content === 'Paid' ? 'default' : 'outline'}
+            onClick={() => setContent!('Paid')}
+            className="relative"
+          >
+            {t('purchase.filter.completed')}
+            {completedCount > 0 && (
+              <Badge className="ml-2" variant="secondary">
+                {completedCount}
+              </Badge>
+            )}
+          </Button>
+        </Box>
+
+        {filteredHistory.length > 0 ? (
+          <Box className="w-full grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {filteredHistory.map((purchase: any) => (
+              <Purchase key={purchase._id} data={purchase} />
+            ))}
+          </Box>
+        ) : (
+          <FallbackPurchase />
+        )}
       </Box>
     </View>
   );

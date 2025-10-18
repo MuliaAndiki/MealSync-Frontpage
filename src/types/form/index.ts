@@ -11,9 +11,21 @@ export interface FormRegisterType {
 }
 
 export interface FormEditProfile {
-  address: string;
-  description: string;
-  logoUrl: string;
+  name?: string;
+  email?: string;
+  address?: string;
+  description?: string;
+  logoUrl?: string;
+  banner?: string;
+  pitch?: string;
+}
+
+export interface FormEditUserProfile {
+  fullName?: string;
+  email?: string;
+  fotoProfile?: string;
+  phone?: string;
+  address?: string;
 }
 
 export interface FormCreateChair {

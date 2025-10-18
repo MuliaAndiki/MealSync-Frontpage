@@ -1,6 +1,6 @@
 import { IconHome, IconMail, IconMenu2, IconPhoneCall } from '@tabler/icons-react';
-import { IconCircleCheck, IconClipboardText, IconToolsKitchen2 } from '@tabler/icons-react';
-import { Home } from 'lucide-react';
+import { IconCircleCheck, IconClipboardText, IconSettings,IconToolsKitchen2 } from '@tabler/icons-react';
+import { Home, UserPen } from 'lucide-react';
 
 import {
   HistoryType,
@@ -74,11 +74,6 @@ export const MenuDataRestaurant: MenusType[] = [
     icon: Home,
   },
   {
-    title: 'Menu',
-    url: '/restaurant/dashboard/menu',
-    icon: IconToolsKitchen2,
-  },
-  {
     title: 'Purchase History',
     url: '/restaurant/dashboard/history',
     icon: IconClipboardText,
@@ -92,6 +87,16 @@ export const MenuDataRestaurant: MenusType[] = [
     title: 'Manajement',
     icon: IconMenu2,
     url: '/restaurant/dashboard/manage',
+  },
+  {
+    title: 'Profile',
+    icon: UserPen,
+    url: '/restaurant/dashboard/profile',
+  },
+  {
+    title: 'Settings',
+    icon: IconSettings,
+    url: '/restaurant/dashboard/settings',
   },
 ];
 
@@ -110,6 +115,16 @@ export const MenuDataUser: MenusType[] = [
     title: 'Order Status',
     url: '/user/dashboard/order',
     icon: IconCircleCheck,
+  },
+  {
+    title: 'Profile',
+    icon: UserPen,
+    url: '/user/dashboard/profile',
+  },
+  {
+    title: 'Settings',
+    icon: IconSettings,
+    url: '/user/dashboard/settings',
   },
 ];
 

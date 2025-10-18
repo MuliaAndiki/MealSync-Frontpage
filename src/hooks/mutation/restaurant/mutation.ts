@@ -137,11 +137,10 @@ export function useDeleteChair(options?: { onAfterSucces?: () => void }) {
   });
 }
 
-// Belum Intergrate
 export function useEditProfile(options?: { onAfterSucces?: () => void }) {
   const { alert, queryClient } = useAppNameSpase();
   return useMutation<TResponse<any>, Error, FormEditProfile>({
-    mutationFn: () => Api.Restaurant.EditProfile(),
+    mutationFn: (payload: FormEditProfile) => Api.Restaurant.EditProfile(payload),
     onSuccess: () => {
       alert.toast({
         title: 'Succes',

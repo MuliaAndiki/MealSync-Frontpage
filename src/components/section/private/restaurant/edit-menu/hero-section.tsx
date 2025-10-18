@@ -1,10 +1,23 @@
-import { Label } from '@radix-ui/react-label';
+'use client';
+import {
+  IconCheck,
+  IconCurrencyDollar,
+  IconFileText,
+  IconPhoto,
+  IconTag,
+  IconUpload,
+  IconX,
+} from '@tabler/icons-react';
 import Image from 'next/image';
 
 import Box from '@/components/ui/box';
 import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Separator } from '@/components/ui/separator';
 import { Switch } from '@/components/ui/switch';
+import { Textarea } from '@/components/ui/textarea';
 import View from '@/components/ui/view';
 import { FormCreateProducts } from '@/types/form';
 import { ProductsProps } from '@/types/props';
@@ -30,115 +43,220 @@ const EditMenuHeroSection: React.FC<EditMenuProps & ProductsProps> = ({
 }) => {
   return (
     <View>
-      <Box className="flex justify-start items-center  w-full min-h-screen flex-col">
-        <Box className="grid grid-cols-2 grid-rows-1  w-full">
-          <Box className="flex justify-between items-start w-full flex-col p-4 ">
-            <Box className="flex justify-center items-center w-full max-w-100">
-              <Label className="text-lg font-bold w-full">Nama Menu :</Label>
-              <Input
-                defaultValue={data.name}
-                onChange={(e) =>
-                  setFormEditProduct!((prev) => {
-                    const newObj = { ...prev, name: e.target.value };
-                    return newObj;
-                  })
-                }
-              />
-            </Box>
-            <Box className="flex justify-center items-center w-full max-w-100">
-              <Label className="text-lg font-bold w-full">Deskripsi :</Label>
-              <Input
-                defaultValue={data.description}
-                onChange={(e) =>
-                  setFormEditProduct!((prev) => {
-                    const newObj = { ...prev, description: e.target.value };
-                    return newObj;
-                  })
-                }
-              />
-            </Box>
-            <Box className="flex justify-center items-center w-full max-w-100">
-              <Label className="text-lg font-bold w-full">Kategori :</Label>
-              <Input defaultValue={data.category} />
-            </Box>
-            <Box className="flex justify-center items-center w-full max-w-100">
-              <Label className="text-lg font-bold w-full">Price :</Label>
-              <Input
-                defaultValue={data.price}
-                onChange={(e) =>
-                  setFormEditProduct!((prev) => {
-                    const newObj = { ...prev, price: Number(e.target.value) };
-                    return newObj;
-                  })
-                }
-              />
-            </Box>
+      <Box className="flex justify-start items-center w-full min-h-screen flex-col gap-6 py-4 sm:py-6 px-4 sm:px-0">
+        <Box className="w-full flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+          <Box>
+            <h1 className="text-2xl sm:text-3xl font-bold">Edit Menu</h1>
+            <p className="text-sm sm:text-base text-muted-foreground">
+              Perbarui informasi menu Anda
+            </p>
           </Box>
-          <Box className="flex justify-center items-center w-full flex-col">
-            <Box className="grid grid-cols-1 grid-rows-2 w-full h-full ">
-              <Box className="flex justify-center items-center w-full h-full p-2 gap-2 ">
-                {preview ? (
-                  <Image
-                    alt="gambar"
-                    width={170}
-                    height={170}
-                    src={preview}
-                    className="rounded-lg aspect-square"
-                  />
-                ) : (
-                  <Image
-                    alt="food"
-                    src={data?.pictProduct}
-                    width={170}
-                    height={170}
-                    className="rounded-lg aspect-square"
-                  />
-                )}
-
-                <Box className="flex justify-center  items-center flex-col">
-                  <Label className="text-2xl font-extrabold">Gambar Menu</Label>
-                  <UploadsTrigger
-                    onChange={(e) => onPictChange!(e)}
-                    accept="image/**"
-                    multiple={false}
-                    className="w-full"
-                  >
-                    <Button className="w-full" variant={'native'}>
-                      Ganti Gambar
-                    </Button>
-                  </UploadsTrigger>
-                </Box>
-              </Box>
-              <Box className="flex justify-center items-ends w-full h-full flex-col p-2 gap-2 ">
-                <Label className="text-lg font-bold">Status Menu :</Label>
-                <Box className="flex justify-end items-center gap-2">
-                  <Label className="text-lg font-bold">Aktif</Label>
-                  <Switch />
-                </Box>
-                <Box className="flex justify-end items-center gasp-2">
-                  <Label className="text-lg font-bold">Habis</Label>
-                  <Switch />
-                </Box>
-              </Box>
-            </Box>
+          <Box className="flex gap-2 w-full sm:w-auto">
+            <Button
+              variant="outline"
+              onClick={() => router.back()}
+              disabled={isPending}
+              className="flex-1 sm:flex-none"
+            >
+              <IconX size={18} />
+              <span className="hidden sm:inline">Batal</span>
+            </Button>
+            <Button
+              variant="native"
+              onClick={() => onSave!()}
+              disabled={isPending}
+              className="flex-1 sm:flex-none"
+            >
+              <IconCheck size={18} />
+              {isPending ? 'Menyimpan...' : 'Simpan'}
+            </Button>
           </Box>
         </Box>
-        <Box className="flex justify-around items-center  w-full">
-          <Button
-            variant={'native'}
-            className="text-lg"
-            onClick={() => onSave!()}
-            disabled={isPending}
-          >
-            {isPending ? 'Tunggu' : 'Simpan'}
+
+        <Separator />
+
+        <Box className="w-full grid md:grid-cols-2 gap-6">
+          <Box className="space-y-6">
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <IconPhoto size={24} className="text-[#5B9844]" />
+                  Foto Menu
+                </CardTitle>
+                <CardDescription>Upload foto menu dengan ukuran optimal 800x800px</CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <Box className="relative w-full aspect-square rounded-lg overflow-hidden border-2 border-dashed border-muted hover:border-[#5B9844] transition-colors">
+                  {preview || data?.pictProduct ? (
+                    <>
+                      <Image
+                        alt="Menu Preview"
+                        src={preview || data?.pictProduct}
+                        fill
+                        className="object-cover"
+                      />
+                      <Box className="absolute inset-0 bg-black/40 opacity-0 hover:opacity-100 transition-opacity flex items-center justify-center">
+                        <UploadsTrigger
+                          onChange={(e) => onPictChange!(e)}
+                          accept="image/*"
+                          multiple={false}
+                        >
+                          <Button variant="secondary">
+                            <IconUpload size={18} />
+                            Ganti Foto
+                          </Button>
+                        </UploadsTrigger>
+                      </Box>
+                    </>
+                  ) : (
+                    <Box className="absolute inset-0 flex flex-col items-center justify-center gap-3">
+                      <IconPhoto size={48} className="text-muted-foreground" />
+                      <UploadsTrigger
+                        onChange={(e) => onPictChange!(e)}
+                        accept="image/*"
+                        multiple={false}
+                      >
+                        <Button variant="outline">
+                          <IconUpload size={18} />
+                          Upload Foto
+                        </Button>
+                      </UploadsTrigger>
+                    </Box>
+                  )}
+                </Box>
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardHeader>
+                <CardTitle>Status Menu</CardTitle>
+                <CardDescription>Atur ketersediaan menu</CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <Box className="flex items-center justify-between p-3 rounded-lg border">
+                  <Box className="flex items-center gap-3">
+                    <Box className="w-10 h-10 rounded-full bg-[#5B9844]/10 flex items-center justify-center">
+                      <IconCheck size={20} className="text-[#5B9844]" />
+                    </Box>
+                    <Box>
+                      <p className="font-medium">Menu Aktif</p>
+                      <p className="text-sm text-muted-foreground">Menu dapat dipesan</p>
+                    </Box>
+                  </Box>
+                  <Switch defaultChecked={data?.isAvailable} />
+                </Box>
+
+                <Box className="flex items-center justify-between p-3 rounded-lg border">
+                  <Box className="flex items-center gap-3">
+                    <Box className="w-10 h-10 rounded-full bg-destructive/10 flex items-center justify-center">
+                      <IconX size={20} className="text-destructive" />
+                    </Box>
+                    <Box>
+                      <p className="font-medium">Stok Habis</p>
+                      <p className="text-sm text-muted-foreground">Menu tidak tersedia</p>
+                    </Box>
+                  </Box>
+                  <Switch defaultChecked={!data?.isAvailable} />
+                </Box>
+              </CardContent>
+            </Card>
+          </Box>
+
+          <Box className="space-y-6">
+            <Card>
+              <CardHeader>
+                <CardTitle>Informasi Menu</CardTitle>
+                <CardDescription>Detail menu yang akan ditampilkan ke customer</CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <Box className="space-y-2">
+                  <Label htmlFor="name" className="flex items-center gap-2">
+                    <IconFileText size={16} className="text-[#5B9844]" />
+                    Nama Menu
+                  </Label>
+                  <Input
+                    id="name"
+                    placeholder="Contoh: Nasi Goreng Special"
+                    defaultValue={data.name}
+                    onChange={(e) =>
+                      setFormEditProduct!((prev) => ({
+                        ...prev,
+                        name: e.target.value,
+                      }))
+                    }
+                  />
+                </Box>
+
+                <Box className="space-y-2">
+                  <Label htmlFor="description" className="flex items-center gap-2">
+                    <IconFileText size={16} className="text-[#5B9844]" />
+                    Deskripsi
+                  </Label>
+                  <Textarea
+                    id="description"
+                    placeholder="Deskripsikan menu Anda dengan detail..."
+                    defaultValue={data.description}
+                    onChange={(e) =>
+                      setFormEditProduct!((prev) => ({
+                        ...prev,
+                        description: e.target.value,
+                      }))
+                    }
+                    rows={4}
+                  />
+                </Box>
+
+                <Box className="grid md:grid-cols-2 gap-4">
+                  <Box className="space-y-2">
+                    <Label htmlFor="category" className="flex items-center gap-2">
+                      <IconTag size={16} className="text-[#5B9844]" />
+                      Kategori
+                    </Label>
+                    <Input
+                      id="category"
+                      placeholder="Contoh: Makanan Utama"
+                      defaultValue={data.category}
+                      onChange={(e) =>
+                        setFormEditProduct!((prev) => ({
+                          ...prev,
+                          category: e.target.value,
+                        }))
+                      }
+                    />
+                  </Box>
+
+                  <Box className="space-y-2">
+                    <Label htmlFor="price" className="flex items-center gap-2">
+                      <IconCurrencyDollar size={16} className="text-[#5B9844]" />
+                      Harga (Rp)
+                    </Label>
+                    <Input
+                      id="price"
+                      type="number"
+                      placeholder="25000"
+                      defaultValue={data.price}
+                      onChange={(e) =>
+                        setFormEditProduct!((prev) => ({
+                          ...prev,
+                          price: Number(e.target.value),
+                        }))
+                      }
+                    />
+                  </Box>
+                </Box>
+              </CardContent>
+            </Card>
+          </Box>
+        </Box>
+
+        <Box className="w-full flex justify-end gap-3 pt-4">
+          <Button variant="outline" onClick={() => router.back()} disabled={isPending} size="lg">
+            <IconX size={18} />
+            Batal
           </Button>
-          <Button
-            variant={'destructive'}
-            className="text-lg"
-            onClick={() => router.back()}
-            disabled={isPending}
-          >
-            {isPending ? 'Tunggu' : 'Batal'}
+          <Button variant="native" onClick={() => onSave!()} disabled={isPending} size="lg">
+            <IconCheck size={18} />
+            {isPending ? 'Menyimpan...' : 'Simpan Perubahan'}
           </Button>
         </Box>
       </Box>

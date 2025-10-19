@@ -9,10 +9,10 @@ import { SidebarLayout } from '@/core/layouts/sidebar.layout';
 import DatasQuery from '@/hooks/mutation/props.hooks';
 
 const HistoryContainer = () => {
-  const [content, setContent] = useState<'Pending' | 'Paid'>('Pending');
+  const [content, setContent] = useState<'Failed' | 'Paid'>('Failed');
   const data = DatasQuery.Restaurant();
   const orderHistory = data.OrderData || [];
-  
+
   if (data.isLoading) {
     return (
       <SidebarLayout>
@@ -22,7 +22,7 @@ const HistoryContainer = () => {
       </SidebarLayout>
     );
   }
-  
+
   return (
     <SidebarLayout>
       <Container className="w-full min-h-screen flex flex-col">

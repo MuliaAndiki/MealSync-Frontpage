@@ -330,3 +330,13 @@ input[type='number'] {
 .dark .hover-lift:hover {
   box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.4);
 }
+
+.overflow-y-snap {
+  max-height: 70vh;
+  overflow-y: auto;
+  scroll-behavior: smooth;
+  scroll-snap-type: y mandatory;
+}
+.overflow-y-snap > * {
+  scroll-snap-align: start;
+}

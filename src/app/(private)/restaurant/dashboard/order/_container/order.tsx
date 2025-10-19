@@ -15,7 +15,11 @@ const OrderContainer = () => {
   const cancel = useCancelOrder();
   const data = DatasQuery.Restaurant();
   const [isStatus, setIsStatus] = useState<StatusType>('pending');
-  
+
+  const handleCancelOrder = (orderId: string) => {
+    return cancel.mutate(orderId);
+  };
+
   if (data.isLoading) {
     return (
       <SidebarLayout>
@@ -25,10 +29,6 @@ const OrderContainer = () => {
       </SidebarLayout>
     );
   }
-
-  const handleCancelOrder = (orderId: string) => {
-    return cancel.mutate(orderId);
-  };
 
   return (
     <SidebarLayout>

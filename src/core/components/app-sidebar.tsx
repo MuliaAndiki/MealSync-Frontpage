@@ -2,7 +2,6 @@
 
 import { Label } from '@radix-ui/react-label';
 import { IconDoorExit } from '@tabler/icons-react';
-import { Settings } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';

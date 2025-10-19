@@ -38,15 +38,11 @@ const Chairs: React.FC<ChairsProps> = ({
           <Box className="space-y-1">
             <CardTitle className="flex items-center gap-2">
               <IconArmchair size={24} className="text-[#5B9844]" />
-              Manajemen Kursi
+              Manajemen Meja
             </CardTitle>
             <Box className="flex gap-2">
-              <Badge variant="secondary">
-                Tersedia: {emptyChairs}
-              </Badge>
-              <Badge variant="destructive">
-                Terisi: {occupiedChairs}
-              </Badge>
+              <Badge variant="secondary">Tersedia: {emptyChairs}</Badge>
+              <Badge variant="destructive">Terisi: {occupiedChairs}</Badge>
             </Box>
           </Box>
           {path && (
@@ -60,8 +56,8 @@ const Chairs: React.FC<ChairsProps> = ({
 
       <Separator />
 
-      <CardContent className="pt-6">
-        <Box className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3">
+      <CardContent>
+        <Box className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3  ">
           {chairs.map((chair) => (
             <button
               key={chair._id}
@@ -84,7 +80,7 @@ const Chairs: React.FC<ChairsProps> = ({
               <Box
                 className={`
                   relative aspect-square rounded-lg flex flex-col items-center justify-center
-                  transition-all duration-200 border-2
+                  transition-all duration-200 border-2 px-3 py-2 w-full
                   ${
                     chair.status === 'empty'
                       ? 'bg-[#5B9844]/10 border-[#5B9844] hover:bg-[#5B9844]/20'
@@ -120,11 +116,7 @@ const Chairs: React.FC<ChairsProps> = ({
             <IconArmchair size={48} className="mb-3 opacity-50" />
             <p className="text-sm">Belum ada kursi</p>
             {path && (
-              <Button
-                variant="outline"
-                className="mt-4"
-                onClick={() => setOpenModal!('Chair')}
-              >
+              <Button variant="outline" className="mt-4" onClick={() => setOpenModal!('Chair')}>
                 <IconPlus size={18} />
                 Tambah Kursi Pertama
               </Button>

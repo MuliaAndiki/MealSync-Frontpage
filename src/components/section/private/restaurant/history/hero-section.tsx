@@ -10,8 +10,8 @@ import View from '@/components/ui/view';
 import { useTranslate } from '@/hooks/useTranslate';
 
 interface HistoryHeroSectionProps {
-  content?: 'Pending' | 'Paid';
-  setContent?: (content: 'Pending' | 'Paid') => void;
+  content?: 'Failed' | 'Paid';
+  setContent?: (content: 'Failed' | 'Paid') => void;
   orderHistory?: any[];
 }
 
@@ -23,14 +23,14 @@ const HistoryHeroSection: React.FC<HistoryHeroSectionProps> = ({
   const { t } = useTranslate();
 
   const filteredHistory = orderHistory.filter((order: any) => {
-    if (content === 'Pending') {
-      return order.status === 'pending' || order.status === 'processing';
+    if (content === 'Failed') {
+      return order.status === 'failed' || order.status === 'processing';
     }
     return order.status === 'completed' || order.status === 'paid';
   });
 
   const pendingCount = orderHistory.filter(
-    (o: any) => o.status === 'pending' || o.status === 'processing'
+    (o: any) => o.status === 'failed' || o.status === 'processing'
   ).length;
   const completedCount = orderHistory.filter(
     (o: any) => o.status === 'completed' || o.status === 'paid'
@@ -50,11 +50,11 @@ const HistoryHeroSection: React.FC<HistoryHeroSectionProps> = ({
 
         <Box className="w-full flex gap-2 flex-wrap">
           <Button
-            variant={content === 'Pending' ? 'default' : 'outline'}
-            onClick={() => setContent!('Pending')}
+            variant={content === 'Failed' ? 'default' : 'outline'}
+            onClick={() => setContent!('Failed')}
             className="relative"
           >
-            {t('purchase.filter.pending')}
+            {t('purchase.filter.failed')}
             {pendingCount > 0 && (
               <Badge className="ml-2" variant="destructive">
                 {pendingCount}

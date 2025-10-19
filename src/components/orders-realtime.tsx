@@ -9,6 +9,8 @@ import { useTranslate } from '@/hooks/useTranslate';
 import RestaurantApi from '@/services/restaurant/restaurant.service';
 import { getSocket, initSocketConnection, joinRestaurantRoom } from '@/utils/socket.client';
 
+import View from './ui/view';
+
 interface OrderItem {
   productId: string;
   name: string;
@@ -155,21 +157,21 @@ const OrdersRealtime: React.FC<OrdersRealtimeProps> = ({ restaurantId }) => {
   }
 
   return (
-    <Box className="p-6 border rounded-lg bg-card">
-      <div className="mb-6">
+    <View className="p-6 border rounded-lg bg-card">
+      <Box className="mb-6">
         <Label className="text-2xl font-bold">Pesanan Real-Time</Label>
         <p className="text-muted-foreground text-sm mt-1">
           {pendingOrders.length} pesanan menunggu pembayaran
         </p>
-      </div>
+      </Box>
 
       {orders.length === 0 ? (
-        <div className="text-center py-12">
+        <Box className="text-center py-12">
           <UtensilsCrossed className="w-16 h-16 mx-auto text-muted-foreground opacity-50 mb-4" />
           <p className="text-muted-foreground">{t('fallback.no_orders')}</p>
-        </div>
+        </Box>
       ) : (
-        <div className="space-y-4">
+        <Box className="space-y-4">
           {orders.map((order) => (
             <Box
               key={order._id}
@@ -181,46 +183,46 @@ const OrdersRealtime: React.FC<OrdersRealtimeProps> = ({ restaurantId }) => {
                     : 'border-l-destructive'
               }`}
             >
-              <div className="flex justify-between items-start mb-3">
-                <div>
-                  <div className="flex items-center gap-2 mb-1">
+              <Box className="flex justify-between items-start mb-3">
+                <Box>
+                  <Box className="flex items-center gap-2 mb-1">
                     {getStatusIcon(order.status)}
                     <span className="font-semibold">{getStatusText(order.status)}</span>
-                  </div>
+                  </Box>
                   <p className="text-sm text-muted-foreground">{formatDate(order.createdAt)}</p>
-                </div>
-                <div className="text-right">
+                </Box>
+                <Box className="text-right">
                   <p className="text-sm text-muted-foreground">Meja</p>
                   <p className="text-2xl font-bold">{order.chairNo}</p>
-                </div>
-              </div>
+                </Box>
+              </Box>
 
-              <div className="space-y-2 mb-3">
+              <Box className="space-y-2 mb-3">
                 {order.items.map((item, idx) => (
-                  <div key={idx} className="flex justify-between text-sm bg-muted/50 p-2 rounded">
+                  <Box key={idx} className="flex justify-between text-sm bg-muted/50 p-2 rounded">
                     <span>
                       {item.name} x{item.quantity}
                     </span>
                     <span className="font-medium">{formatPrice(item.price * item.quantity)}</span>
-                  </div>
+                  </Box>
                 ))}
-              </div>
+              </Box>
 
-              <div className="flex justify-between items-center pt-3 border-t">
+              <Box className="flex justify-between items-center pt-3 border-t">
                 <span className="font-semibold">Total:</span>
                 <span className="text-xl font-bold text-primary">{formatPrice(order.total)}</span>
-              </div>
+              </Box>
             </Box>
           ))}
-        </div>
+        </Box>
       )}
 
       {chairUpdates.length > 0 && (
-        <div className="mt-6">
+        <Box className="mt-6">
           <Label className="text-lg font-semibold mb-2 block">Status Meja</Label>
-          <div className="grid grid-cols-4 gap-2">
+          <Box className="grid grid-cols-4 gap-2">
             {chairUpdates.map((chair) => (
-              <div
+              <Box
                 key={chair.chairNo}
                 className={`p-2 rounded-lg text-center border ${
                   chair.status === 'full'
@@ -229,13 +231,15 @@ const OrdersRealtime: React.FC<OrdersRealtimeProps> = ({ restaurantId }) => {
                 }`}
               >
                 <p className="font-bold text-lg">Meja {chair.chairNo}</p>
-                <p className="text-xs">{chair.status === 'full' ? t('chair.occupied') : t('chair.empty')}</p>
-              </div>
+                <p className="text-xs">
+                  {chair.status === 'full' ? t('chair.occupied') : t('chair.empty')}
+                </p>
+              </Box>
             ))}
-          </div>
-        </div>
+          </Box>
+        </Box>
       )}
-    </Box>
+    </View>
   );
 };
 

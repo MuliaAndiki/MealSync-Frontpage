@@ -21,12 +21,6 @@ export interface ProductsType {
   isAvailable: boolean;
 }
 
-export interface RestaurantCardType {
-  image: string;
-  title: string;
-  button: string;
-}
-
 export interface CardProfileType {
   _id: string;
   profile: {
@@ -41,6 +35,12 @@ export interface CardProfileType {
   name: string;
   email: string;
   uniqueUrl: string;
+}
+
+export interface RestaurantCardType {
+  image: string;
+  title: string;
+  button: string;
 }
 
 export interface MenusType {
@@ -113,11 +113,6 @@ export interface UniqueUrlProfileType {
   products: ProductsType[];
   chairs: ChairType[];
 }
-type ModalType = 'Form';
-
-export type ParentModalType = ModalType | 'Add' | 'Chair' | 'Order' | 'Pay' | null;
-
-export type StatusType = 'pending' | 'paid' | 'failed' | 'completed' | 'cancelled';
 
 export interface PurchaseType {
   _id: string;
@@ -132,3 +127,9 @@ export interface PurchaseType {
     price: number;
   }>;
 }
+
+type ModalType = 'Form';
+
+export type ParentModalType = ModalType | 'Add' | 'Chair' | 'Order' | 'Pay' | null;
+
+export type StatusType = 'pending' | 'paid' | 'failed' | 'completed' | 'cancelled';

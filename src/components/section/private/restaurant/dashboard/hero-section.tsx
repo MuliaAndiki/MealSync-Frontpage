@@ -5,7 +5,6 @@ import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import { Suspense } from 'react';
 
-import CardProfile from '@/components/card-profile';
 import Chair from '@/components/chair';
 import FallbackChair from '@/components/fallback/chair';
 import FallbackProduct from '@/components/fallback/product';
@@ -22,7 +21,7 @@ import {
 import { Input } from '@/components/ui/input';
 import View from '@/components/ui/view';
 import PopUp from '@/core/components/pop-up';
-import { CardProfileType, ChairType, ParentModalType, ProductsType } from '@/types/components';
+import { ChairType, OrderType, ParentModalType, ProductsType } from '@/types/components';
 import { Category } from '@/types/config';
 import { FormAddCart } from '@/types/form';
 
@@ -34,6 +33,8 @@ const OrdersRealtime = dynamic(() => import('@/components/orders-realtime'), {
 interface DashboardRestaurantProps {
   produtc: ProductsType[];
   chair: ChairType[];
+  orderData: OrderType[];
+  chairUpdates: { chairNo: number; status: string }[];
   setFormAddChart: React.Dispatch<React.SetStateAction<FormAddCart>>;
   isPending: boolean;
   onAdd: () => void;
@@ -42,7 +43,7 @@ interface DashboardRestaurantProps {
   setSelectId: any;
   category?: Category;
   setCategory?: React.Dispatch<React.SetStateAction<Category>>;
-  restaurantId?: string;
+  isLoadingOrders: boolean;
 }
 
 const DashboardRestaurantSection: React.FC<DashboardRestaurantProps> = ({
@@ -56,7 +57,9 @@ const DashboardRestaurantSection: React.FC<DashboardRestaurantProps> = ({
   setSelectId,
   category,
   setCategory,
-  restaurantId,
+  orderData,
+  chairUpdates,
+  isLoadingOrders,
 }) => {
   return (
     <View>
@@ -96,7 +99,7 @@ const DashboardRestaurantSection: React.FC<DashboardRestaurantProps> = ({
             <Box className="flex justify-center w-full gap-4 p-4 rounded-lg bg-card border">
               <Button
                 variant={'native'}
-                className="flex justify-center items-center"
+                className="flex justify-center items-center flex-col h-auto"
                 onClick={() => setCategory!('makanan')}
               >
                 <Cookie size={32} />
@@ -105,7 +108,7 @@ const DashboardRestaurantSection: React.FC<DashboardRestaurantProps> = ({
 
               <Button
                 variant={'native'}
-                className="flex justify-center items-center"
+                className="flex justify-center items-center flex-col h-auto"
                 onClick={() => setCategory!('minuman')}
               >
                 <Coffee size={32} />
@@ -138,7 +141,11 @@ const DashboardRestaurantSection: React.FC<DashboardRestaurantProps> = ({
               fallback={<Box className="w-full p-4 animate-pulse bg-muted rounded-lg h-32" />}
             >
               <Box className="w-full h-full ">
-                {restaurantId && <OrdersRealtime restaurantId={restaurantId} />}
+                <OrdersRealtime
+                  orderData={orderData}
+                  chairUpdates={chairUpdates}
+                  isLoading={isLoadingOrders}
+                />
               </Box>
             </Suspense>
           </Box>

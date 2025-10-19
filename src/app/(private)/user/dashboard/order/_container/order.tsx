@@ -8,16 +8,22 @@ import { SidebarLayout } from '@/core/layouts/sidebar.layout';
 import DatasQuery from '@/hooks/mutation/props.hooks';
 import { useCancelOrder } from '@/hooks/mutation/user/mutation';
 import { useAppNameSpase } from '@/hooks/useNameSpace';
-import { StatusType } from '@/types/components';
+import { ParentModalType, StatusType } from '@/types/components';
 
 const OrderContainer = () => {
   const { alert } = useAppNameSpase();
   const data = DatasQuery.User();
   const cancel = useCancelOrder();
   const [isStatus, setIsStatus] = useState<StatusType>('pending');
+  const [isOpenModal, setIsOpenModal] = useState<ParentModalType>(null);
+  const [selectedOrderId, setSelectedOrderId] = useState<string>('');
 
   const handleCancelOrder = (orderId: string) => {
     return cancel.mutate(orderId);
+  };
+  const handlePayment = (orderId: string) => {
+    setSelectedOrderId(orderId);
+    setIsOpenModal('Pay');
   };
 
   if (data.isLoading) {
@@ -39,7 +45,11 @@ const OrderContainer = () => {
           isPending={cancel.isPending}
           alert={alert}
           isStatus={isStatus}
-          setIsStatus={setIsStatus}
+          isOpenModal={isOpenModal}
+          setIsOpenModal={setIsOpenModal}
+          selectedOrderId={selectedOrderId}
+          setSelectedOrderId={setSelectedOrderId}
+          resumePayment={handlePayment}
         />
       </Container>
     </SidebarLayout>

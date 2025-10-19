@@ -1,9 +1,8 @@
 import { Label } from '@radix-ui/react-label';
 import { IconMenu2, IconX } from '@tabler/icons-react';
 import Image from 'next/image';
-import React, { useState } from 'react';
+import React from 'react';
 
-import CardProfile from '@/components/card-profile';
 import Chairs from '@/components/chair';
 import FallbackChair from '@/components/fallback/chair';
 import FallbackProduct from '@/components/fallback/product';
@@ -22,7 +21,7 @@ import { Textarea } from '@/components/ui/textarea';
 import View from '@/components/ui/view';
 import PopUp from '@/core/components/pop-up';
 import { CategortProduct } from '@/core/enum';
-import { CardProfileType, ChairType, ParentModalType, ProductsType } from '@/types/components';
+import { ChairType, ParentModalType, ProductsType } from '@/types/components';
 import { FormCreateChair, FormCreateProducts } from '@/types/form';
 import { AlertContexType } from '@/types/ui';
 import UploadsTrigger from '@/utils/uploadsTriger';

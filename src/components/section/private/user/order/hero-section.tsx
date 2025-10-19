@@ -13,11 +13,15 @@ import { AlertContexType } from '@/types/ui';
 
 interface OrderHeroSectionProps {
   isStatus: StatusType;
-  setIsStatus: React.Dispatch<React.SetStateAction<StatusType>>;
   orderData: OrderType[];
   isPending?: boolean;
   onCancel: (orderId: string) => void;
   alert: AlertContexType;
+  isOpenModal: ParentModalType;
+  setIsOpenModal: React.Dispatch<React.SetStateAction<ParentModalType>>;
+  selectedOrderId: string;
+  setSelectedOrderId: React.Dispatch<React.SetStateAction<string>>;
+  resumePayment: (orderId: string) => void;
 }
 
 const OrderHeroSection: React.FC<OrderHeroSectionProps> = ({
@@ -26,19 +30,16 @@ const OrderHeroSection: React.FC<OrderHeroSectionProps> = ({
   onCancel,
   alert,
   isStatus,
-  setIsStatus,
+  isOpenModal,
+  setIsOpenModal,
+  selectedOrderId,
+  setSelectedOrderId,
+  resumePayment,
 }) => {
-  const [isOpenModal, setIsOpenModal] = useState<ParentModalType>(null);
-  const [selectedOrderId, setSelectedOrderId] = useState<string>('');
-  const handleResumePayment = (orderId: string) => {
-    setSelectedOrderId(orderId);
-    setIsOpenModal('Pay');
-  };
-
   return (
     <View>
       <Box className="w-full min-h-screen flex flex-col justify-start items-start overflow-hidden">
-        <PendingPaymentIndicator onResume={handleResumePayment} />
+        <PendingPaymentIndicator onResume={resumePayment} />
         <Box className="grid grid-cols-3 grid-rows-1 gap-2 w-full">
           {orderData && orderData.length > 0 ? (
             orderData

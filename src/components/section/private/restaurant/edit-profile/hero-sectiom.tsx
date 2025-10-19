@@ -1,7 +1,6 @@
 'use client';
 import { IconPhoto, IconUpload } from '@tabler/icons-react';
 import Image from 'next/image';
-import { useState } from 'react';
 
 import Box from '@/components/ui/box';
 import { Button } from '@/components/ui/button';

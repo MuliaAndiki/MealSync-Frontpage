@@ -1,5 +1,5 @@
 import { Label } from '@radix-ui/react-label';
-import { IconDots } from '@tabler/icons-react';
+import { IconClockHour7, IconDots } from '@tabler/icons-react';
 import Link from 'next/link';
 
 import {
@@ -49,8 +49,9 @@ const OrderCard: React.FC<OrderCardProps & OrderCardPropsV2> = ({
         </Box>
         <Box className="flex justify-center items-center flex-col">
           <Label
-            className={`font-semibold p-2 rounded-lg ${data.status === 'pending' ? 'bg-yellow-500' : data.status === 'completed' ? 'bg-green-500' : 'bg-red-500'}`}
+            className={`font-semibold p-2 rounded-lg flex ${data.status === 'pending' ? 'bg-yellow-500' : data.status === 'completed' ? 'bg-green-500' : 'bg-red-500'}`}
           >
+            <IconClockHour7 />
             {camelCaseToWords(data?.status)}
           </Label>
           <Label className="font-semibold">{getTime(data?.createdAt)}</Label>

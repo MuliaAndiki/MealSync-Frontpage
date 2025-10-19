@@ -1,121 +1,22 @@
-'use client';
 import { Label } from '@radix-ui/react-label';
 import { CheckCircle, Clock, Loader2, UtensilsCrossed, XCircle } from 'lucide-react';
-import { useEffect, useState } from 'react';
-import toast from 'react-hot-toast';
 
 import Box from '@/components/ui/box';
 import { useTranslate } from '@/hooks/useTranslate';
-import RestaurantApi from '@/services/restaurant/restaurant.service';
-import { getSocket, initSocketConnection, joinRestaurantRoom } from '@/utils/socket.client';
+import { OrderType } from '@/types/components';
+import { formatCurrency } from '@/utils/format';
+import { formatDate } from '@/utils/string.format';
 
 import View from './ui/view';
 
-interface OrderItem {
-  productId: string;
-  name: string;
-  price: number;
-  quantity: number;
-}
-
-interface Order {
-  _id: string;
-  userId: string;
-  restaurantId: string;
-  items: OrderItem[];
-  total: number;
-  status: 'pending' | 'paid' | 'failed';
-  chairNo: number;
-  createdAt: string;
-}
-
 interface OrdersRealtimeProps {
-  restaurantId: string;
+  orderData: OrderType[];
+  chairUpdates: { chairNo: number; status: string }[];
+  isLoading: boolean;
 }
 
-const OrdersRealtime: React.FC<OrdersRealtimeProps> = ({ restaurantId }) => {
+const OrdersRealtime: React.FC<OrdersRealtimeProps> = ({ orderData, chairUpdates, isLoading }) => {
   const { t } = useTranslate();
-  const [orders, setOrders] = useState<Order[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [chairUpdates, setChairUpdates] = useState<{ chairNo: number; status: string }[]>([]);
-
-  useEffect(() => {
-    if (restaurantId) {
-      fetchOrders();
-      setupSocket();
-    }
-
-    return () => {
-      const socket = getSocket();
-      if (socket) {
-        socket.off('order:new');
-        socket.off('chair:update');
-      }
-    };
-  }, [restaurantId]);
-
-  const fetchOrders = async () => {
-    try {
-      setLoading(true);
-      const response = await RestaurantApi.GetOrder();
-      if (response && response.data) {
-        setOrders(response.data);
-      }
-    } catch (error) {
-      console.error('Error fetching orders:', error);
-      toast.error('Gagal memuat pesanan');
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const setupSocket = () => {
-    const socket = initSocketConnection();
-
-    if (socket && restaurantId) {
-      joinRestaurantRoom(restaurantId);
-
-      socket.on('order:new', (data: { order: Order }) => {
-        console.log('New order received:', data.order);
-        setOrders((prev) => [data.order, ...prev]);
-        toast.success(`Pesanan baru dari meja ${data.order.chairNo}!`, {
-          duration: 5000,
-          icon: '🔔',
-        });
-      });
-
-      socket.on('chair:update', (data: { chairNo: number; status: string }) => {
-        console.log('Chair update:', data);
-        setChairUpdates((prev) => {
-          const existing = prev.find((c) => c.chairNo === data.chairNo);
-          if (existing) {
-            return prev.map((c) =>
-              c.chairNo === data.chairNo ? { ...c, status: data.status } : c
-            );
-          }
-          return [...prev, data];
-        });
-      });
-    }
-  };
-
-  const formatPrice = (price: number) => {
-    return new Intl.NumberFormat('id-ID', {
-      style: 'currency',
-      currency: 'IDR',
-      minimumFractionDigits: 0,
-    }).format(price);
-  };
-
-  const formatDate = (dateString: string) => {
-    const date = new Date(dateString);
-    return new Intl.DateTimeFormat('id-ID', {
-      hour: '2-digit',
-      minute: '2-digit',
-      day: 'numeric',
-      month: 'short',
-    }).format(date);
-  };
 
   const getStatusIcon = (status: string) => {
     switch (status) {
@@ -144,9 +45,9 @@ const OrdersRealtime: React.FC<OrdersRealtimeProps> = ({ restaurantId }) => {
     }
   };
 
-  const pendingOrders = orders.filter((o) => o.status === 'pending');
+  const pendingOrders = orderData.filter((o) => o.status === 'pending');
 
-  if (loading) {
+  if (isLoading) {
     return (
       <Box className="p-6">
         <div className="flex items-center justify-center py-8">
@@ -165,14 +66,14 @@ const OrdersRealtime: React.FC<OrdersRealtimeProps> = ({ restaurantId }) => {
         </p>
       </Box>
 
-      {orders.length === 0 ? (
+      {orderData.length === 0 ? (
         <Box className="text-center py-12">
           <UtensilsCrossed className="w-16 h-16 mx-auto text-muted-foreground opacity-50 mb-4" />
           <p className="text-muted-foreground">{t('fallback.no_orders')}</p>
         </Box>
       ) : (
         <Box className="space-y-4">
-          {orders.map((order) => (
+          {orderData.map((order) => (
             <Box
               key={order._id}
               className={`p-4 border-l-4 rounded-lg border bg-card ${
@@ -203,14 +104,18 @@ const OrdersRealtime: React.FC<OrdersRealtimeProps> = ({ restaurantId }) => {
                     <span>
                       {item.name} x{item.quantity}
                     </span>
-                    <span className="font-medium">{formatPrice(item.price * item.quantity)}</span>
+                    <span className="font-medium">
+                      {formatCurrency(item.price * item.quantity)}
+                    </span>
                   </Box>
                 ))}
               </Box>
 
               <Box className="flex justify-between items-center pt-3 border-t">
                 <span className="font-semibold">Total:</span>
-                <span className="text-xl font-bold text-primary">{formatPrice(order.total)}</span>
+                <span className="text-xl font-bold text-primary">
+                  {formatCurrency(order.total)}
+                </span>
               </Box>
             </Box>
           ))}

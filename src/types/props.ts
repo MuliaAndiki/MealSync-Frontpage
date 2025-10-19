@@ -1,10 +1,7 @@
-import { CardProfileType, HistoryType, OrderType, ProductsType, PurchaseType } from './components';
+import { HistoryType, OrderType, ProductsType, PurchaseType } from './components';
 
 export interface ProductsProps {
   data: ProductsType;
-}
-export interface CardProfileProps {
-  data: CardProfileType;
 }
 
 export interface HistoryProps {

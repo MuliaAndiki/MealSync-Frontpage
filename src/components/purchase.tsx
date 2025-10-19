@@ -33,7 +33,7 @@ const Purchase: React.FC<PurchaseProps> = ({ data, onViewDetail }) => {
           <Box className="space-y-1">
             <CardTitle className="flex items-center gap-2 text-base">
               <IconReceipt size={20} className="text-primary" />
-              Order #{data.orderId?.slice(-8) || 'N/A'}
+              Order {data.orderId?.slice(-8) || 'N/A'}
             </CardTitle>
             <CardDescription className="flex items-center gap-2 text-xs">
               <IconCalendar size={14} />

@@ -55,6 +55,7 @@ export function useRestaurantData(id?: string, uniqueUrl?: string) {
     queryKey: ['products', 'restaurant'],
     queryFn: () => Api.Restaurant.GetProduct(),
     staleTime: 1000 * 60 * 5,
+    enabled: currentRole === 'restaurant',
   });
 
   // Problematic query
@@ -69,12 +70,14 @@ export function useRestaurantData(id?: string, uniqueUrl?: string) {
     queryKey: ['chair', 'restaurant'],
     queryFn: () => Api.Restaurant.GeChair(),
     staleTime: 1000 * 60 * 5,
+    enabled: currentRole === 'restaurant',
   });
 
   const profileQuery = useQuery({
     queryKey: ['profile', 'restaurant'],
     queryFn: () => Api.Restaurant.GetProfileRestaurant(),
     staleTime: 1000 * 60 * 5,
+    enabled: currentRole === 'restaurant',
   });
 
   const profileUniqQuery = useQuery({

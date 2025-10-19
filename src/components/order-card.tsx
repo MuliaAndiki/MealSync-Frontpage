@@ -48,7 +48,11 @@ const OrderCard: React.FC<OrderCardProps & OrderCardPropsV2> = ({
           </Box>
         </Box>
         <Box className="flex justify-center items-center flex-col">
-          <Label className="font-semibold">{camelCaseToWords(data?.status)}</Label>
+          <Label
+            className={`font-semibold p-2 rounded-lg ${data.status === 'pending' ? 'bg-yellow-500' : data.status === 'completed' ? 'bg-green-500' : 'bg-red-500'}`}
+          >
+            {camelCaseToWords(data?.status)}
+          </Label>
           <Label className="font-semibold">{getTime(data?.createdAt)}</Label>
         </Box>
       </Box>

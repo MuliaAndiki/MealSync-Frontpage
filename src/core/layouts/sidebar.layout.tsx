@@ -29,7 +29,6 @@ export function SidebarLayout({ children, uniqueUrl }: AppLayoutProps) {
 
   const userData = DatasQuery.User(uniqueUrl);
   const restaurantData = DatasQuery.Restaurant();
-
   const data =
     currentRole === 'restaurant'
       ? {

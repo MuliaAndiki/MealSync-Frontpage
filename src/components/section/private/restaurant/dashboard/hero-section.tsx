@@ -28,7 +28,7 @@ import { FormAddCart } from '@/types/form';
 
 const OrdersRealtime = dynamic(() => import('@/components/orders-realtime'), {
   ssr: false,
-  loading: () => <Box className="w-full p-4 animate-pulse bg-muted rounded-lg h-32" />,
+  loading: () => <Box className="w-full p-6 animate-pulse bg-muted rounded-lg h-32" />,
 });
 
 interface DashboardRestaurantProps {
@@ -130,12 +130,14 @@ const DashboardRestaurantSection: React.FC<DashboardRestaurantProps> = ({
               )}
             </Box>
           </Box>
-          <Box className="flex justify-center items-start sticky top-0 h-fit max-h-screen flex-col overflow-y-auto gap-4">
+          <Box className="flex justify-center items-start sticky top-0 h-fit max-h-screen flex-col overflow-y-hidden gap-4">
             <Box className="flex flex-col w-full gap-2">
               {chair.length > 0 ? <Chair chairs={chair} /> : <FallbackChair />}
             </Box>
-            <Suspense fallback={<Box className="w-full p-4 animate-pulse bg-muted rounded-lg h-32" />}>
-              <Box className="w-full h-full">
+            <Suspense
+              fallback={<Box className="w-full p-4 animate-pulse bg-muted rounded-lg h-32" />}
+            >
+              <Box className="w-full h-full ">
                 {restaurantId && <OrdersRealtime restaurantId={restaurantId} />}
               </Box>
             </Suspense>

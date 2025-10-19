@@ -4,9 +4,11 @@ import { persistReducer, persistStore } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 
 import authReducer from '../authSlice/authSlice';
+import paymentReducer from '../paymentSlice/paymentSlice';
 
 const rootReduser = combineReducers({
   auth: authReducer,
+  payment: paymentReducer,
 });
 
 const persistConfig = {

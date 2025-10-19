@@ -77,7 +77,7 @@ const Cart: React.FC<CartProps> = ({
           </SheetHeader>
         </Box>
 
-        <Box className="flex-1  overflow-y-auto  ">
+        <Box className="flex-1  overflow-y-auto p-2 ">
           {content && content.items?.length > 0 ? (
             <Box className="w-full ">
               <CartContent

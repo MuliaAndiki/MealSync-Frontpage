@@ -6,11 +6,17 @@ class AuthData {
   ProfileData: any;
   isLoading: boolean;
   isPending: boolean;
+  isError: boolean;
+  refetchAll: () => void;
 
   constructor(profileQuery: any) {
     this.ProfileData = profileQuery.data.data ?? null;
     this.isLoading = profileQuery.isLoading;
     this.isPending = profileQuery.isPending;
+    this.isError = profileQuery.isError;
+    this.refetchAll = () => {
+      profileQuery.refetch();
+    };
   }
 }
 export function useAuthData() {

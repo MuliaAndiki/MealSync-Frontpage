@@ -29,7 +29,7 @@ const OrderHeroSection: React.FC<OrderHeroRestaurantProps> = ({
 }) => {
   const [isOpenModal, setIsOpenModal] = useState<ParentModalType>(null);
   const [selectedOrderId, setSelectedOrderId] = useState<string>('');
-  
+
   const handleResumePayment = (orderId: string) => {
     setSelectedOrderId(orderId);
     setIsOpenModal('Pay');

@@ -1,5 +1,10 @@
 import { IconHome, IconMail, IconMenu2, IconPhoneCall } from '@tabler/icons-react';
-import { IconCircleCheck, IconClipboardText, IconSettings,IconToolsKitchen2 } from '@tabler/icons-react';
+import {
+  IconCircleCheck,
+  IconClipboardText,
+  IconSettings,
+  IconToolsKitchen2,
+} from '@tabler/icons-react';
 import { Home, UserPen } from 'lucide-react';
 
 import {

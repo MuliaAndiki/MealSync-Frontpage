@@ -1,5 +1,5 @@
 import { useMutation } from '@tanstack/react-query';
-import { deleteCookie,setCookie } from 'cookies-next';
+import { deleteCookie, setCookie } from 'cookies-next';
 
 import {
   APP_REFRESH_TOKEN_COOKIE_EXPIRES_IN,

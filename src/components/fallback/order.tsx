@@ -9,7 +9,7 @@ interface OrderFallbackProps {}
 
 const OrderFallback: React.FC<OrderFallbackProps> = () => {
   const { t } = useTranslate();
-  
+
   return (
     <Card className="w-full">
       <CardContent className="py-12">

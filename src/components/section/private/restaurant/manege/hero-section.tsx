@@ -145,13 +145,15 @@ const ManageHeroSection: React.FC<ManageProps> = ({
               <Box className="flex justify-between items-center w-full">
                 <Box>
                   <h3 className="text-xl font-bold">Tambah Kursi Baru</h3>
-                  <p className="text-sm text-muted-foreground">Masukkan nomor kursi yang akan ditambahkan</p>
+                  <p className="text-sm text-muted-foreground">
+                    Masukkan nomor kursi yang akan ditambahkan
+                  </p>
                 </Box>
                 <Button variant="ghost" size="icon" onClick={() => setIsOpenModal(null)}>
                   <IconX size={20} />
                 </Button>
               </Box>
-              
+
               <Box className="w-full space-y-3">
                 <Box className="space-y-2">
                   <Label htmlFor="chair-number" className="text-sm font-medium">
@@ -201,7 +203,9 @@ const ManageHeroSection: React.FC<ManageProps> = ({
               <Box className="flex justify-between items-center w-full">
                 <Box>
                   <h3 className="text-xl font-bold">Tambah Menu Baru</h3>
-                  <p className="text-sm text-muted-foreground">Lengkapi informasi menu yang akan ditambahkan</p>
+                  <p className="text-sm text-muted-foreground">
+                    Lengkapi informasi menu yang akan ditambahkan
+                  </p>
                 </Box>
                 <Button variant="ghost" size="icon" onClick={() => setIsOpenModal(null)}>
                   <IconX size={20} />

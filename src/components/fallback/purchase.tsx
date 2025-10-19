@@ -7,7 +7,7 @@ import { Card, CardContent } from '../ui/card';
 
 const FallbackPurchase = () => {
   const { t } = useTranslate();
-  
+
   return (
     <Card className="w-full">
       <CardContent className="py-12">

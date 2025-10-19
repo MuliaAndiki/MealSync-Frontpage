@@ -17,7 +17,7 @@ interface FallbackProps {
 const FallbackChair: React.FC<FallbackProps> = ({ hidenRoutes, isHiden, setIsOpenModal }) => {
   const { t } = useTranslate();
   const path = hidenRoutes?.includes(isHiden);
-  
+
   return (
     <Card className="w-full">
       <CardContent className="py-12">

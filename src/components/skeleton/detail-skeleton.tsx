@@ -68,7 +68,7 @@ export const EditProfileSkeleton = () => {
   return (
     <Box className="w-full min-h-screen p-6">
       <Skeleton className="w-48 h-10 mb-6" />
-      
+
       <Box className="max-w-4xl mx-auto space-y-6">
         <Box className="flex items-center gap-6 p-6 border rounded-lg">
           <Skeleton className="w-32 h-32 rounded-full" />
@@ -105,13 +105,13 @@ export const SettingsSkeleton = () => {
   return (
     <Box className="w-full min-h-screen p-6">
       <Skeleton className="w-48 h-10 mb-6" />
-      
+
       <Box className="max-w-4xl mx-auto space-y-6">
         {Array.from({ length: 4 }).map((_, i) => (
           <Box key={i} className="p-6 border rounded-lg space-y-4">
             <Skeleton className="w-40 h-6" />
             <Skeleton className="w-full h-4" />
-            
+
             <Box className="space-y-3 pt-3">
               {Array.from({ length: 3 }).map((_, j) => (
                 <Box key={j} className="flex items-center justify-between py-3 border-b">
@@ -134,7 +134,7 @@ export const EditMenuSkeleton = () => {
   return (
     <Box className="w-full min-h-screen p-6">
       <Skeleton className="w-48 h-10 mb-6" />
-      
+
       <Box className="max-w-4xl mx-auto space-y-6">
         <Box className="p-6 border rounded-lg space-y-4">
           <Skeleton className="w-32 h-5" />

@@ -11,7 +11,7 @@ const OrderDetailContainer = () => {
   const params = useParams();
   const id = params.id as string;
   const data = DatasQuery.Restaurant();
-  
+
   if (data.isLoading) {
     return (
       <SidebarLayout>
@@ -21,7 +21,7 @@ const OrderDetailContainer = () => {
       </SidebarLayout>
     );
   }
-  
+
   // Find order by ID from OrderData
   const order = data.OrderData?.find((o: any) => o._id === id);
 

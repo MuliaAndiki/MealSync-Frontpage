@@ -7,7 +7,7 @@ import { Card, CardContent } from '../ui/card';
 
 const FallbackProduct: React.FC = () => {
   const { t } = useTranslate();
-  
+
   return (
     <Card className="w-full col-span-4">
       <CardContent className="py-12">

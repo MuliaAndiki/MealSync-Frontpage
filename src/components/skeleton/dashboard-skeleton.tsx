@@ -46,7 +46,7 @@ export const ProfileSkeleton = () => {
             <Skeleton className="w-64 h-4" />
           </Box>
         </Box>
-        
+
         <Box className="grid grid-cols-2 gap-4">
           {Array.from({ length: 6 }).map((_, i) => (
             <Box key={i} className="space-y-2">
@@ -77,13 +77,13 @@ export const OrderSkeleton = () => {
             </Box>
             <Skeleton className="w-24 h-8 rounded-full" />
           </Box>
-          
+
           <Box className="space-y-2">
             {Array.from({ length: 3 }).map((_, j) => (
               <Skeleton key={j} className="w-full h-12 rounded" />
             ))}
           </Box>
-          
+
           <Box className="flex justify-between border-t pt-4">
             <Skeleton className="w-24 h-6" />
             <Skeleton className="w-32 h-8" />
@@ -98,7 +98,7 @@ export const HistorySkeleton = () => {
   return (
     <Box className="w-full min-h-screen p-6 space-y-4">
       <Skeleton className="w-64 h-10 mb-6" />
-      
+
       <Box className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {Array.from({ length: 9 }).map((_, i) => (
           <Box key={i} className="p-4 border rounded-lg space-y-3">

@@ -1,5 +1,5 @@
 import { Label } from '@radix-ui/react-label';
-import { Loader2,Scan } from 'lucide-react';
+import { Loader2, Scan } from 'lucide-react';
 
 import Box from '@/components/ui/box';
 import { Button } from '@/components/ui/button';

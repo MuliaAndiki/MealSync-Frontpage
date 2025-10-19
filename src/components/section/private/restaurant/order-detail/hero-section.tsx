@@ -1,5 +1,13 @@
 'use client';
-import { IconCalendar, IconChefHat, IconClock, IconCreditCard, IconMapPin, IconReceipt, IconUser } from '@tabler/icons-react';
+import {
+  IconCalendar,
+  IconChefHat,
+  IconClock,
+  IconCreditCard,
+  IconMapPin,
+  IconReceipt,
+  IconUser,
+} from '@tabler/icons-react';
 import { format } from 'date-fns';
 import { ArrowLeft, CheckCircle, Clock, XCircle } from 'lucide-react';
 import { useRouter } from 'next/navigation';
@@ -63,7 +71,9 @@ const OrderDetailHeroSection: React.FC<OrderDetailProps> = ({ order }) => {
           <Box className="flex items-start justify-between flex-wrap gap-4">
             <Box>
               <h1 className="text-2xl sm:text-3xl font-bold">Order Details</h1>
-              <p className="text-muted-foreground">Order #{order.orderId?.slice(-8) || order._id?.slice(-8)}</p>
+              <p className="text-muted-foreground">
+                Order #{order.orderId?.slice(-8) || order._id?.slice(-8)}
+              </p>
             </Box>
             <Badge variant={statusVariant[order.status]} className="flex items-center gap-2">
               {statusIcon[order.status]}
@@ -154,9 +164,7 @@ const OrderDetailHeroSection: React.FC<OrderDetailProps> = ({ order }) => {
                   <IconChefHat size={20} className="text-primary" />
                   Order Items
                 </CardTitle>
-                <CardDescription>
-                  {order.items?.length || 0} item(s)
-                </CardDescription>
+                <CardDescription>{order.items?.length || 0} item(s)</CardDescription>
               </CardHeader>
               <CardContent>
                 <Box className="space-y-3">

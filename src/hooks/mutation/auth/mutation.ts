@@ -60,7 +60,7 @@ export function useLogin(options?: { onAfterSucces?: () => void }) {
   });
 }
 
-export function useLogout() {
+export function useLogout(options?: { onAfterSucces?: () => void }) {
   const { alert, queryClient, dispatch, router } = useAppNameSpase();
   return useMutation<TResponse<any>, Error, any>({
     mutationFn: () => Api.Auth.Logout(),
@@ -73,7 +73,8 @@ export function useLogout() {
           queryClient.clear();
           deleteCookie(APP_SESSION_COOKIE_KEY);
           dispatch(logout());
-          router.push('/');
+          router.push('/login');
+          options?.onAfterSucces?.();
         },
       });
     },

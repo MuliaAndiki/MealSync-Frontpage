@@ -75,19 +75,18 @@ const DashboardRestaurantSection: React.FC<DashboardRestaurantProps> = ({
               priority
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 800px"
             />
-            <Box className="flex justify-center items-center p-2 flex-col w-full ">
-              <Carousel className="w-full max-w-5xl">
+            <Box className="flex justify-center items-center  flex-col w-full ">
+              <Carousel className="w-full max-w-3xl p-2 ">
                 <CarouselContent className="flex items-center justify-center ">
                   {Array.from({ length: 3 }).map((_, index) => (
-                    <CarouselItem key={index} className="p-1">
+                    <CarouselItem key={index} className=" ">
                       <Image
                         alt={`Promo ${index + 1}`}
                         src="/images/card.svg"
-                        width={400}
+                        width={450}
                         height={200}
                         className="w-full h-auto"
                         loading="lazy"
-                        sizes="(max-width: 768px) 100vw, 400px"
                       />
                     </CarouselItem>
                   ))}

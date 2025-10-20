@@ -28,6 +28,19 @@ export interface FormEditUserProfile {
   address?: string;
 }
 
+export interface FormCreateRestaurant {
+  name: string;
+  email: string;
+  password: string;
+  profile: {
+    address?: string;
+    description?: string;
+    logoUrl?: string;
+    banner?: string;
+    pitch?: string;
+  };
+}
+
 export interface FormCreateChair {
   noChair: number | undefined;
 }

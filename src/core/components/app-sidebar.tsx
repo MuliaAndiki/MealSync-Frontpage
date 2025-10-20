@@ -21,8 +21,8 @@ import {
   useSidebar,
 } from '@/components/ui/sidebar';
 import { MenuDataRestaurant, MenuDataUser } from '@/configs/components.config';
-import { useAppSelector } from '@/hooks/dispatch/dispatch';
 import { useLogout } from '@/hooks/mutation/auth/mutation';
+import { useAppNameSpase } from '@/hooks/useNameSpace';
 import { cn } from '@/utils/classname';
 import { kebabCaseToWords } from '@/utils/string.format';
 
@@ -30,9 +30,11 @@ export function AppSidebar() {
   const pathname = usePathname();
   const { state } = useSidebar();
   const isCollapsed = state === 'collapsed';
-  const logout = useLogout();
+
   const last = pathname.split('/').pop();
-  const currentRole = useAppSelector((state) => state.auth.currentUser?.user.role);
+  const { currentRole } = useAppNameSpase();
+  const logout = useLogout();
+
   return (
     <Sidebar collapsible="icon" className="border-r">
       <SidebarHeader className="border-b p-4 h-20 flex justify-center">
@@ -113,16 +115,6 @@ export function AppSidebar() {
                     </SidebarMenuItem>
                   );
                 })}
-              </SidebarMenu>
-              <SidebarMenu className="w-full flex justify-center items-center gap-2">
-                <Button
-                  variant={'destructive'}
-                  className="font-semibold w-full"
-                  onClick={() => logout.mutate({})}
-                  disabled={logout.isPending}
-                >
-                  {!isCollapsed ? 'Keluar' : <IconDoorExit />}
-                </Button>
               </SidebarMenu>
             </SidebarGroupContent>
           )}

@@ -15,7 +15,7 @@ class AuthApi {
     const res = await AxiosClient.post('/api/auth/logout');
     return res.data;
   }
-  async GetProfile(): Promise<TResponse<any>> {
+  async getProfile(): Promise<TResponse<any>> {
     const res = await AxiosClient.get('/api/auth/profile');
     return res.data;
   }

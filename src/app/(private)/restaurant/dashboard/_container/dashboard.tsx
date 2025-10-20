@@ -1,5 +1,6 @@
 'use client';
 import { useEffect, useState } from 'react';
+
 import DashboardRestaurantSection from '@/components/section/private/restaurant/dashboard/hero-section';
 import { DashboardSkeleton } from '@/components/skeleton/dashboard-skeleton';
 import Container from '@/components/ui/container';
@@ -41,7 +42,9 @@ const DashboardRestaurantContainer = () => {
 
   useEffect(() => {
     if (data.OrderData && Array.isArray(data.OrderData)) {
-      setOrders(data.OrderData);
+      if (JSON.stringify(orders) !== JSON.stringify(data.OrderData)) {
+        setOrders(data.OrderData);
+      }
     }
   }, [data.OrderData]);
 

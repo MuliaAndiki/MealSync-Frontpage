@@ -12,6 +12,7 @@ import {
 import { useState } from 'react';
 
 import Box from '@/components/ui/box';
+import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -26,11 +27,13 @@ import { Separator } from '@/components/ui/separator';
 import { Switch } from '@/components/ui/switch';
 import View from '@/components/ui/view';
 import { useTheme } from '@/core/providers/theme.provider';
+import { useLogout } from '@/hooks/mutation/auth/mutation';
 import { useLanguage } from '@/hooks/useLanguage';
 import { useTranslate } from '@/hooks/useTranslate';
 
 const RestaurantSettingsHeroSection = () => {
   const { theme, setTheme } = useTheme();
+  const logout = useLogout();
   const { currentLanguage, changeLanguage } = useLanguage();
   const { t } = useTranslate();
   const [businessSettings, setBusinessSettings] = useState({
@@ -250,6 +253,11 @@ const RestaurantSettingsHeroSection = () => {
             </Box>
           </CardContent>
         </Card>
+        <Box className="w-full ">
+          <Button className="w-full" variant={'destructive'} onClick={() => logout.mutate({})}>
+            Keluar
+          </Button>
+        </Box>
       </Box>
     </View>
   );

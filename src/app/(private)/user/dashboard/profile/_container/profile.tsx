@@ -1,18 +1,19 @@
 'use client';
+
 import UserProfileHeroSection from '@/components/section/private/user/profile/hero-section';
-import { ProfileSkeleton } from '@/components/skeleton/dashboard-skeleton';
+import { OrderSkeleton } from '@/components/skeleton/dashboard-skeleton';
 import Container from '@/components/ui/container';
 import { SidebarLayout } from '@/core/layouts/sidebar.layout';
 import DatasQuery from '@/hooks/mutation/props.hooks';
 
 const UserProfileContainer = () => {
-  const data = DatasQuery.User();
+  const data = DatasQuery.Auth();
 
   if (data.isLoading) {
     return (
       <SidebarLayout>
-        <Container className="w-full min-h-screen flex-col flex">
-          <ProfileSkeleton />
+        <Container className="w-full min-h-screen flex flex-col">
+          <OrderSkeleton />
         </Container>
       </SidebarLayout>
     );
@@ -20,8 +21,8 @@ const UserProfileContainer = () => {
 
   return (
     <SidebarLayout>
-      <Container className="w-full min-h-screen flex-col flex">
-        <UserProfileHeroSection profile={data.userProfileData} />
+      <Container className="w-full flex flex-col min-h-screen">
+        <UserProfileHeroSection profile={data.ProfileData ?? null} />
       </Container>
     </SidebarLayout>
   );

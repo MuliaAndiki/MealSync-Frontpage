@@ -1,4 +1,3 @@
-'use client';
 import {
   IconBell,
   IconLanguage,
@@ -7,9 +6,9 @@ import {
   IconShield,
   IconSun,
 } from '@tabler/icons-react';
-import { useState } from 'react';
 
 import Box from '@/components/ui/box';
+import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
 import {
@@ -22,20 +21,31 @@ import {
 import { Separator } from '@/components/ui/separator';
 import { Switch } from '@/components/ui/switch';
 import View from '@/components/ui/view';
-import { useTheme } from '@/core/providers/theme.provider';
-import { useLanguage } from '@/hooks/useLanguage';
-import { useTranslate } from '@/hooks/useTranslate';
+import { NotififType } from '@/types/config';
 
-const UserSettingsHeroSection = () => {
-  const { theme, setTheme } = useTheme();
-  const { currentLanguage, changeLanguage } = useLanguage();
-  const { t } = useTranslate();
-  const [notifications, setNotifications] = useState({
-    orderUpdates: true,
-    promotions: false,
-    newsletter: false,
-  });
+interface UserSettingsProps {
+  onLogout: () => void;
+  currentLanguage: any;
+  changeLanguage: any;
+  notifications: NotififType;
+  setNotifications: React.Dispatch<React.SetStateAction<NotififType>>;
+  isPending: boolean;
+  theme: any;
+  setTheme: (theme: any) => void;
+  t: any;
+}
 
+const UserSettingsHeroSection: React.FC<UserSettingsProps> = ({
+  onLogout,
+  changeLanguage,
+  currentLanguage,
+  notifications,
+  setNotifications,
+  isPending,
+  setTheme,
+  theme,
+  t,
+}) => {
   return (
     <View>
       <Box className="flex justify-start items-center flex-col w-full min-h-screen gap-6 py-4 sm:py-6 px-4 sm:px-0">
@@ -200,6 +210,16 @@ const UserSettingsHeroSection = () => {
             </Box>
           </CardContent>
         </Card>
+        <Box className="w-full">
+          <Button
+            className="w-full"
+            variant={'destructive'}
+            disabled={isPending}
+            onClick={() => onLogout()}
+          >
+            {isPending ? 'Tunggu' : 'Keluar'}
+          </Button>
+        </Box>
       </Box>
     </View>
   );

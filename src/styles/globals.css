@@ -340,3 +340,23 @@ input[type='number'] {
 .overflow-y-snap > * {
   scroll-snap-align: start;
 }
+
+::-webkit-scrollbar {
+  width: 3px;
+  height: 3px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f0f0f0;
+  border-radius: 2px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #f30000;
+  border-radius: 2px;
+  border: 1px solid #f0f0f0;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #c00000;
+}

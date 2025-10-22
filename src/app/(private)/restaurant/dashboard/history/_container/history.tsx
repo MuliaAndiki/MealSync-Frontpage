@@ -9,9 +9,8 @@ import { SidebarLayout } from '@/core/layouts/sidebar.layout';
 import DatasQuery from '@/hooks/mutation/props.hooks';
 
 const HistoryContainer = () => {
-  const [content, setContent] = useState<'Failed' | 'Paid'>('Failed');
-  const data = DatasQuery.Restaurant();
-  const orderHistory = data.OrderData || [];
+  const [content, setContent] = useState<'Failed' | 'Paid'>('Paid');
+  const data = DatasQuery.Pay();
 
   if (data.isLoading) {
     return (
@@ -26,7 +25,11 @@ const HistoryContainer = () => {
   return (
     <SidebarLayout>
       <Container className="w-full min-h-screen flex flex-col">
-        <HistoryHeroSection content={content} setContent={setContent} orderHistory={orderHistory} />
+        <HistoryHeroSection
+          content={content}
+          setContent={setContent}
+          orderHistory={data.paymentStatusData}
+        />
       </Container>
     </SidebarLayout>
   );

@@ -64,11 +64,13 @@ export function SidebarLayout({ children, uniqueUrl }: AppLayoutProps) {
         ? (restaurantData.ProfileData?.uniqueUrl ?? '')
         : (uniqueUrl ?? '');
 
-    if (newUniqueUrl && uniqueUrl !== newUniqueUrl) {
-      setFormCreateOrder((prev) => ({
-        ...prev,
-        uniqueUrl: newUniqueUrl,
-      }));
+    if (newUniqueUrl) {
+      setFormCreateOrder((prev) => {
+        if (prev.uniqueUrl !== newUniqueUrl) {
+          return { ...prev, uniqueUrl: newUniqueUrl };
+        }
+        return prev;
+      });
     }
   }, [currentRole, restaurantData.ProfileData?.uniqueUrl, uniqueUrl]);
 

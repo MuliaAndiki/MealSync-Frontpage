@@ -1,6 +1,7 @@
 'use client';
 
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+import Script from 'next/script';
 import { Toaster } from 'react-hot-toast';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
@@ -34,6 +35,11 @@ export function AppProviders({ children }: { children: React.ReactNode }) {
         toastOptions={{
           duration: 900,
         }}
+      />
+      <Script
+        src="https://app.sandbox.midtrans.com/snap/snap.js"
+        data-client-key={process.env.NEXT_PUBLIC_MIDTRANS_CLIENT_KEY}
+        strategy="lazyOnload"
       />
     </Providers>
   );

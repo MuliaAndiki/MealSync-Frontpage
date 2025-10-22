@@ -10,6 +10,10 @@ class PaymentApi {
     const res = await AxiosClient.get(`/api/payment/checkout/${orderId}`);
     return res.data;
   }
+  async getCheckoutStatus(): Promise<TResponse<any>> {
+    const res = await AxiosClient.get('/api/payment/status');
+    return res.data;
+  }
 }
 
 export default new PaymentApi();

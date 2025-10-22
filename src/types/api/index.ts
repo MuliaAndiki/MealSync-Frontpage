@@ -9,6 +9,9 @@ export const userType = z.object({
     email: z.string(),
     password: z.string(),
     fotoProfile: z.string().nullable().optional(),
+    otp: z.string(),
+    expOtp: z.date(),
+    isVerify: z.boolean(),
   }),
 });
 

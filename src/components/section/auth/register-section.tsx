@@ -20,7 +20,6 @@ interface RegisterProps {
 }
 
 const RegisterSection: React.FC<RegisterProps> = ({
-  // @ts-nocheck
   formRegister,
   onRegister,
   isPending,
@@ -32,7 +31,7 @@ const RegisterSection: React.FC<RegisterProps> = ({
         <CardContent className="grid p-0 md:grid-cols-2">
           <Box className="bg-muted relative hidden md:block">
             <Image
-              src="/placeholder.svg"
+              src="/images/about.svg"
               alt="Image"
               width={100}
               height={100}

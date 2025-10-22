@@ -6,13 +6,21 @@ import Form from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import View from '@/components/ui/view';
-import { cn } from '@/utils/classname';
-const ResetPasswordSection = ({ className, ...props }: React.ComponentProps<'div'>) => {
+import { FormResetPassword } from '@/types/form';
+
+interface ResetPasswordProps {
+  formResetPassword: FormResetPassword;
+  setFormResetPassword: React.Dispatch<React.SetStateAction<FormResetPassword>>;
+  onReset: () => void;
+}
+
+const ResetPasswordSection: React.FC<ResetPasswordProps> = ({ onReset, setFormResetPassword }) => {
   return (
-    <View className={cn('flex flex-col gap-6 ', className)} {...props}>
+    <View className="flex flex-col gap-6 ">
       <Form
         onSubmit={(e) => {
           e.preventDefault();
+          onReset();
         }}
         className="flex flex-col gap-6 border p-4 rounded-lg bg-foreground/10"
       >
@@ -29,15 +37,23 @@ const ResetPasswordSection = ({ className, ...props }: React.ComponentProps<'div
           <Box className="flex flex-col gap-6">
             <Box className="grid gap-3">
               <Box className="grid gap-3">
-                <Label htmlFor="password">New Password</Label>
-                <Input id="password" type="text" required />
-              </Box>
-              <Box className="grid gap-3">
-                <Label htmlFor="new password">Confirm Password</Label>
-                <Input id="password" type="text" required />
+                <Label htmlFor="new password">New Password</Label>
+                <Input
+                  id="password"
+                  type="text"
+                  required
+                  onChange={(e) =>
+                    setFormResetPassword((prev) => {
+                      const newObj = { ...prev, password: e.target.value };
+                      return newObj;
+                    })
+                  }
+                />
               </Box>
             </Box>
-            <Button className="w-full">Send</Button>
+            <Button className="w-full" type="submit">
+              Send
+            </Button>
           </Box>
         </Box>
       </Form>

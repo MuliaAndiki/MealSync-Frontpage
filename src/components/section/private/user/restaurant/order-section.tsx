@@ -38,7 +38,7 @@ const RestaurantOrderSection: React.FC<RestaurantOrderProps> = ({
     <View>
       <Box className="w-full min-h-screen flex flex-col">
         <Label className="text-2xl font-bold">{profileUnique.restaurant?.name}</Label>
-        <Box className="grid lg:grid-cols-[2fr_1fr] grid-rows-1  ">
+        <Box className="grid lg:grid-cols-[2fr_1fr] grid-rows-1 gap-4  ">
           <Box className="grid lg:grid-cols-4 grid-rows-1 gap-4">
             {Products?.map((items, key) => (
               <Product

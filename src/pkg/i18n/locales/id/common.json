@@ -140,7 +140,7 @@
     "order": "Order",
     "status": {
       "pending": "Menunggu Pembayaran",
-      "completed": "Berhasil",
+      "paid": "Berhasil",
       "failed": "Gagal"
     },
     "payment_method": "Metode Pembayaran",

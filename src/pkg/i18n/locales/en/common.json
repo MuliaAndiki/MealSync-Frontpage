@@ -140,7 +140,7 @@
     "order": "Order",
     "status": {
       "pending": "Pending Payment",
-      "completed": "Success",
+      "paid": "Success",
       "failed": "Failed"
     },
     "payment_method": "Payment Method",

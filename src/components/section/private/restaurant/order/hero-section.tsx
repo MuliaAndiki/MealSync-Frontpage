@@ -39,14 +39,13 @@ const OrderHeroSection: React.FC<OrderHeroRestaurantProps> = ({
     <View>
       <Box className="w-full flex flex-col justify-start items-start min-h-screen">
         <PendingPaymentIndicator onResume={resumePayment} />
-        <Box className="grid grid-cols-3 grid-rows-1  gap-4 w-full">
-          {orderData && orderData.length > 0 ? (
-            orderData
-              .filter((item) => item.status.toLowerCase() === isStatus?.toLocaleLowerCase())
-              .map((items, key) => (
+        {orderData && orderData.length > 0 ? (
+          orderData
+            .filter((item) => item.status.toLowerCase() === isStatus?.toLocaleLowerCase())
+            .map((items, key) => (
+              <Box className="grid grid-cols-3 grid-rows-1  gap-4 w-full" key={key}>
                 <OrderCard
                   data={items}
-                  key={key}
                   onCancel={onCancel!}
                   alert={alert}
                   curentRole={curentRole}
@@ -55,11 +54,12 @@ const OrderHeroSection: React.FC<OrderHeroRestaurantProps> = ({
                     setSelectedOrderId(items._id);
                   }}
                 />
-              ))
-          ) : (
-            <OrderFallback />
-          )}
-        </Box>
+              </Box>
+            ))
+        ) : (
+          <OrderFallback />
+        )}
+
         <PopUp isOpen={isOpenModal === 'Pay'} onClose={() => setIsOpenModal(null)}>
           <PaymentSnap orderId={selectedOrderId} onClose={() => setIsOpenModal(null)} />
         </PopUp>

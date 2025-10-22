@@ -6,7 +6,6 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
-import Box from '@/components/ui/box';
 import { Button } from '@/components/ui/button';
 import {
   Sidebar,
@@ -21,8 +20,8 @@ import {
   useSidebar,
 } from '@/components/ui/sidebar';
 import { MenuDataRestaurant, MenuDataUser } from '@/configs/components.config';
-import { useAppSelector } from '@/hooks/dispatch/dispatch';
 import { useLogout } from '@/hooks/mutation/auth/mutation';
+import { useAppNameSpase } from '@/hooks/useNameSpace';
 import { cn } from '@/utils/classname';
 import { kebabCaseToWords } from '@/utils/string.format';
 
@@ -30,20 +29,22 @@ export function AppSidebar() {
   const pathname = usePathname();
   const { state } = useSidebar();
   const isCollapsed = state === 'collapsed';
-  const logout = useLogout();
+
   const last = pathname.split('/').pop();
-  const currentRole = useAppSelector((state) => state.auth.currentUser?.user.role);
+  const { currentRole } = useAppNameSpase();
+  const logout = useLogout();
+
   return (
     <Sidebar collapsible="icon" className="border-r">
       <SidebarHeader className="border-b p-4 h-20 flex justify-center">
         {isCollapsed ? (
           <SidebarTrigger className="flex justify-center  items-center">
-            <Image src="/images/logo.svg" alt="Logo" width={200} height={200} />
+            <Image src="/images/logo.svg" alt="Logo" width={200} height={200} loading="lazy" />
           </SidebarTrigger>
         ) : (
           <div className="flex gap-2 items-center">
             <SidebarTrigger>
-              <Image src="/images/logo.svg" alt="Logo" width={70} height={70} />
+              <Image src="/images/logo.svg" alt="Logo" width={70} height={70} loading="lazy" />
             </SidebarTrigger>
             <Label className="text-xl text-[var(--label)] font-semibold">
               {kebabCaseToWords(last!)}
@@ -77,16 +78,6 @@ export function AppSidebar() {
                   );
                 })}
               </SidebarMenu>
-              <SidebarMenu className="w-full flex justify-center items-center gap-2">
-                <Button
-                  variant={'destructive'}
-                  className="font-semibold w-full"
-                  onClick={() => logout.mutate({})}
-                  disabled={logout.isPending}
-                >
-                  {!isCollapsed ? 'Keluar' : <IconDoorExit />}
-                </Button>
-              </SidebarMenu>
             </SidebarGroupContent>
           )}
 
@@ -113,16 +104,6 @@ export function AppSidebar() {
                     </SidebarMenuItem>
                   );
                 })}
-              </SidebarMenu>
-              <SidebarMenu className="w-full flex justify-center items-center gap-2">
-                <Button
-                  variant={'destructive'}
-                  className="font-semibold w-full"
-                  onClick={() => logout.mutate({})}
-                  disabled={logout.isPending}
-                >
-                  {!isCollapsed ? 'Keluar' : <IconDoorExit />}
-                </Button>
               </SidebarMenu>
             </SidebarGroupContent>
           )}

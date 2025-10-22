@@ -65,7 +65,7 @@ const DashboardRestaurantSection: React.FC<DashboardRestaurantProps> = ({
     <View>
       <Box className="flex min-h-screen w-full justify-center items-center relative z-0 overflow-hidden">
         <Box className="grid grid-cols-[2fr_0.7fr] grid-rows-1 gap-2 w-full min-h-screen ">
-          <Box className="flex justify-center items-center flex-col ">
+          <Box className="flex justify-start items-center  flex-col h-full">
             <Image
               alt="banners"
               src="/images/banner.svg"
@@ -75,19 +75,18 @@ const DashboardRestaurantSection: React.FC<DashboardRestaurantProps> = ({
               priority
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 800px"
             />
-            <Box className="flex justify-center items-center p-2 flex-col w-full ">
-              <Carousel className="w-full max-w-5xl">
+            <Box className="flex justify-center items-center  flex-col w-full ">
+              <Carousel className="w-full max-w-3xl p-2 ">
                 <CarouselContent className="flex items-center justify-center ">
                   {Array.from({ length: 3 }).map((_, index) => (
-                    <CarouselItem key={index} className="p-1">
+                    <CarouselItem key={index} className=" ">
                       <Image
                         alt={`Promo ${index + 1}`}
                         src="/images/card.svg"
-                        width={400}
+                        width={450}
                         height={200}
                         className="w-full h-auto"
                         loading="lazy"
-                        sizes="(max-width: 768px) 100vw, 400px"
                       />
                     </CarouselItem>
                   ))}
@@ -133,10 +132,7 @@ const DashboardRestaurantSection: React.FC<DashboardRestaurantProps> = ({
               )}
             </Box>
           </Box>
-          <Box className="flex justify-center items-start sticky top-0 h-fit max-h-screen flex-col overflow-y-hidden gap-4">
-            <Box className="flex flex-col w-full gap-2">
-              {chair.length > 0 ? <Chair chairs={chair} /> : <FallbackChair />}
-            </Box>
+          <Box className="flex justify-center items-start sticky top-0 flex-col overflow-y-auto gap-4  ">
             <Suspense
               fallback={<Box className="w-full p-4 animate-pulse bg-muted rounded-lg h-32" />}
             >
@@ -148,6 +144,9 @@ const DashboardRestaurantSection: React.FC<DashboardRestaurantProps> = ({
                 />
               </Box>
             </Suspense>
+            <Box className="flex flex-col w-full gap-2 overflow-y-hidden h-full">
+              {chair.length > 0 ? <Chair chairs={chair} /> : <FallbackChair />}
+            </Box>
           </Box>
         </Box>
       </Box>

@@ -1,7 +1,7 @@
-import { dataTagErrorSymbol, useQuery } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
 
+import { useAppNameSpase } from '@/hooks/useNameSpace';
 import Api from '@/services/props.service';
-
 class AuthData {
   ProfileData: any;
   isLoading: boolean;
@@ -19,12 +19,14 @@ class AuthData {
     };
   }
 }
-export function useAuthData() {
-  const profileQuery = useQuery({
-    queryFn: () => Api.Auth.GetProfile(),
-    queryKey: ['profile', 'all'],
-    staleTime: 1000 * 60 * 5,
-  });
 
+export function useAuthData() {
+  const { currentRole } = useAppNameSpase();
+  const profileQuery = useQuery({
+    queryKey: ['profile'],
+    queryFn: () => Api.Auth.getProfile(),
+    staleTime: 1000 * 60 * 5,
+    enabled: currentRole === 'user',
+  });
   return new AuthData(profileQuery);
 }

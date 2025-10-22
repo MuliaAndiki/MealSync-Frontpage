@@ -1,4 +1,5 @@
 import { Label } from '@radix-ui/react-dropdown-menu';
+import Image from 'next/image';
 import Link from 'next/link';
 
 import Box from '@/components/ui/box';
@@ -122,10 +123,12 @@ const LoginSection: React.FC<LoginProps> = ({ onLogin, setFormLogin, isPending }
             </Box>
           </Box>
           <Box className="bg-muted relative hidden md:block">
-            <img
-              src="/placeholder.svg"
+            <Image
+              src="/images/about.svg"
               alt="Image"
               className="absolute inset-0 h-full w-full object-cover dark:brightness-[0.2] dark:grayscale"
+              width={100}
+              height={100}
             />
           </Box>
         </CardContent>

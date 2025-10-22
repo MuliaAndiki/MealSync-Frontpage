@@ -1,4 +1,3 @@
-'use client';
 import {
   IconBell,
   IconClock,
@@ -9,9 +8,10 @@ import {
   IconSun,
   IconToggleLeft,
 } from '@tabler/icons-react';
-import { useState } from 'react';
+import React from 'react';
 
 import Box from '@/components/ui/box';
+import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -25,20 +25,31 @@ import {
 import { Separator } from '@/components/ui/separator';
 import { Switch } from '@/components/ui/switch';
 import View from '@/components/ui/view';
-import { useTheme } from '@/core/providers/theme.provider';
-import { useLanguage } from '@/hooks/useLanguage';
-import { useTranslate } from '@/hooks/useTranslate';
+import { BusinesType } from '@/types/config';
 
-const RestaurantSettingsHeroSection = () => {
-  const { theme, setTheme } = useTheme();
-  const { currentLanguage, changeLanguage } = useLanguage();
-  const { t } = useTranslate();
-  const [businessSettings, setBusinessSettings] = useState({
-    autoAcceptOrders: false,
-    maintenanceMode: false,
-    notifyNewOrders: true,
-  });
+interface UserSettingsProps {
+  onLogout: () => void;
+  currentLanguage: any;
+  changeLanguage: any;
+  businessSettings: BusinesType;
+  setBusinessSettings: React.Dispatch<React.SetStateAction<BusinesType>>;
+  isPending: boolean;
+  theme: any;
+  setTheme: (theme: any) => void;
+  t: any;
+}
 
+const RestaurantSettingsHeroSection: React.FC<UserSettingsProps> = ({
+  changeLanguage,
+  currentLanguage,
+  isPending,
+  onLogout,
+  setTheme,
+  t,
+  theme,
+  businessSettings,
+  setBusinessSettings,
+}) => {
   return (
     <View>
       <Box className="flex justify-start items-center flex-col w-full min-h-screen gap-6 py-4 sm:py-6 px-4 sm:px-0">
@@ -250,6 +261,16 @@ const RestaurantSettingsHeroSection = () => {
             </Box>
           </CardContent>
         </Card>
+        <Box className="w-full ">
+          <Button
+            className="w-full"
+            variant={'destructive'}
+            onClick={() => onLogout()}
+            disabled={isPending}
+          >
+            {isPending ? 'Tunggu' : 'Keluar'}
+          </Button>
+        </Box>
       </Box>
     </View>
   );

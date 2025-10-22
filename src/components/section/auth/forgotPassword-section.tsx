@@ -6,14 +6,25 @@ import Form from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import View from '@/components/ui/view';
-import { cn } from '@/utils/classname';
+import { FormForgotPassword } from '@/types/form';
 
-export function ForgotPasswordHeroSection({ className, ...props }: React.ComponentProps<'div'>) {
+interface ForgotPasswordProps {
+  formForgotPassword: FormForgotPassword;
+  setFormForgotPassword: React.Dispatch<React.SetStateAction<FormForgotPassword>>;
+  onForgot: () => void;
+}
+
+const ForgotPasswordHeroSection: React.FC<ForgotPasswordProps> = ({
+  formForgotPassword,
+  onForgot,
+  setFormForgotPassword,
+}) => {
   return (
-    <View className={cn('flex flex-col gap-6 ', className)} {...props}>
+    <View className="flex flex-col gap-6">
       <Form
         onSubmit={(e) => {
           e.preventDefault();
+          onForgot();
         }}
         className="flex flex-col gap-6 border p-4 rounded-lg bg-foreground/10"
       >
@@ -29,10 +40,24 @@ export function ForgotPasswordHeroSection({ className, ...props }: React.Compone
           </Box>
           <Box className="flex flex-col gap-6">
             <Box className="grid gap-3">
-              <Label htmlFor="email">Email</Label>
-              <Input id="email" type="email" placeholder="m@example.com" required />
+              <Label htmlFor="email">Email :</Label>
+              <Input
+                id="email"
+                type="email"
+                placeholder="m@example.com"
+                value={formForgotPassword.email}
+                required
+                onChange={(e) =>
+                  setFormForgotPassword((prev) => {
+                    const newObj = { ...prev, email: e.target.value };
+                    return newObj;
+                  })
+                }
+              />
             </Box>
-            <Button className="w-full">Reset</Button>
+            <Button className="w-full" type="submit">
+              Send
+            </Button>
           </Box>
         </Box>
       </Form>
@@ -42,4 +67,6 @@ export function ForgotPasswordHeroSection({ className, ...props }: React.Compone
       </Box>
     </View>
   );
-}
+};
+
+export default ForgotPasswordHeroSection;

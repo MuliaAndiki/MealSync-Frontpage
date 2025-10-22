@@ -116,16 +116,19 @@ export interface UniqueUrlProfileType {
 
 export interface PurchaseType {
   _id: string;
-  orderId: string;
+  userId: string;
+  restaurantId: string;
   amount: number;
-  status: 'completed' | 'failed';
-  paymentMethod: string;
-  createdAt: string;
   items?: Array<{
     name: string;
     quantity: number;
     price: number;
   }>;
+  total: number;
+  status: 'paid' | 'failed';
+  chairNo: number;
+  paymentMethod: string;
+  createdAt: string;
 }
 
 type ModalType = 'Form';

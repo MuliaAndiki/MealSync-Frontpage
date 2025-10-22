@@ -1,5 +1,5 @@
 import UserProfileContainer from './_container/profile';
 
-export default function UserProfilePage() {
+export default function UserProfile() {
   return <UserProfileContainer />;
 }

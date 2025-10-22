@@ -50,18 +50,6 @@ const HistoryHeroSection: React.FC<HistoryHeroSectionProps> = ({
 
         <Box className="w-full flex gap-2 flex-wrap">
           <Button
-            variant={content === 'Failed' ? 'default' : 'outline'}
-            onClick={() => setContent!('Failed')}
-            className="relative"
-          >
-            {t('purchase.filter.failed')}
-            {pendingCount > 0 && (
-              <Badge className="ml-2" variant="destructive">
-                {pendingCount}
-              </Badge>
-            )}
-          </Button>
-          <Button
             variant={content === 'Paid' ? 'default' : 'outline'}
             onClick={() => setContent!('Paid')}
             className="relative"
@@ -70,6 +58,18 @@ const HistoryHeroSection: React.FC<HistoryHeroSectionProps> = ({
             {completedCount > 0 && (
               <Badge className="ml-2" variant="secondary">
                 {completedCount}
+              </Badge>
+            )}
+          </Button>
+          <Button
+            variant={content === 'Failed' ? 'default' : 'outline'}
+            onClick={() => setContent!('Failed')}
+            className="relative"
+          >
+            {t('purchase.filter.failed')}
+            {pendingCount > 0 && (
+              <Badge className="ml-2" variant="destructive">
+                {pendingCount}
               </Badge>
             )}
           </Button>

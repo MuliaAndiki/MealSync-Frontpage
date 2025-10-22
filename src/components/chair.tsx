@@ -1,4 +1,5 @@
 'use client';
+import { Label } from '@radix-ui/react-label';
 import { IconArmchair, IconPlus, IconTrash } from '@tabler/icons-react';
 
 import { ChairType, ParentModalType } from '@/types/components';
@@ -34,8 +35,8 @@ const Chairs: React.FC<ChairsProps> = ({
   return (
     <Card className="w-full">
       <CardHeader>
-        <Box className="flex justify-between items-center">
-          <Box className="space-y-1">
+        <Box className="flex justify-between items-center flex-col gap-2">
+          <Box className="space-y-2">
             <CardTitle className="flex items-center gap-2">
               <IconArmchair size={24} className="text-[#5B9844]" />
               Manajemen Meja
@@ -46,16 +47,16 @@ const Chairs: React.FC<ChairsProps> = ({
             </Box>
           </Box>
           {path && (
-            <Button variant="native" onClick={() => setOpenModal!('Chair')}>
-              <IconPlus size={18} />
-              Tambah Kursi
-            </Button>
+            <Box className=" w-auto">
+              <Button variant="native" onClick={() => setOpenModal!('Chair')}>
+                <IconPlus size={18} />
+                Tambah Kursi
+              </Button>
+            </Box>
           )}
         </Box>
       </CardHeader>
-
       <Separator />
-
       <CardContent>
         <Box className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3  ">
           {chairs.map((chair) => (
@@ -80,7 +81,7 @@ const Chairs: React.FC<ChairsProps> = ({
               <Box
                 className={`
                   relative aspect-square rounded-lg flex flex-col items-center justify-center
-                  transition-all duration-200 border-2 px-3 py-2 w-full
+                  transition-all duration-200 border-2  w-full  p-2
                   ${
                     chair.status === 'empty'
                       ? 'bg-[#5B9844]/10 border-[#5B9844] hover:bg-[#5B9844]/20'
@@ -94,12 +95,6 @@ const Chairs: React.FC<ChairsProps> = ({
                   className={chair.status === 'empty' ? 'text-[#5B9844]' : 'text-destructive'}
                 />
                 <span className="font-bold text-lg mt-1">{chair.noChair}</span>
-                <Badge
-                  variant={chair.status === 'empty' ? 'secondary' : 'destructive'}
-                  className="mt-1 text-xs"
-                >
-                  {chair.status === 'empty' ? 'Kosong' : 'Terisi'}
-                </Badge>
 
                 {path && (
                   <Box className="absolute inset-0 bg-destructive/90 opacity-0 group-hover:opacity-100 transition-opacity rounded-lg flex items-center justify-center">
@@ -124,6 +119,17 @@ const Chairs: React.FC<ChairsProps> = ({
           </Box>
         )}
       </CardContent>
+      <Box className="w-full flex justify-end items-end p-2 flex-col gap-2">
+        <Label className="font-bold">Legend:</Label>
+        <Box className="flex gap-1 justify-center items-center">
+          <Box className="w-4 h-4 bg-[#5B9844] rounded-xs" />
+          <Label className="text-xs font-semibold">Meja Kosong</Label>
+        </Box>
+        <Box className="flex gap-1 justify-center items-center">
+          <Box className="w-4 h-4 bg-destructive rounded-xs" />
+          <Label className="text-xs font-semibold">Meja Penuh</Label>
+        </Box>
+      </Box>
     </Card>
   );
 };

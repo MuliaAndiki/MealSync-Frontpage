@@ -1,3 +1,4 @@
+import { Inria_Serif } from 'next/font/google';
 import z from 'zod';
 export interface FormLoginType {
   email: string;
@@ -28,8 +29,35 @@ export interface FormEditUserProfile {
   address?: string;
 }
 
+export interface FormCreateRestaurant {
+  name: string;
+  email: string;
+  password: string;
+  profile: {
+    address?: string;
+    description?: string;
+    logoUrl?: string;
+    banner?: string;
+    pitch?: string;
+  };
+}
+
 export interface FormCreateChair {
   noChair: number | undefined;
+}
+
+export interface FormForgotPassword {
+  email: string;
+}
+
+export interface FormVerifyOtp {
+  otp: string;
+  email: string | null;
+}
+
+export interface FormResetPassword {
+  email: string | null;
+  password: string;
 }
 
 export interface FormCreateOrder {

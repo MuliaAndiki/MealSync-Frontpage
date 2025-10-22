@@ -4,6 +4,7 @@ import { format } from 'date-fns';
 
 import { useTranslate } from '@/hooks/useTranslate';
 import { PurchaseProps } from '@/types/props';
+import { formatCurrency } from '@/utils/format';
 
 import { Badge } from './ui/badge';
 import Box from './ui/box';
@@ -15,12 +16,12 @@ const Purchase: React.FC<PurchaseProps> = ({ data, onViewDetail }) => {
   const { t } = useTranslate();
 
   const statusVariant = {
-    completed: 'default' as const,
+    paid: 'default' as const,
     failed: 'destructive' as const,
   };
 
   const statusText = {
-    completed: t('purchase.status.completed'),
+    paid: t('purchase.status.paid'),
     failed: t('purchase.status.failed'),
   };
 
@@ -33,7 +34,7 @@ const Purchase: React.FC<PurchaseProps> = ({ data, onViewDetail }) => {
           <Box className="space-y-1">
             <CardTitle className="flex items-center gap-2 text-base">
               <IconReceipt size={20} className="text-primary" />
-              Order {data.orderId?.slice(-8) || 'N/A'}
+              Order {data._id?.slice(-8) || 'N/A'}
             </CardTitle>
             <CardDescription className="flex items-center gap-2 text-xs">
               <IconCalendar size={14} />
@@ -75,9 +76,7 @@ const Purchase: React.FC<PurchaseProps> = ({ data, onViewDetail }) => {
               <IconCreditCard size={16} className="text-muted-foreground" />
               <span className="text-sm text-muted-foreground">{data.paymentMethod || 'N/A'}</span>
             </Box>
-            <span className="text-lg font-bold text-primary">
-              Rp {data.amount?.toLocaleString('id-ID') || 0}
-            </span>
+            <span className="text-lg font-bold text-primary">{formatCurrency(data.total)}</span>
           </Box>
         </Box>
 

@@ -11,14 +11,25 @@ import {
   InputOTPSlot,
 } from '@/components/ui/input-otp';
 import View from '@/components/ui/view';
-import { cn } from '@/utils/classname';
+import { FormVerifyOtp } from '@/types/form';
 
-const VerifyOtpSection = ({ className, ...props }: React.ComponentProps<'div'>) => {
+interface VerifyOtpProps {
+  formVerifyOtp: FormVerifyOtp;
+  setFormVerifyOtp: React.Dispatch<React.SetStateAction<FormVerifyOtp>>;
+  onVerify: () => void;
+}
+
+const VerifyOtpSection: React.FC<VerifyOtpProps> = ({
+  formVerifyOtp,
+  onVerify,
+  setFormVerifyOtp,
+}) => {
   return (
-    <View className={cn('flex flex-col gap-6 ', className)} {...props}>
+    <View className="flex flex-col gap-6">
       <Form
         onSubmit={(e) => {
           e.preventDefault();
+          onVerify();
         }}
         className="flex flex-col gap-6 border p-4 rounded-lg bg-foreground/10"
       >
@@ -34,7 +45,15 @@ const VerifyOtpSection = ({ className, ...props }: React.ComponentProps<'div'>) 
           </Box>
           <Box className="flex flex-col gap-6">
             <Box className="flex justify-center items-center">
-              <InputOTP maxLength={6}>
+              <InputOTP
+                maxLength={6}
+                onChange={(e) =>
+                  setFormVerifyOtp((prev) => ({
+                    ...prev,
+                    otp: e,
+                  }))
+                }
+              >
                 <InputOTPGroup>
                   <InputOTPSlot index={0} />
                   <InputOTPSlot index={1} />
@@ -48,7 +67,9 @@ const VerifyOtpSection = ({ className, ...props }: React.ComponentProps<'div'>) 
                 </InputOTPGroup>
               </InputOTP>
             </Box>
-            <Button className="w-full">Verify</Button>
+            <Button className="w-full" type="submit">
+              Verify
+            </Button>
           </Box>
         </Box>
       </Form>

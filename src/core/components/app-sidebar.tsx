@@ -35,14 +35,6 @@ export function AppSidebar() {
   return (
     <Sidebar collapsible="icon" className="border-r">
       <SidebarHeader className="border-b p-4 h-20 flex justify-center">
-        {/* <div className="flex items-center gap-2 md:hidden">
-          <SidebarTrigger className="flex items-center">
-            <Image src="/images/logo.svg" alt="Logo" width={40} height={40} loading="lazy" />
-          </SidebarTrigger>
-          <Label className="text-lg font-semibold truncate max-w-[120px]">
-            {kebabCaseToWords(last!)}
-          </Label>
-        </div> */}
         {isCollapsed ? (
           <SidebarTrigger className="flex justify-center  items-center">
             <Image src="/images/logo.svg" alt="Logo" width={200} height={200} loading="lazy" />

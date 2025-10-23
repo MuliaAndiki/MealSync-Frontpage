@@ -73,7 +73,7 @@ const ManageHeroSection: React.FC<ManageProps> = ({
   return (
     <View>
       <Box className="flex min-h-screen w-full justify-center items-center relative z-0 overflow-hidden">
-        <Box className="grid grid-cols-[2fr_0.7fr] grid-rows-1 w-full min-h-screen">
+        <Box className="grid grid-cols-1 lg:grid-cols-[2fr_0.7fr] grid-rows-1 w-full min-h-screen">
           <Box className="flex justify-start items-start flex-col ">
             <Image
               alt="bg"
@@ -94,7 +94,7 @@ const ManageHeroSection: React.FC<ManageProps> = ({
                   <IconMenu2 />
                 </Button>
               </Box>
-              <Box className="grid grid-cols-4 grid-rows-1 gap-4 items-center w-full ">
+              <Box className="grid grid-cols-1 lg:grid-cols-4 grid-rows-1 gap-4 items-center w-full ">
                 {product && product.length > 0 ? (
                   product.map((items, key) => (
                     <Product

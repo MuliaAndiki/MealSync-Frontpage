@@ -1,10 +1,12 @@
 'use client';
 
+import { Menu } from 'lucide-react';
+import Image from 'next/image';
 import React, { useEffect, useState } from 'react';
 
 import Cart from '@/components/cart';
 import Box from '@/components/ui/box';
-import { SidebarInset, SidebarProvider } from '@/components/ui/sidebar';
+import { SidebarInset, SidebarProvider, SidebarTrigger } from '@/components/ui/sidebar';
 import View from '@/components/ui/view';
 import { AppSidebar } from '@/core/components/app-sidebar';
 import DatasQuery from '@/hooks/mutation/props.hooks';
@@ -108,6 +110,11 @@ export function SidebarLayout({ children, uniqueUrl }: AppLayoutProps) {
         <SidebarInset>
           <Box className="flex h-full flex-col w-full">
             <Box className="flex p-4 items-center gap-2 border-b w-full h-20">
+              <Box className="flex items-center gap-2 ">
+                <SidebarTrigger className="flex items-center">
+                  <Menu />
+                </SidebarTrigger>
+              </Box>
               <Box className="flex items-center justify-end  mx-auto w-full">
                 <Box className="flex items-center gap-4">
                   <Cart
@@ -130,7 +137,7 @@ export function SidebarLayout({ children, uniqueUrl }: AppLayoutProps) {
             </Box>
 
             <Box className="flex-1 overflow-auto w-full">
-              <Box className=" h-full  w-full mx-auto max-w-none p-[1rem]">{children}</Box>
+              <Box className=" h-full  w-full mx-auto max-w-none ">{children}</Box>
             </Box>
           </Box>
         </SidebarInset>

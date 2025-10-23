@@ -29,7 +29,7 @@ const ProfileHeroSection: React.FC<ProfileHeroSectionProps> = ({ profile }) => {
 
   return (
     <View>
-      <Box className="flex justify-start items-center flex-col w-full min-h-screen gap-6 py-6">
+      <Box className="flex justify-start items-center flex-col w-full min-h-screen gap-6  p-4 overflow-x-hidden">
         <Card className="w-full overflow-hidden">
           <Box className="relative w-full h-64 bg-gradient-to-br from-[#5B9844] to-[#4D4440]">
             {profile.profile?.banner ? (
@@ -87,8 +87,8 @@ const ProfileHeroSection: React.FC<ProfileHeroSectionProps> = ({ profile }) => {
 
             <Separator className="my-6" />
 
-            <Box className="grid md:grid-cols-2 gap-4">
-              <Card>
+            <Box className="grid  lg:grid-cols-2 gap-4  ">
+              <Card className=" lg:max-w-full ">
                 <CardHeader>
                   <CardTitle className="text-lg flex items-center gap-2">
                     <IconMail size={20} className="text-[#5B9844]" />
@@ -126,7 +126,7 @@ const ProfileHeroSection: React.FC<ProfileHeroSectionProps> = ({ profile }) => {
               {profile.profile?.pitch && (
                 <Card className="md:col-span-2">
                   <CardHeader>
-                    <CardTitle className="text-lg">Pitch</CardTitle>
+                    <CardTitle className="text-lg text-pretty md:text-balance">Pitch</CardTitle>
                   </CardHeader>
                   <CardContent>
                     <p className="text-sm leading-relaxed">{profile.profile.pitch}</p>

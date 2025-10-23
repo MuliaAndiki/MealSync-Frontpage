@@ -11,7 +11,7 @@ const OrderFallback: React.FC<OrderFallbackProps> = () => {
   const { t } = useTranslate();
 
   return (
-    <Card className="w-full">
+    <Card className="w-full ">
       <CardContent className="py-12">
         <Box className="flex flex-col items-center justify-center gap-4 text-muted-foreground">
           <IconClipboardOff size={64} className="opacity-50" />

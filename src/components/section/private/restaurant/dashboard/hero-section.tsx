@@ -64,7 +64,7 @@ const DashboardRestaurantSection: React.FC<DashboardRestaurantProps> = ({
   return (
     <View>
       <Box className="flex min-h-screen w-full justify-center items-center relative z-0 overflow-hidden">
-        <Box className="grid grid-cols-[2fr_0.7fr] grid-rows-1 gap-2 w-full min-h-screen ">
+        <Box className="grid grid-cols-1 lg:grid-cols-[2fr_0.7fr] grid-rows-1 gap-2 w-full min-h-screen ">
           <Box className="flex justify-start items-center  flex-col h-full">
             <Image
               alt="banners"
@@ -114,7 +114,7 @@ const DashboardRestaurantSection: React.FC<DashboardRestaurantProps> = ({
                 Minuman
               </Button>
             </Box>
-            <Box className="grid grid-cols-4 grid-rows-1 gap-4 items-center w-full my-4">
+            <Box className="grid grid-cols-1 lg:grid-cols-4 grid-rows-1 gap-4 items-center w-full my-4">
               {produtc && produtc.length > 0 ? (
                 produtc
                   .filter((item) => item.category.toLowerCase() === category?.toLocaleLowerCase())

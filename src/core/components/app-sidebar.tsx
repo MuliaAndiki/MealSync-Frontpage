@@ -20,7 +20,6 @@ import {
   useSidebar,
 } from '@/components/ui/sidebar';
 import { MenuDataRestaurant, MenuDataUser } from '@/configs/components.config';
-import { useLogout } from '@/hooks/mutation/auth/mutation';
 import { useAppNameSpase } from '@/hooks/useNameSpace';
 import { cn } from '@/utils/classname';
 import { kebabCaseToWords } from '@/utils/string.format';
@@ -32,7 +31,6 @@ export function AppSidebar() {
 
   const last = pathname.split('/').pop();
   const { currentRole } = useAppNameSpase();
-  const logout = useLogout();
 
   return (
     <Sidebar collapsible="icon" className="border-r">
@@ -46,9 +44,7 @@ export function AppSidebar() {
             <SidebarTrigger>
               <Image src="/images/logo.svg" alt="Logo" width={70} height={70} loading="lazy" />
             </SidebarTrigger>
-            <Label className="text-xl text-[var(--label)] font-semibold">
-              {kebabCaseToWords(last!)}
-            </Label>
+            <Label className="text-xl font-semibold">{kebabCaseToWords(last!)}</Label>
           </div>
         )}
       </SidebarHeader>

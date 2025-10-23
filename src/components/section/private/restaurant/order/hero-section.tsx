@@ -37,13 +37,13 @@ const OrderHeroSection: React.FC<OrderHeroRestaurantProps> = ({
 }) => {
   return (
     <View>
-      <Box className="w-full flex flex-col justify-start items-start min-h-screen">
+      <Box className="w-full flex flex-col justify-start items-start min-h-screen p-4">
         <PendingPaymentIndicator onResume={resumePayment} />
         {orderData && orderData.length > 0 ? (
           orderData
             .filter((item) => item.status.toLowerCase() === isStatus?.toLocaleLowerCase())
             .map((items, key) => (
-              <Box className="grid grid-cols-3 grid-rows-1  gap-4 w-full" key={key}>
+              <Box className="grid  lg:grid-cols-3 grid-rows-1  gap-4 w-full" key={key}>
                 <OrderCard
                   data={items}
                   onCancel={onCancel!}

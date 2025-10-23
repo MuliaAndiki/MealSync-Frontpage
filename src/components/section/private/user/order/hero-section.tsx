@@ -40,7 +40,7 @@ const OrderHeroSection: React.FC<OrderHeroSectionProps> = ({
     <View>
       <Box className="w-full min-h-screen flex flex-col justify-start items-start overflow-hidden">
         <PendingPaymentIndicator onResume={resumePayment} />
-        <Box className="grid grid-cols-3 grid-rows-1 gap-2 w-full">
+        <Box className="grid grid-cols-1 lg:grid-cols-3 grid-rows-1 gap-2 w-full p-4">
           {orderData && orderData.length > 0 ? (
             orderData
               .filter((item) => item.status.toLowerCase() === isStatus.toLocaleLowerCase())

@@ -1,15 +1,9 @@
-import {
-  IconBell,
-  IconLanguage,
-  IconMoon,
-  IconPalette,
-  IconShield,
-  IconSun,
-} from '@tabler/icons-react';
+import { Separator } from '@radix-ui/react-separator';
+import { IconLanguage, IconMoon, IconPalette, IconShield, IconSun } from '@tabler/icons-react';
 
 import Box from '@/components/ui/box';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent,CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
 import {
   Select,
@@ -18,33 +12,27 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { Separator } from '@/components/ui/separator';
 import { Switch } from '@/components/ui/switch';
 import View from '@/components/ui/view';
-import { NotififType } from '@/types/config';
 
-interface UserSettingsProps {
+interface AdminSettingsProps {
   onLogout: () => void;
   currentLanguage: any;
   changeLanguage: any;
-  notifications: NotififType;
-  setNotifications: React.Dispatch<React.SetStateAction<NotififType>>;
   isPending: boolean;
   theme: any;
   setTheme: (theme: any) => void;
   t: any;
 }
 
-const UserSettingsHeroSection: React.FC<UserSettingsProps> = ({
-  onLogout,
+const AdminSettingsHeroSection: React.FC<AdminSettingsProps> = ({
   changeLanguage,
   currentLanguage,
-  notifications,
-  setNotifications,
   isPending,
+  onLogout,
   setTheme,
-  theme,
   t,
+  theme,
 }) => {
   return (
     <View>
@@ -91,64 +79,6 @@ const UserSettingsHeroSection: React.FC<UserSettingsProps> = ({
                   </SelectItem>
                 </SelectContent>
               </Select>
-            </Box>
-          </CardContent>
-        </Card>
-
-        <Card className="w-full">
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <IconBell size={24} className="text-primary" />
-              {t('settings.notifications')}
-            </CardTitle>
-            <CardDescription>{t('settings.notification_preferences')}</CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <Box className="flex items-center justify-between">
-              <Box className="space-y-0.5">
-                <Label className="text-base">Update Order</Label>
-                <p className="text-sm text-muted-foreground">
-                  Dapatkan notifikasi tentang status order
-                </p>
-              </Box>
-              <Switch
-                checked={notifications.orderUpdates}
-                onCheckedChange={(checked) =>
-                  setNotifications((prev) => ({ ...prev, orderUpdates: checked }))
-                }
-              />
-            </Box>
-
-            <Separator />
-
-            <Box className="flex items-center justify-between">
-              <Box className="space-y-0.5">
-                <Label className="text-base">Promosi & Penawaran</Label>
-                <p className="text-sm text-muted-foreground">
-                  Terima informasi tentang promo spesial
-                </p>
-              </Box>
-              <Switch
-                checked={notifications.promotions}
-                onCheckedChange={(checked) =>
-                  setNotifications((prev) => ({ ...prev, promotions: checked }))
-                }
-              />
-            </Box>
-
-            <Separator />
-
-            <Box className="flex items-center justify-between">
-              <Box className="space-y-0.5">
-                <Label className="text-base">Newsletter</Label>
-                <p className="text-sm text-muted-foreground">Dapatkan tips dan artikel menarik</p>
-              </Box>
-              <Switch
-                checked={notifications.newsletter}
-                onCheckedChange={(checked) =>
-                  setNotifications((prev) => ({ ...prev, newsletter: checked }))
-                }
-              />
             </Box>
           </CardContent>
         </Card>
@@ -225,4 +155,4 @@ const UserSettingsHeroSection: React.FC<UserSettingsProps> = ({
   );
 };
 
-export default UserSettingsHeroSection;
+export default AdminSettingsHeroSection;

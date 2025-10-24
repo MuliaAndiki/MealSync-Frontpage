@@ -5,7 +5,6 @@ const nextConfig: NextConfig = {
   compress: true,
   reactStrictMode: true,
   poweredByHeader: false,
-
   compiler: {
     removeConsole: process.env.NODE_ENV === 'production',
   },
@@ -20,7 +19,6 @@ const nextConfig: NextConfig = {
       '@radix-ui/react-select',
       '@tanstack/react-query',
     ],
-    // Enable experimental features for better performance
     optimisticClientCache: true,
   },
 

@@ -133,6 +133,24 @@ export const MenuDataUser: MenusType[] = [
   },
 ];
 
+export const MenuSuperAdmin: MenusType[] = [
+  {
+    title: 'Home',
+    icon: Home,
+    url: '/super-admin/dashboard',
+  },
+  {
+    title: 'Manage',
+    icon: IconMenu2,
+    url: '/super-admin/dashboard/manage',
+  },
+  {
+    title: 'Settings',
+    icon: IconSettings,
+    url: '/super-admin/dashboard/settings',
+  },
+];
+
 export const HistoryData: HistoryType[] = [
   {
     title: 'Burger',

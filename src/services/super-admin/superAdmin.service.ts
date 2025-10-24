@@ -8,7 +8,7 @@ class SuperAdminApi {
     return res.data;
   }
   async getRestaurantAll(): Promise<TResponse<any>> {
-    const res = await AxiosClient.get('/api/superAdmin/restaurant');
+    const res = await AxiosClient.get('/api/superAdmin/restaurants');
     return res.data;
   }
 }

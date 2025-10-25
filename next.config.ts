@@ -22,7 +22,6 @@ const nextConfig: NextConfig = {
     optimisticClientCache: true,
   },
 
-  // Add security and performance headers
   headers: async () => {
     return [
       {

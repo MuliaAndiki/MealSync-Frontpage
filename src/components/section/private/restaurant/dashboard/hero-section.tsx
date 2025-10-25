@@ -21,7 +21,13 @@ import {
 import { Input } from '@/components/ui/input';
 import View from '@/components/ui/view';
 import PopUp from '@/core/components/pop-up';
-import { ChairType, OrderType, ParentModalType, ProductsType } from '@/types/components';
+import {
+  CardProfileType,
+  ChairType,
+  OrderType,
+  ParentModalType,
+  ProductsType,
+} from '@/types/components';
 import { Category } from '@/types/config';
 import { FormAddCart } from '@/types/form';
 
@@ -44,6 +50,7 @@ interface DashboardRestaurantProps {
   category?: Category;
   setCategory?: React.Dispatch<React.SetStateAction<Category>>;
   isLoadingOrders: boolean;
+  profile: CardProfileType;
 }
 
 const DashboardRestaurantSection: React.FC<DashboardRestaurantProps> = ({
@@ -60,19 +67,20 @@ const DashboardRestaurantSection: React.FC<DashboardRestaurantProps> = ({
   orderData,
   chairUpdates,
   isLoadingOrders,
+  profile,
 }) => {
   return (
     <View>
       <Box className="flex min-h-screen w-full justify-center items-center relative z-0 overflow-hidden">
-        <Box className="grid grid-cols-1 lg:grid-cols-[2fr_0.7fr] grid-rows-1 gap-2 w-full min-h-screen ">
+        <Box className="grid grid-cols-1 lg:grid-cols-[2fr_0.7fr] grid-rows-1 gap-2 w-full min-h-screen p-2 lg:p-4  ">
           <Box className="flex justify-start items-center  flex-col h-full">
             <Image
               alt="banners"
-              src="/images/banner.svg"
+              src={profile.profile.banner ? profile.profile.banner : '/images/banner.svg'}
               width={800}
               height={400}
               className="rounded-lg w-full h-auto"
-              priority
+              loading="lazy"
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 800px"
             />
             <Box className="flex justify-center items-center  flex-col w-full ">

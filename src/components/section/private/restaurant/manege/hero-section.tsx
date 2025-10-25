@@ -21,7 +21,7 @@ import { Textarea } from '@/components/ui/textarea';
 import View from '@/components/ui/view';
 import PopUp from '@/core/components/pop-up';
 import { CategortProduct } from '@/core/enum';
-import { ChairType, ParentModalType, ProductsType } from '@/types/components';
+import { CardProfileType, ChairType, ParentModalType, ProductsType } from '@/types/components';
 import { FormCreateChair, FormCreateProducts } from '@/types/form';
 import { AlertContexType } from '@/types/ui';
 import UploadsTrigger from '@/utils/uploadsTriger';
@@ -47,6 +47,7 @@ interface ManageProps {
   alert?: AlertContexType;
   onChair?: () => void;
   onDeleteChair?: (_id: string) => void;
+  profile: CardProfileType;
 }
 
 const ManageHeroSection: React.FC<ManageProps> = ({
@@ -69,6 +70,7 @@ const ManageHeroSection: React.FC<ManageProps> = ({
   formCreateChair,
   setFormCreateChair,
   onDeleteChair,
+  profile,
 }) => {
   return (
     <View>
@@ -77,23 +79,13 @@ const ManageHeroSection: React.FC<ManageProps> = ({
           <Box className="flex justify-start items-start flex-col ">
             <Image
               alt="bg"
-              src="/images/banner.svg"
-              width={1800}
-              height={1800}
-              className="rounded-lg "
+              src={profile.profile?.banner ? profile.profile?.banner : '/images/banner.svg'}
+              width={1100}
+              height={1100}
+              className="rounded-lg py-2 px-1"
             />
 
             <Box className=" w-full  flex justify-center items-center p-4 flex-col">
-              <Box className="flex justify-end items-center gap-4 w-full ">
-                <Button
-                  variant={'destructive'}
-                  className="flex items-center justify-center"
-                  onClick={() => setIsOpenModal('Add')}
-                >
-                  Add Menu
-                  <IconMenu2 />
-                </Button>
-              </Box>
               <Box className="grid grid-cols-1 lg:grid-cols-4 grid-rows-1 gap-4 items-center w-full ">
                 {product && product.length > 0 ? (
                   product.map((items, key) => (
@@ -115,8 +107,8 @@ const ManageHeroSection: React.FC<ManageProps> = ({
               </Box>
             </Box>
           </Box>
-          <Box className="flex justify-center items-start sticky  h-full max-h-screen px-3">
-            <Box className="flex flex-col w-full gap-2">
+          <Box className="flex justify-start items-center sticky  h-full max-h-screen px-3 flex-col">
+            <Box className="flex flex-col w-full gap-2 py-2 px-1">
               {chair.length > 0 ? (
                 <Chairs
                   chairs={chair}
@@ -134,6 +126,16 @@ const ManageHeroSection: React.FC<ManageProps> = ({
                   isHiden={isHiden}
                 />
               )}
+            </Box>
+            <Box className="flex justify-end items-center gap-4 w-full ">
+              <Button
+                variant={'destructive'}
+                className="flex items-center justify-center my-2 w-full"
+                onClick={() => setIsOpenModal('Add')}
+              >
+                Add Menu
+                <IconMenu2 />
+              </Button>
             </Box>
           </Box>
         </Box>

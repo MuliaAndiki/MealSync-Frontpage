@@ -118,6 +118,7 @@ const DashboardRestaurantContainer = () => {
           orderData={orders}
           chairUpdates={chairUpdates}
           isLoadingOrders={data.isLoading}
+          profile={data.ProfileData ?? []}
         />
       </Container>
     </SidebarLayout>

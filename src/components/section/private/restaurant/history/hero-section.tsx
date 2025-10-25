@@ -38,7 +38,7 @@ const HistoryHeroSection: React.FC<HistoryHeroSectionProps> = ({
 
   return (
     <View>
-      <Box className="flex justify-start items-center flex-col w-full min-h-screen gap-6 py-4 sm:py-6 px-4 sm:px-0">
+      <Box className="flex justify-start items-center flex-col w-full min-h-screen gap-6 p-4 ">
         <Box className="w-full">
           <h1 className="text-2xl sm:text-3xl font-bold">{t('purchase.title')}</h1>
           <p className="text-sm sm:text-base text-muted-foreground">

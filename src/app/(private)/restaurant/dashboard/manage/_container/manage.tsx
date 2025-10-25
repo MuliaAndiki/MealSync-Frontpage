@@ -161,6 +161,7 @@ const ManageContainer = () => {
           setFormCreateChair={setFormCreateChair}
           onChair={() => handleCreateChair()}
           onDeleteChair={handleDeleteChair}
+          profile={data.ProfileData ?? []}
         />
       </Container>
     </SidebarLayout>

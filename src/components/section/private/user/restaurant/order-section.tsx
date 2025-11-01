@@ -11,6 +11,7 @@ import View from '@/components/ui/view';
 import PopUp from '@/core/components/pop-up';
 import { ChairType, ParentModalType, ProductsType, UniqueUrlProfileType } from '@/types/components';
 import { FormAddCart } from '@/types/form';
+import FallbackProduct from '@/components/fallback/product';
 interface RestaurantOrderProps {
   profileUnique: UniqueUrlProfileType;
   Products: ProductsType[];
@@ -38,17 +39,21 @@ const RestaurantOrderSection: React.FC<RestaurantOrderProps> = ({
     <View>
       <Box className="w-full min-h-screen flex flex-col">
         <Label className="text-2xl font-bold">{profileUnique.restaurant?.name}</Label>
-        <Box className="grid lg:grid-cols-[2fr_1fr] grid-rows-1 gap-4  ">
+        <Box className="grid lg:grid-cols-[2fr_1fr] grid-rows-1 gap-4 p-4 ">
           <Box className="grid lg:grid-cols-4 grid-rows-1 gap-4">
-            {Products?.map((items, key) => (
-              <Product
-                data={items}
-                key={key}
-                isOpenModal={isOpenModal}
-                setIsOpenModal={setIsOpenModal}
-                setSelectId={setSelectId}
-              />
-            ))}
+            {Products && Products.length > 0 ? (
+              Products.map((items, key) => (
+                <Product
+                  data={items}
+                  key={key}
+                  isOpenModal={isOpenModal}
+                  setIsOpenModal={setIsOpenModal}
+                  setSelectId={setSelectId}
+                />
+              ))
+            ) : (
+              <FallbackProduct />
+            )}
           </Box>
           <Box className="w-full h-full">
             {chairs.length > 0 ? <Chairs chairs={chairs} /> : <FallbackChair />}

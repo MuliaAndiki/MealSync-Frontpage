@@ -1,14 +1,19 @@
 import { Label } from '@radix-ui/react-dropdown-menu';
 import { IconPhone } from '@tabler/icons-react';
+import { useMemo } from 'react';
 
 import Box from '@/components/ui/box';
 import { Button } from '@/components/ui/button';
+import DarkVeil from '@/components/ui/darkveil';
 import View from '@/components/ui/view';
 
 const HeroSection = () => {
+  const memoizedDarkVeil = useMemo(() => <DarkVeil />, []);
+
   return (
     <View>
       <Box className="flex min-h-screen justify-center items-center relative z-0 overflow-x-hidden ">
+        <Box className="absolute w-full h-full z-[-1]">{memoizedDarkVeil}</Box>
         <Box className="grid lg:grid-cols-[3fr_1fr] grid-rows-1 w-full ">
           <Box className="flex justify-center items-center flex-col">
             <Box className=" w-full lg:max-w-180 p-2 my-2 h-full ">

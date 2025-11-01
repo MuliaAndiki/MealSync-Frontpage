@@ -141,7 +141,7 @@ const Cart: React.FC<CartProps> = ({
                 <Label className="text-lg font-bold">Order :</Label>
                 <IconX size={20} onClick={() => setIsOpenModal!(null)} />
               </Box>
-              <Box className="grid grid-cols-2 grid-rows-1 w-full gap-2">
+              <Box className="grid lg:grid-cols-2 grid-rows-1 w-full gap-2">
                 {chairs.length > 0 ? <Chairs chairs={chairs} /> : <FallbackChair />}
                 <div className="flex justify-start items-start w-full flex-col">
                   <Label className="text-lg font-bold">Nomor Kursi :</Label>

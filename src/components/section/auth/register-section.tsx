@@ -63,7 +63,6 @@ const RegisterSection: React.FC<RegisterProps> = ({
                   <Input
                     id="name"
                     type="text"
-                    placeholder="m@example.com"
                     required
                     onChange={(e) =>
                       setFormRegister((prev) => {

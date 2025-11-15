@@ -1,4 +1,5 @@
 'use client';
+
 import { useState } from 'react';
 
 import LoginSection from '@/components/section/auth/login-section';
@@ -8,6 +9,7 @@ import View from '@/components/ui/view';
 import { useLogin } from '@/hooks/mutation/auth/mutation';
 import { useAlert } from '@/hooks/useAlert/costum-alert';
 import { FormLoginType } from '@/types/form';
+import Image from 'next/image';
 
 const LoginContainer = () => {
   const alert = useAlert();
@@ -22,7 +24,7 @@ const LoginContainer = () => {
     if (!formLogin.email || !formLogin.password) {
       alert.toast({
         title: 'Warning',
-        message: 'Pleases Check Form',
+        message: 'Please Check Form',
         icon: 'warning',
       });
       return;
@@ -31,9 +33,19 @@ const LoginContainer = () => {
   };
 
   return (
-    <Container className={`w-full min-h-screen flex flex-col `}>
-      <View className=" flex min-h-svh flex-col items-center justify-center p-6 md:p-10">
-        <Box className="w-full max-w-sm md:max-w-3xl">
+    <Container className="relative w-full min-h-screen flex flex-col overflow-hidden">
+      <div className="absolute inset-0 -z-10">
+        <Image
+          src="/images/about.svg"
+          alt="background"
+          fill
+          className="object-cover opacity-70"
+          priority
+        />
+      </div>
+
+      <View className="flex min-h-svh flex-col items-center justify-center p-6 md:p-10">
+        <Box className="w-full max-w-sm md:max-w-3xl   p-6 rounded-2xl shadow-lg">
           <LoginSection
             formLogin={formLogin}
             setFormLogin={setFormLogin}

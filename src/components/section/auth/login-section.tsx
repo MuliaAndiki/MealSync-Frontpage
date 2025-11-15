@@ -112,6 +112,9 @@ const LoginSection: React.FC<LoginProps> = ({ onLogin, setFormLogin, isPending }
               height={100}
               loading="lazy"
             />
+            <div className="absolute translate-x-10 bottom-1/2 translate-y-20">
+              <Image alt="logo" src="/images/logo.svg" width={300} height={300} className="z-1  " />
+            </div>
           </Box>
         </CardContent>
       </Card>

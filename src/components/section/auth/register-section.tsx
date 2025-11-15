@@ -35,9 +35,12 @@ const RegisterSection: React.FC<RegisterProps> = ({
               alt="Image"
               width={100}
               height={100}
-              className="absolute inset-0 h-full w-full object-cover dark:brightness-[0.2] dark:grayscale"
+              className="absolute inset-0 h-full w-full object-cover dark:brightness-[0.2] dark:grayscale z-0"
               loading="lazy"
             />
+            <div className="absolute translate-x-10 bottom-1/2 translate-y-20">
+              <Image alt="logo" src="/images/logo.svg" width={300} height={300} className="z-1  " />
+            </div>
           </Box>
 
           <Box className="p-6 md:p-8">

@@ -8,6 +8,7 @@ import View from '@/components/ui/view';
 import { useRegister } from '@/hooks/mutation/auth/mutation';
 import { useAlert } from '@/hooks/useAlert/costum-alert';
 import { FormRegisterType } from '@/types/form';
+import Image from 'next/image';
 
 const RegisterContainer = () => {
   const alert = useAlert();
@@ -32,7 +33,16 @@ const RegisterContainer = () => {
   };
 
   return (
-    <Container className={`w-full min-h-screen flex flex-col `}>
+    <Container className={`relative w-full min-h-screen flex flex-col overflow-hidden`}>
+      <div className="absolute inset-0 -z-10">
+        <Image
+          src="/images/about.svg"
+          alt="background"
+          fill
+          className="object-cover opacity-70"
+          priority
+        />
+      </div>
       <View className=" flex min-h-svh flex-col items-center justify-center p-6 md:p-10">
         <Box className="w-full max-w-sm md:max-w-3xl">
           <RegisterSection
